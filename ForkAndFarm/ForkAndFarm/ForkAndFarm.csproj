@@ -168,11 +168,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PublicProfilesController.cs" />
+    <Compile Include="Controllers\PurchaseOffersController.cs" />
+    <Compile Include="Controllers\SupplyOffersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509012103410_one1.cs" />
+    <Compile Include="Migrations\201509012103410_one1.Designer.cs">
+      <DependentUpon>201509012103410_one1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Acceptance.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -182,6 +192,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ForkAndFarm.mdf" />
+    <Content Include="App_Data\ForkAndFarm_log.ldf">
+      <DependentUpon>ForkAndFarm.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -236,9 +250,31 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\PurchaseOffers\Create.cshtml" />
+    <Content Include="Views\PurchaseOffers\Delete.cshtml" />
+    <Content Include="Views\PurchaseOffers\Details.cshtml" />
+    <Content Include="Views\PurchaseOffers\Edit.cshtml" />
+    <Content Include="Views\PurchaseOffers\Index.cshtml" />
+    <Content Include="Views\SupplyOffers\Create.cshtml" />
+    <Content Include="Views\SupplyOffers\Delete.cshtml" />
+    <Content Include="Views\SupplyOffers\Details.cshtml" />
+    <Content Include="Views\SupplyOffers\Edit.cshtml" />
+    <Content Include="Views\SupplyOffers\Index.cshtml" />
+    <Content Include="Views\Deals\Create.cshtml" />
+    <Content Include="Views\Deals\Delete.cshtml" />
+    <Content Include="Views\Deals\Details.cshtml" />
+    <Content Include="Views\Deals\Edit.cshtml" />
+    <Content Include="Views\Deals\Index.cshtml" />
+    <Content Include="Views\PublicProfiles\Create.cshtml" />
+    <Content Include="Views\PublicProfiles\Delete.cshtml" />
+    <Content Include="Views\PublicProfiles\Details.cshtml" />
+    <Content Include="Views\PublicProfiles\Edit.cshtml" />
+    <Content Include="Views\PublicProfiles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201509012103410_one1.resx">
+      <DependentUpon>201509012103410_one1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

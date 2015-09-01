@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ForkAndFarm.Models
 {
-    public class PublicProfile
+    public class Trader
     {
         public int Id { get; set; }
 
@@ -22,5 +22,20 @@ namespace ForkAndFarm.Models
 
         [RegularExpression("^\\d{5}(-\\d{4})?$")]
         public string Zip { get; set; }
+
+        [Required]
+        public Roles Role { get; set; }
+
+        public enum Roles
+        {
+            Purchaser,
+            Supplier
+        
+        }
+        public List<PurchaseOffer> MyPurchaseOffers { get; set; }
+        public List<SupplyOffer> MySupplyOffers { get; set; }
+        public List<Deal> ProposedByMeAndOpen { get; set; }
+        public List<Deal> ProposedByMeAndComplete { get; set; }
+        public List<Deal> AcceptedByMe { get; set; }
     }
 }
