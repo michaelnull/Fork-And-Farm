@@ -17,7 +17,6 @@ namespace ForkAndFarm.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public string ForkAndFarmUser_Id { get; set; }
         public string Organization { get; set; }
         public virtual List<PurchaseOffer> PurchaseOffers { get; set; }
         public virtual List<SupplyOffer> SupplyOffers { get; set; }

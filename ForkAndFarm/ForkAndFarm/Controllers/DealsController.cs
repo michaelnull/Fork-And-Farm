@@ -17,10 +17,10 @@ namespace ForkAndFarm.Controllers
         // GET: Deals/Create
         public ActionResult ProposePurchase(int? id)
         {
-            SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
+            SupplyOffer supplyoffer = db.SupplyOffers.Include(x => x.ProposedBy).FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            deal.ProposedBy_Id = currentuser.ToString();
+            deal.ProposedBy = currentuser.UserName;
             deal.Complete = false;
             deal.CreatedOn = DateTime.Today;
             deal.Delivery = supplyoffer.Delivery;
@@ -43,8 +43,8 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProposePurchase(Deal deal)
         {
+            var offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
             var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-
             deal.CreatedOn = DateTime.Now;
             deal.AcceptedOn = DateTime.Now;
             if (ModelState.IsValid)
@@ -52,7 +52,7 @@ namespace ForkAndFarm.Controllers
                 db.Deals.Add(deal);
 
                 currentuser.DealsFromMe.Add(deal);
-                deal.OfferedTo.DealsToMe.Add(deal);
+                offeree.DealsToMe.Add(deal);
 
                 db.SaveChanges();
                 return RedirectToAction("Index");

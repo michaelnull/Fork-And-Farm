@@ -53,7 +53,7 @@ namespace ForkAndFarm.Controllers
 
             if (ModelState.IsValid)
             {
-                supplyOffer.ProposedBy = currentuser;
+                supplyOffer.ProposedBy = currentuser.UserName;
                 currentuser.SupplyOffers.Add(supplyOffer);
                 db.SupplyOffers.Add(supplyOffer);
                 db.SaveChanges();

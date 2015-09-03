@@ -13,8 +13,7 @@ namespace ForkAndFarm.Models
 
         public int Id { get; set; }
 
-        public ForkAndFarmUser ProposedBy { get; set; }
-        public string ProposedBy_Id { get; set; }
+        public string ProposedBy { get; set; }
 
         [MaxLength(20)]
         public string Product { get; set; }
@@ -61,7 +60,6 @@ namespace ForkAndFarm.Models
         [DisplayName("Purchaser Purchase Order")]
         public string PurchaseOrder { get; set; }
 
-        public int? PurchaseOffer_Id { get; set; }
 
 
     }
@@ -70,7 +68,6 @@ namespace ForkAndFarm.Models
         [DisplayName("Seller Invoice")]
         public string Invoice { get; set; }
 
-        public int? SupplyOffer_Id { get; set; }
 
 
     }
@@ -79,7 +76,7 @@ namespace ForkAndFarm.Models
        
 
         [DisplayName("Offered To")]
-        public ForkAndFarmUser OfferedTo { get; set; }
+        public string OfferedTo { get; set; }
 
         [DisplayName("Date Accepted")]
         public DateTime? AcceptedOn { get; set; }
@@ -89,11 +86,7 @@ namespace ForkAndFarm.Models
         public string AcceptanceComments { get; set; }
 
         public bool Complete { get; set; }
-        public int? Deal_Id { get; set; }
 
         
-        public string OfferedTo_Id { get; set; }
-        public string AcceptedBy_Id { get; set; }
-
     }
 }
