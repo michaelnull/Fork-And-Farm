@@ -13,7 +13,7 @@ namespace ForkAndFarm.Models
 
         public int Id { get; set; }
 
-        public Profile ProposedBy { get; set; }
+        public ForkAndFarmUser ProposedBy { get; set; }
 
         [MaxLength(20)]
         public string Product { get; set; }
@@ -75,10 +75,10 @@ namespace ForkAndFarm.Models
     }
     public class Deal : Offer
     {
-        private bool iscomplete;
+       
 
-        [DisplayName("Accepted By")]
-        public Profile AcceptedBy { get; set; }
+        [DisplayName("Offered To")]
+        public ForkAndFarmUser OfferedTo { get; set; }
 
         [DisplayName("Date Accepted")]
         public DateTime AcceptedOn { get; set; }
@@ -87,25 +87,7 @@ namespace ForkAndFarm.Models
         [MaxLength(50)]
         public string AcceptanceComments { get; set; }
 
-        public bool Complete
-        {
-
-            get
-            {
-                return iscomplete;
-            }
-            set
-            {
-                if (this.AcceptedBy != null)
-                {
-                    iscomplete = true;
-                }
-                else
-                {
-                    iscomplete = false;
-                }
-            }
-        }
+        public bool Complete { get; set; }
         public int Deal_Id { get; set; }
 
         public int ProposedBy_Id { get; set; }

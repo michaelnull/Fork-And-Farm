@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ForkAndFarm.Models
 {
-    public class Profile
+    public class UserInfoVM
     {
         public int Id { get; set; }
 
@@ -32,12 +32,8 @@ namespace ForkAndFarm.Models
             Supplier
 
         }
-        public int Profile_Id { get; set; }
-        public virtual ICollection<PurchaseOffer> PurchaseOffers { get; set; }
-        public virtual ICollection<SupplyOffer> SupplyOffers { get; set; }
-        public virtual ICollection<Deal> ProposedAndOpenDeals { get; set; }
-        public virtual ICollection<Deal> ProposedAndAcceptedDeals { get; set; }
-        public virtual ICollection<Deal> DealsIAccepted { get; set; }
+        
+       
     }
 
 }

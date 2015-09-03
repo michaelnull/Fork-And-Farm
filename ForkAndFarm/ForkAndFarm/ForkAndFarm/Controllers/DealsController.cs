@@ -17,7 +17,27 @@ namespace ForkAndFarm.Controllers
         // GET: Deals
         public ActionResult Index()
         {
-            var deals = db.Deals.Include(d => d.ProposedBy);
+           ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+
+            var deals = from d in db.Deals.Include(d => d.ProposedBy)
+                        select new DealListVM
+                        {
+                            Id = d.Id,
+                            AcceptanceComments = d.AcceptanceComments,
+                            AcceptedBy = d.OfferedTo.UserName + " @ " + d.OfferedTo.Organization,
+                            AcceptedOn = d.AcceptedOn,
+                            CreatedOn = d.CreatedOn,
+                            Delivery = d.Delivery,
+                            ExtPrice = d.ExtPrice,
+                            IsComplete = d.Complete,
+                            Memo = d.Memo,
+                            PaymentTerms = d.PaymentTerms,
+                            Product = d.Product,
+                            ProposedBy = d.ProposedBy.UserName + " @ " + d.ProposedBy.Organization,
+                            Quantity = d.Quantity,
+                            Unit = d.Unit,
+                            UnitPrice = d.UnitPrice
+                        };
             return View(deals.ToList());
         }
 
@@ -37,12 +57,23 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: Deals/Create
-        public ActionResult Create(SupplyOffer supplyoffer)
+        public ActionResult ProposePurchase(int? id)
         {
-            Profile currentprofile = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name).Profile;
-            supplyoffer.ProposedBy = currentprofile;
-            
-            return View(supplyoffer);
+            SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
+            Deal deal = new Deal();
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            deal.ProposedBy = currentuser;
+            deal.Complete = false;
+            deal.CreatedOn = DateTime.Today;
+            deal.Delivery = supplyoffer.Delivery;
+            deal.ExtPrice = supplyoffer.ExtPrice;
+            deal.PaymentTerms = supplyoffer.PaymentTerms;
+            deal.Product = supplyoffer.Product;
+            deal.Quantity = supplyoffer.Quantity;
+            deal.Unit = supplyoffer.Unit;
+            deal.UnitPrice = supplyoffer.UnitPrice;
+            deal.OfferedTo = supplyoffer.ProposedBy;
+            return View(deal);
         }
 
         // POST: Deals/Create
@@ -51,18 +82,23 @@ namespace ForkAndFarm.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AcceptedOn,AcceptanceComments,Complete,Deal_Id,ProposedBy_Id,AcceptedBy_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] Deal deal)
+        public ActionResult ProposePurchase([Bind(Include = "Id,AcceptedOn,AcceptanceComments,Complete,Deal_Id,ProposedBy_Id,AcceptedBy_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] Deal deal)
         {
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+
             deal.CreatedOn = DateTime.Now;
             deal.AcceptedOn = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Deals.Add(deal);
+               
+                currentuser.DealsFromMe.Add(deal);
+                deal.OfferedTo.DealsToMe.Add(deal);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProposedBy_Id = new SelectList(db.Profiles, "Id", "Organization", deal.ProposedBy_Id);
             return View(deal);
         }
 
@@ -78,7 +114,6 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ProposedBy_Id = new SelectList(db.Profiles, "Id", "Organization", deal.ProposedBy_Id);
             return View(deal);
         }
 
@@ -95,7 +130,6 @@ namespace ForkAndFarm.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProposedBy_Id = new SelectList(db.Profiles, "Id", "Organization", deal.ProposedBy_Id);
             return View(deal);
         }
 

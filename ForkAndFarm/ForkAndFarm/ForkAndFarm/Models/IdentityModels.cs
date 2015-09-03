@@ -9,23 +9,29 @@ using System.Collections.Generic;
 namespace ForkAndFarm.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+    public class ForkAndFarmUser : IdentityUser
     {
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ForkAndFarmUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
         }
-        public Profile Profile { get; set; }
-        public string ApplicationUser_Id { get; set; }
+        
+        public string ForkAndFarmUser_Id { get; set; }
+        public string Organization { get; set; }
+        public virtual List<PurchaseOffer> PurchaseOffers { get; set; }
+        public virtual List<SupplyOffer> SupplyOffers { get; set; }
+        public virtual List<Deal> DealsFromMe { get; set; }
+        public virtual List<Deal> DealsToMe { get; set; }
+        public virtual List<Deal> AcceptedDealsFromMe { get; set; }
+        public virtual List<Deal> DealsIAccepted { get; set; }
 
-       
 
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ForkAndFarmUser>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -37,22 +43,14 @@ namespace ForkAndFarm.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.Profile> Profiles { get; set; }
-
+       
         public System.Data.Entity.DbSet<ForkAndFarm.Models.PurchaseOffer> PurchaseOffers { get; set; }
 
         public System.Data.Entity.DbSet<ForkAndFarm.Models.SupplyOffer> SupplyOffers { get; set; }
 
         public System.Data.Entity.DbSet<ForkAndFarm.Models.Deal> Deals { get; set; }
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Profile>()
-        //        .HasMany(u => u.DealsIAccepted)
-        //        .WithRequired (d => d.ProposedBy)
-        //        .HasForeignKey(p => p.ProposedBy_Id);
 
-
-
-        //}
+        public System.Data.Entity.DbSet<ForkAndFarm.Models.DealListVM> DealListVMs { get; set; }
+      
     }
 }
