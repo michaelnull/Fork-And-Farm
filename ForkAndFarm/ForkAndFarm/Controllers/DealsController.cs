@@ -17,7 +17,7 @@ namespace ForkAndFarm.Controllers
         // GET: Deals/Create
         public ActionResult ProposePurchase(int? id)
         {
-            SupplyOffer supplyoffer = db.SupplyOffers.Include(x => x.ProposedBy).FirstOrDefault(x => x.Id == id);
+            SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             deal.ProposedBy = currentuser.UserName;

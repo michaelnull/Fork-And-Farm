@@ -176,33 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509031900397_initial.cs" />
-    <Compile Include="Migrations\201509031900397_initial.Designer.cs">
-      <DependentUpon>201509031900397_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509031916246_two.cs" />
-    <Compile Include="Migrations\201509031916246_two.Designer.cs">
-      <DependentUpon>201509031916246_two.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509031928400_three.cs" />
-    <Compile Include="Migrations\201509031928400_three.Designer.cs">
-      <DependentUpon>201509031928400_three.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509031941598_four.cs" />
-    <Compile Include="Migrations\201509031941598_four.Designer.cs">
-      <DependentUpon>201509031941598_four.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509031955161_five.cs" />
-    <Compile Include="Migrations\201509031955161_five.Designer.cs">
-      <DependentUpon>201509031955161_five.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509032029248_six.cs" />
-    <Compile Include="Migrations\201509032029248_six.Designer.cs">
-      <DependentUpon>201509032029248_six.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509032146153_seven.cs" />
-    <Compile Include="Migrations\201509032146153_seven.Designer.cs">
-      <DependentUpon>201509032146153_seven.cs</DependentUpon>
+    <Compile Include="Migrations\201509032257170_initial.cs" />
+    <Compile Include="Migrations\201509032257170_initial.Designer.cs">
+      <DependentUpon>201509032257170_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -302,26 +278,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509031900397_initial.resx">
-      <DependentUpon>201509031900397_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509031916246_two.resx">
-      <DependentUpon>201509031916246_two.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509031928400_three.resx">
-      <DependentUpon>201509031928400_three.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509031941598_four.resx">
-      <DependentUpon>201509031941598_four.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509031955161_five.resx">
-      <DependentUpon>201509031955161_five.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509032029248_six.resx">
-      <DependentUpon>201509032029248_six.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509032146153_seven.resx">
-      <DependentUpon>201509032146153_seven.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509032257170_initial.resx">
+      <DependentUpon>201509032257170_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
