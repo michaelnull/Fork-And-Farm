@@ -14,6 +14,7 @@ namespace ForkAndFarm.Models
         public int Id { get; set; }
 
         public ForkAndFarmUser ProposedBy { get; set; }
+        public string ProposedBy_Id { get; set; }
 
         [MaxLength(20)]
         public string Product { get; set; }
@@ -90,8 +91,9 @@ namespace ForkAndFarm.Models
         public bool Complete { get; set; }
         public int? Deal_Id { get; set; }
 
-        public int? ProposedBy_Id { get; set; }
-        public int? AcceptedBy_Id { get; set; }
+        
+        public string OfferedTo_Id { get; set; }
+        public string AcceptedBy_Id { get; set; }
 
     }
 }

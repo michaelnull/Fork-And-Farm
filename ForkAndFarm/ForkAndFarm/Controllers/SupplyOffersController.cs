@@ -44,12 +44,17 @@ namespace ForkAndFarm.Controllers
         // POST: SupplyOffers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Invoice,SupplyOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] SupplyOffer supplyOffer)
         {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+
             if (ModelState.IsValid)
             {
+                supplyOffer.ProposedBy = currentuser;
+                currentuser.SupplyOffers.Add(supplyOffer);
                 db.SupplyOffers.Add(supplyOffer);
                 db.SaveChanges();
                 return RedirectToAction("Index");

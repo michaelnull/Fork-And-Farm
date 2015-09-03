@@ -20,7 +20,7 @@ namespace ForkAndFarm.Controllers
             SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            deal.ProposedBy = currentuser;
+            deal.ProposedBy_Id = currentuser.ToString();
             deal.Complete = false;
             deal.CreatedOn = DateTime.Today;
             deal.Delivery = supplyoffer.Delivery;
@@ -31,6 +31,7 @@ namespace ForkAndFarm.Controllers
             deal.Unit = supplyoffer.Unit;
             deal.UnitPrice = supplyoffer.UnitPrice;
             deal.OfferedTo = supplyoffer.ProposedBy;
+           
             return View(deal);
         }
 
@@ -40,7 +41,7 @@ namespace ForkAndFarm.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ProposePurchase([Bind(Include = "Id,AcceptedOn,AcceptanceComments,Complete,Deal_Id,ProposedBy_Id,AcceptedBy_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] Deal deal)
+        public ActionResult ProposePurchase(Deal deal)
         {
             var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
 
