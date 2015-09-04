@@ -22,10 +22,7 @@ namespace ForkAndFarm.Controllers
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             deal.ProposedBy = currentuser.UserName;
-            deal.Complete = false;
-            deal.CreatedOn = DateTime.Today;
             deal.Delivery = supplyoffer.Delivery;
-            deal.ExtPrice = supplyoffer.ExtPrice;
             deal.PaymentTerms = supplyoffer.PaymentTerms;
             deal.Product = supplyoffer.Product;
             deal.Quantity = supplyoffer.Quantity;
@@ -46,10 +43,16 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProposePurchase(Deal deal)
         {
+
             var offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
+            var supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == deal.OfferId);
             var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            deal.Product = supplyoffer.Product;
+            deal.Unit = supplyoffer.Unit;
             deal.CreatedOn = DateTime.Now;
             deal.AcceptedOn = DateTime.Now;
+            deal.ExtPrice = deal.Quantity * deal.UnitPrice;
+            deal.Complete = false;
             if (ModelState.IsValid)
             {
                 db.Deals.Add(deal);
@@ -58,7 +61,7 @@ namespace ForkAndFarm.Controllers
                 offeree.DealsToMe.Add(deal);
                 db.SaveChanges();
                 
-                return RedirectToAction("ShowProposedDeals", deal.OfferId);
+                return RedirectToAction("ShowProposedDeals", new { id = deal.OfferId });
             }
            
 
@@ -68,6 +71,10 @@ namespace ForkAndFarm.Controllers
         // GET: Deals
         public ActionResult ShowProposedDeals(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var list = db.Deals.Where(x => x.OfferId == id).OrderByDescending(d => d.CreatedOn).ToList();
 
             return View(list);
