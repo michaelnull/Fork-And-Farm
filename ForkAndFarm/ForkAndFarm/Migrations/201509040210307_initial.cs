@@ -38,6 +38,7 @@ namespace ForkAndFarm.Migrations
                         AcceptedOn = c.DateTime(),
                         AcceptanceComments = c.String(maxLength: 50),
                         Complete = c.Boolean(nullable: false),
+                        OfferId = c.Int(nullable: false),
                         ProposedBy = c.String(),
                         Product = c.String(maxLength: 20),
                         Unit = c.String(maxLength: 10),

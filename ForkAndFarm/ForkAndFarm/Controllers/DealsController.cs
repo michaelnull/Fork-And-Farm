@@ -57,7 +57,7 @@ namespace ForkAndFarm.Controllers
                 offeree.DealsToMe.Add(deal);
                 db.SaveChanges();
                 
-                return RedirectToAction("ShowProposedDeals", new { id = deal.OfferId });
+                return RedirectToAction("ShowProposedDeals", deal.OfferId);
             }
            
 
@@ -67,7 +67,7 @@ namespace ForkAndFarm.Controllers
         // GET: Deals
         public ActionResult ShowProposedDeals(int id)
         {
-            var list = db.Deals.Include(d => d.OfferId).Where(x => x.OfferId == id).OrderByDescending(d => d.CreatedOn).ToList();
+            var list = db.Deals.Where(x => x.OfferId == id).OrderByDescending(d => d.CreatedOn).ToList();
 
             return View(list);
         }
