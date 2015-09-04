@@ -15,6 +15,7 @@ namespace ForkAndFarm.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Deals/Create
+        [Authorize]
         public ActionResult ProposePurchase(int? id)
         {
             SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
@@ -65,7 +66,7 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: Deals
-        public ActionResult ShowProposedDeals(int id)
+        public ActionResult ShowProposedDeals(int? id)
         {
             var list = db.Deals.Where(x => x.OfferId == id).OrderByDescending(d => d.CreatedOn).ToList();
 

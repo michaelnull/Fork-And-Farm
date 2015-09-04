@@ -53,7 +53,9 @@ namespace ForkAndFarm.Migrations
                     ProposedBy = "fred@farmer.com",
                     Quantity = 100,
                     Unit = "lb",
-                    UnitPrice = 1.25
+                    UnitPrice = 1.25,
+                    Delivery = DateTime.Today
+                    
                 },
                 new SupplyOffer
                 {
@@ -65,7 +67,8 @@ namespace ForkAndFarm.Migrations
                     ProposedBy = "fred@farmer.com",
                     Quantity = 25,
                     Unit = "kg",
-                    UnitPrice = 2.24
+                    UnitPrice = 2.24,
+                    Delivery = DateTime.Today
                 });
             context.PurchaseOffers.AddOrUpdate(
                 x => x.Memo,
@@ -79,7 +82,8 @@ namespace ForkAndFarm.Migrations
                     ProposedBy = "bob@buyer.com",
                     Quantity = 50,
                     Unit = "each",
-                    UnitPrice = 3.11
+                    UnitPrice = 3.11,
+                    Delivery = DateTime.Today
                 },
                 new PurchaseOffer
                 {
@@ -90,7 +94,8 @@ namespace ForkAndFarm.Migrations
                     Product = "Purple Hull Peas",
                     Quantity = 45,
                     Unit = "quart",
-                    UnitPrice = 2.95
+                    UnitPrice = 2.95,
+                    Delivery = DateTime.Today
                 }
                 );
              
