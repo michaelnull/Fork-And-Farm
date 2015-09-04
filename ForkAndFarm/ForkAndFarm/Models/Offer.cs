@@ -29,14 +29,7 @@ namespace ForkAndFarm.Models
         [DisplayName("Extended Price")]
         public double ExtPrice
         {
-            get
-            {
-                return total;
-            }
-            set
-            {
-                total = Quantity * UnitPrice;
-            }
+            get; set;
         }
 
         [DisplayName("Delivery Date")]
@@ -50,7 +43,7 @@ namespace ForkAndFarm.Models
         [DisplayName("Date Offer Created")]
         public DateTime? CreatedOn { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string Memo { get; set; }
 
 
@@ -81,13 +74,7 @@ namespace ForkAndFarm.Models
         [DisplayName("Offered To")]
         public string OfferedTo { get; set; }
 
-        [DisplayName("Date Accepted")]
-        public DateTime? AcceptedOn { get; set; }
-
-        [DisplayName("Acceptance Comments")]
-        [MaxLength(50)]
-        public string AcceptanceComments { get; set; }
-
+      
         public bool Complete { get; set; }
 
         public int OfferId { get; set; }

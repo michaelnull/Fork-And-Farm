@@ -38,8 +38,6 @@ namespace ForkAndFarm.Models
 
         public System.Data.Entity.DbSet<ForkAndFarm.Models.Deal> Deals { get; set; }
 
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.DealListVM> DealListVMs { get; set; }
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

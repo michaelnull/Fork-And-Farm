@@ -50,7 +50,6 @@ namespace ForkAndFarm.Controllers
             deal.Product = supplyoffer.Product;
             deal.Unit = supplyoffer.Unit;
             deal.CreatedOn = DateTime.Now;
-            deal.AcceptedOn = DateTime.Now;
             deal.ExtPrice = deal.Quantity * deal.UnitPrice;
             deal.Complete = false;
             if (ModelState.IsValid)
