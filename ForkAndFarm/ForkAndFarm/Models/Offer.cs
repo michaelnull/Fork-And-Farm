@@ -60,6 +60,7 @@ namespace ForkAndFarm.Models
         [DisplayName("Purchaser Purchase Order")]
         public string PurchaseOrder { get; set; }
 
+     
 
 
     }
@@ -67,6 +68,8 @@ namespace ForkAndFarm.Models
     {
         [DisplayName("Seller Invoice")]
         public string Invoice { get; set; }
+        
+       
 
 
 
@@ -86,6 +89,8 @@ namespace ForkAndFarm.Models
         public string AcceptanceComments { get; set; }
 
         public bool Complete { get; set; }
+
+        public int OfferId { get; set; }
 
         
     }

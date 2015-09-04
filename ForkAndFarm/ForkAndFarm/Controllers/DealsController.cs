@@ -31,6 +31,8 @@ namespace ForkAndFarm.Controllers
             deal.Unit = supplyoffer.Unit;
             deal.UnitPrice = supplyoffer.UnitPrice;
             deal.OfferedTo = supplyoffer.ProposedBy;
+            deal.OfferId = supplyoffer.Id;
+            
            
             return View(deal);
         }
@@ -53,13 +55,23 @@ namespace ForkAndFarm.Controllers
 
                 currentuser.DealsFromMe.Add(deal);
                 offeree.DealsToMe.Add(deal);
-
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("ShowProposedDeals", new { id = deal.OfferId });
             }
+           
 
             return View(deal);
         }
+
+        // GET: Deals
+        public ActionResult ShowProposedDeals(int id)
+        {
+            var list = db.Deals.Include(d => d.OfferId).Where(x => x.OfferId == id).OrderByDescending(d => d.CreatedOn).ToList();
+
+            return View(list);
+        }
+
         // GET: Deals
         public ActionResult Index()
         {
