@@ -11,19 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AcceptedOn)
+            @Html.DisplayNameFor(model => model.OfferedTo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AcceptedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AcceptanceComments)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AcceptanceComments)
+            @Html.DisplayFor(model => model.OfferedTo)
         </dd>
 
         <dt>
@@ -35,27 +27,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Deal_Id)
+            @Html.DisplayNameFor(model => model.OfferId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Deal_Id)
+            @Html.DisplayFor(model => model.OfferId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProposedBy_Id)
+            @Html.DisplayNameFor(model => model.ProposedBy)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProposedBy_Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AcceptedBy_Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AcceptedBy_Id)
+            @Html.DisplayFor(model => model.ProposedBy)
         </dd>
 
         <dt>
@@ -134,5 +118,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ShowProposedDeals", new { id = Model.OfferId })
 </p>

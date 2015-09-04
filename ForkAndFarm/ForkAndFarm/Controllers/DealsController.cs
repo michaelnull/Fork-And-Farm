@@ -30,8 +30,6 @@ namespace ForkAndFarm.Controllers
             deal.UnitPrice = supplyoffer.UnitPrice;
             deal.OfferedTo = supplyoffer.ProposedBy;
             deal.OfferId = supplyoffer.Id;
-            
-           
             return View(deal);
         }
 
@@ -43,15 +41,22 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProposePurchase(Deal deal)
         {
-
-            var offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
             var supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == deal.OfferId);
+            if (supplyoffer == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var offeree = db.Users.FirstOrDefault(x=>x.UserName == supplyoffer.ProposedBy);
+
             var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             deal.Product = supplyoffer.Product;
             deal.Unit = supplyoffer.Unit;
             deal.CreatedOn = DateTime.Now;
             deal.ExtPrice = deal.Quantity * deal.UnitPrice;
             deal.Complete = false;
+            deal.OfferedTo = supplyoffer.ProposedBy;
+            deal.ProposedBy = currentuser.UserName;
+            deal.PaymentTerms = supplyoffer.PaymentTerms;
             if (ModelState.IsValid)
             {
                 db.Deals.Add(deal);
@@ -124,18 +129,25 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: Deals/Edit/5
+        [Authorize]
+    
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Deal deal = db.Deals.Find(id);
             if (deal == null)
             {
                 return HttpNotFound();
             }
-            return View(deal);
+            if (deal.ProposedBy == User.Identity.Name)
+            {
+                return View(deal);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: Deals/Edit/5
@@ -155,6 +167,7 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: Deals/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,7 +179,11 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            return View(deal);
+            if (deal.ProposedBy == User.Identity.Name)
+            {
+                return View(deal);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: Deals/Delete/5
