@@ -50,10 +50,13 @@ namespace ForkAndFarm.Controllers
         public ActionResult Create([Bind(Include = "Id,Invoice,SupplyOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] SupplyOffer supplyOffer)
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            supplyOffer.ProposedBy = currentuser.UserName;
+            supplyOffer.CreatedOn = DateTime.Now;
+            supplyOffer.ExtPrice = supplyOffer.Quantity * supplyOffer.UnitPrice;
 
             if (ModelState.IsValid)
             {
-                supplyOffer.ProposedBy = currentuser.UserName;
+               
                 currentuser.SupplyOffers.Add(supplyOffer);
                 db.SupplyOffers.Add(supplyOffer);
                 db.SaveChanges();
@@ -64,18 +67,27 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: SupplyOffers/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+           
+
             SupplyOffer supplyOffer = db.SupplyOffers.Find(id);
             if (supplyOffer == null)
             {
                 return HttpNotFound();
             }
-            return View(supplyOffer);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (supplyOffer.ProposedBy == currentuser.UserName)
+            {
+                return View(supplyOffer);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
         }
 
         // POST: SupplyOffers/Edit/5
@@ -83,8 +95,10 @@ namespace ForkAndFarm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Invoice,SupplyOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] SupplyOffer supplyOffer)
+        public ActionResult Edit([Bind(Include = "Id,Invoice,SupplyOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo,ProposedBy")] SupplyOffer supplyOffer)
         {
+            supplyOffer.Memo = "edited on " + DateTime.Now + " " + supplyOffer.Memo;
+            supplyOffer.ExtPrice = supplyOffer.UnitPrice * supplyOffer.Quantity;
             if (ModelState.IsValid)
             {
                 db.Entry(supplyOffer).State = EntityState.Modified;
@@ -95,6 +109,7 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: SupplyOffers/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,7 +121,13 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            return View(supplyOffer);
+
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (supplyOffer.ProposedBy == currentuser.UserName)
+            {
+                return View(supplyOffer);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: SupplyOffers/Delete/5

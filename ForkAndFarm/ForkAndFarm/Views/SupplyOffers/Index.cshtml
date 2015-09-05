@@ -6,6 +6,7 @@
 
 <h2>Index</h2>
 
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -46,6 +47,8 @@
     </tr>
 
 @foreach (var item in Model) {
+    @Html.HiddenFor(modelItem => item.ProposedBy)
+
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Invoice)

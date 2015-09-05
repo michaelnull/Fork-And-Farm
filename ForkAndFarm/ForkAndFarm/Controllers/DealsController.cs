@@ -236,6 +236,8 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Deal deal)
         {
+            deal.ExtPrice = deal.UnitPrice * deal.Quantity;
+            deal.Memo = "edited on " + DateTime.Now + " " + deal.Memo;
             var offerId = deal.OfferId;
             if (ModelState.IsValid)
             {

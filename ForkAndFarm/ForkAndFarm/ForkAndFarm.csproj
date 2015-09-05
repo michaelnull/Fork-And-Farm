@@ -263,7 +263,6 @@
     <Content Include="Views\SupplyOffers\Delete.cshtml" />
     <Content Include="Views\SupplyOffers\Details.cshtml" />
     <Content Include="Views\SupplyOffers\Edit.cshtml" />
-    <Content Include="Views\Deals\Create.cshtml" />
     <Content Include="Views\Deals\Delete.cshtml" />
     <Content Include="Views\Deals\Details.cshtml" />
     <Content Include="Views\Deals\Edit.cshtml" />
