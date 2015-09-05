@@ -19,13 +19,9 @@
             @Html.DisplayFor(model => model.OfferedTo)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Complete)
-        </dt>
+       
 
-        <dd>
-            @Html.DisplayFor(model => model.Complete)
-        </dd>
+      
 
         <dt>
             @Html.DisplayNameFor(model => model.OfferId)
@@ -122,7 +118,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "ShowProposedDeals", new { id = Model.OfferId })
         </div>
     }
 </div>

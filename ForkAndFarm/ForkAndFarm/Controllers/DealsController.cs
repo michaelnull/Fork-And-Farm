@@ -18,6 +18,10 @@ namespace ForkAndFarm.Controllers
         [Authorize]
         public ActionResult ProposePurchase(int? id)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index","SupplyOffers");
+            }
             SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
@@ -53,7 +57,6 @@ namespace ForkAndFarm.Controllers
             deal.Unit = supplyoffer.Unit;
             deal.CreatedOn = DateTime.Now;
             deal.ExtPrice = deal.Quantity * deal.UnitPrice;
-            deal.Complete = false;
             deal.OfferedTo = supplyoffer.ProposedBy;
             deal.ProposedBy = currentuser.UserName;
             deal.PaymentTerms = supplyoffer.PaymentTerms;
@@ -63,6 +66,7 @@ namespace ForkAndFarm.Controllers
 
                 currentuser.DealsFromMe.Add(deal);
                 offeree.DealsToMe.Add(deal);
+                supplyoffer.ResponsesToSupplyOffer.Add(deal);
                 db.SaveChanges();
                 
                 return RedirectToAction("ShowProposedDeals", new { id = deal.OfferId });
@@ -79,9 +83,84 @@ namespace ForkAndFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var list = db.Deals.Where(x => x.OfferId == id).OrderByDescending(d => d.CreatedOn).ToList();
+            var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
 
-            return View(list);
+
+            return View(offer.ResponsesToSupplyOffer);
+        }
+        // GET: Deals/Create
+        [Authorize]
+        public ActionResult ProposeSale(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "PurchaseOffers");
+            }
+            PurchaseOffer purchaseoffer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
+            Deal deal = new Deal();
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            deal.ProposedBy = currentuser.UserName;
+            deal.Delivery = purchaseoffer.Delivery;
+            deal.PaymentTerms = purchaseoffer.PaymentTerms;
+            deal.Product = purchaseoffer.Product;
+            deal.Quantity = purchaseoffer.Quantity;
+            deal.Unit = purchaseoffer.Unit;
+            deal.UnitPrice = purchaseoffer.UnitPrice;
+            deal.OfferedTo = purchaseoffer.ProposedBy;
+            deal.OfferId = purchaseoffer.Id;
+            return View(deal);
+        }
+
+        // POST: Deals/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProposeSale(Deal deal)
+        {
+            var purchaseoffer = db.PurchaseOffers.FirstOrDefault(x => x.Id == deal.OfferId);
+            if (purchaseoffer == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var offeree = db.Users.FirstOrDefault(x => x.UserName == purchaseoffer.ProposedBy);
+
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            deal.Product = purchaseoffer.Product;
+            deal.Unit = purchaseoffer.Unit;
+            deal.CreatedOn = DateTime.Now;
+            deal.ExtPrice = deal.Quantity * deal.UnitPrice;
+            deal.OfferedTo = purchaseoffer.ProposedBy;
+            deal.ProposedBy = currentuser.UserName;
+            deal.PaymentTerms = purchaseoffer.PaymentTerms;
+            if (ModelState.IsValid)
+            {
+                db.Deals.Add(deal);
+
+                currentuser.DealsFromMe.Add(deal);
+                offeree.DealsToMe.Add(deal);
+                purchaseoffer.ResponsesToPurchaseOffer.Add(deal);
+                db.SaveChanges();
+
+                return RedirectToAction("ShowProposedSaleDeals", new { id = deal.OfferId });
+            }
+
+
+            return View(deal);
+        }
+
+        // GET: Deals
+        public ActionResult ShowProposedSaleDeals(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
+
+
+            return View(offer.ResponsesToSupplyOffer);
         }
 
         // GET: Deals
@@ -155,13 +234,14 @@ namespace ForkAndFarm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AcceptedOn,AcceptanceComments,Complete,Deal_Id,ProposedBy_Id,AcceptedBy_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] Deal deal)
+        public ActionResult Edit(Deal deal)
         {
+            var offerId = deal.OfferId;
             if (ModelState.IsValid)
             {
                 db.Entry(deal).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowProposedDeals", new { id = offerId });
             }
             return View(deal);
         }
@@ -194,7 +274,7 @@ namespace ForkAndFarm.Controllers
             Deal deal = db.Deals.Find(id);
             db.Deals.Remove(deal);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowProposedDeals", new { id = deal.OfferId });
         }
 
         protected override void Dispose(bool disposing)

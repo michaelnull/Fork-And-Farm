@@ -33,7 +33,6 @@ namespace ForkAndFarm.Models
         }
 
         [DisplayName("Delivery Date")]
-        [DataType(DataType.Date)]
         public DateTime? Delivery { get; set; }
 
         [MaxLength(10)]
@@ -53,7 +52,7 @@ namespace ForkAndFarm.Models
         [DisplayName("Purchaser Purchase Order")]
         public string PurchaseOrder { get; set; }
 
-     
+        public virtual ICollection<Deal>ResponsesToPurchaseOffer { get; set; }
 
 
     }
@@ -62,7 +61,7 @@ namespace ForkAndFarm.Models
         [DisplayName("Seller Invoice")]
         public string Invoice { get; set; }
         
-       
+       public virtual ICollection<Deal>ResponsesToSupplyOffer { get; set; }
 
 
 
@@ -75,7 +74,7 @@ namespace ForkAndFarm.Models
         public string OfferedTo { get; set; }
 
       
-        public bool Complete { get; set; }
+     
 
         public int OfferId { get; set; }
 
