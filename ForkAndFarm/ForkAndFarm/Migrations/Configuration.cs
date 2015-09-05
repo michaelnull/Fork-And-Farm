@@ -95,7 +95,9 @@ namespace ForkAndFarm.Migrations
                     Quantity = 45,
                     Unit = "quart",
                     UnitPrice = 2.95,
-                    Delivery = DateTime.Today
+                    Delivery = DateTime.Today,
+                    ProposedBy = "bob@buyer.com"
+
                 }
                 );
              

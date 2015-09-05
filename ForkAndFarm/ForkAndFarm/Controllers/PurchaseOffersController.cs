@@ -36,6 +36,7 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: PurchaseOffers/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -46,11 +47,18 @@ namespace ForkAndFarm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PurchaseOrder,PurchaseOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] PurchaseOffer purchaseOffer)
+        public ActionResult Create(PurchaseOffer purchaseOffer)
         {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            purchaseOffer.ProposedBy = currentuser.UserName;
+            purchaseOffer.CreatedOn = DateTime.Now;
+            purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
             if (ModelState.IsValid)
             {
+                
+                currentuser.PurchaseOffers.Add(purchaseOffer);
                 db.PurchaseOffers.Add(purchaseOffer);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -70,7 +78,12 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            return View(purchaseOffer);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if(purchaseOffer.ProposedBy == User.Identity.Name)
+            {
+                return View(purchaseOffer);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: PurchaseOffers/Edit/5
@@ -78,8 +91,10 @@ namespace ForkAndFarm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PurchaseOrder,PurchaseOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] PurchaseOffer purchaseOffer)
+        public ActionResult Edit(PurchaseOffer purchaseOffer)
         {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            purchaseOffer.ProposedBy = currentuser.UserName;
             if (ModelState.IsValid)
             {
                 db.Entry(purchaseOffer).State = EntityState.Modified;
@@ -90,6 +105,7 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: PurchaseOffers/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -101,7 +117,12 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            return View(purchaseOffer);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (purchaseOffer.ProposedBy == User.Identity.Name)
+            {
+                return View(purchaseOffer);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: PurchaseOffers/Delete/5
