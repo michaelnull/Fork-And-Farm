@@ -270,6 +270,11 @@
     <Content Include="Views\SupplyOffers\Create.cshtml" />
     <Content Include="Views\Deals\ProposePurchase.cshtml" />
     <Content Include="Views\Deals\ShowProposedDeals.cshtml" />
+    <Content Include="Views\Deals\ProposeSale.cshtml" />
+    <Content Include="Views\Deals\ShowProposedSaleDeals.cshtml" />
+    <Content Include="Views\Deals\PurchaseEdit.cshtml" />
+    <Content Include="Views\Deals\PurchaseDelete.cshtml" />
+    <Content Include="Views\Deals\PurchaseDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

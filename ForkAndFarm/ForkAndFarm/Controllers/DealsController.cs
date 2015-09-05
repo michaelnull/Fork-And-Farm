@@ -157,10 +157,10 @@ namespace ForkAndFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
+            var offer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
 
 
-            return View(offer.ResponsesToSupplyOffer);
+            return View(offer.ResponsesToPurchaseOffer);
         }
 
         // GET: Deals
@@ -171,6 +171,20 @@ namespace ForkAndFarm.Controllers
 
         // GET: Deals/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Deal deal = db.Deals.Find(id);
+            if (deal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(deal);
+        }
+        // GET: Deals/Details/5
+        public ActionResult PurchaseDetails(int? id)
         {
             if (id == null)
             {
@@ -287,5 +301,79 @@ namespace ForkAndFarm.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET: Deals/Edit/5
+        [Authorize]
+
+        public ActionResult PurchaseEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Deal deal = db.Deals.Find(id);
+            if (deal == null)
+            {
+                return HttpNotFound();
+            }
+            if (deal.ProposedBy == User.Identity.Name)
+            {
+                return View(deal);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        // POST: Deals/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PurchaseEdit(Deal deal)
+        {
+            deal.ExtPrice = deal.UnitPrice * deal.Quantity;
+            deal.Memo = "edited on " + DateTime.Now + " " + deal.Memo;
+            var offerId = deal.OfferId;
+            if (ModelState.IsValid)
+            {
+                db.Entry(deal).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ShowProposedSaleDeals", new { id = offerId });
+            }
+            return View(deal);
+        }
+
+        // GET: Deals/Delete/5
+        [Authorize]
+        public ActionResult PurchaseDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Deal deal = db.Deals.Find(id);
+            if (deal == null)
+            {
+                return HttpNotFound();
+            }
+            if (deal.ProposedBy == User.Identity.Name)
+            {
+                return View(deal);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        // POST: Deals/Delete/5
+        [HttpPost, ActionName("PurchaseDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PurchaseDeleteConfirmed(int id)
+        {
+            Deal deal = db.Deals.Find(id);
+            db.Deals.Remove(deal);
+            db.SaveChanges();
+            return RedirectToAction("ShowProposedSaleDeals", new { id = deal.OfferId });
+        }
+
+       
     }
 }

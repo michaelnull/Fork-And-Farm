@@ -1,21 +1,28 @@
-﻿@model ForkAndFarm.Models.SupplyOffer
+﻿@model ForkAndFarm.Models.Deal
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "PurchaseDetails";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>SupplyOffer</h4>
+    <h4>Deal</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Invoice)
+            @Html.DisplayNameFor(model => model.OfferedTo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Invoice)
+            @Html.DisplayFor(model => model.OfferedTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferId)
         </dd>
 
         <dt>
@@ -101,6 +108,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "ShowProposedDeals")
+    @Html.ActionLink("Edit", "PurchaseEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "ShowProposedSaleDeals", new { id = Model.OfferId })
 </p>
+

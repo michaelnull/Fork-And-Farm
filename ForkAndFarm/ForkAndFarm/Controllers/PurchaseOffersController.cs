@@ -67,6 +67,7 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: PurchaseOffers/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,7 +95,7 @@ namespace ForkAndFarm.Controllers
         public ActionResult Edit(PurchaseOffer purchaseOffer)
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            purchaseOffer.ProposedBy = currentuser.UserName;
+            purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
             if (ModelState.IsValid)
             {
                 db.Entry(purchaseOffer).State = EntityState.Modified;
