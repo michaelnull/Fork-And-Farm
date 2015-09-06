@@ -70,6 +70,17 @@ namespace ForkAndFarm.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Choose a role: Supplier or Buyer")]
+        public ForkAndFarmUser.Portal UserRole { get; set; }
+
+        [Display(Name = "Your Company or Organization (Optional")]
+        public string Organization { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:###-###-####}")]
+        [Display(Name = "Contact Phone Number (Optional)")]
+        public string Phone { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -25,16 +25,26 @@ namespace ForkAndFarm.Controllers
             SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            deal.ProposedBy = currentuser.UserName;
-            deal.Delivery = supplyoffer.Delivery;
-            deal.PaymentTerms = supplyoffer.PaymentTerms;
-            deal.Product = supplyoffer.Product;
-            deal.Quantity = supplyoffer.Quantity;
-            deal.Unit = supplyoffer.Unit;
-            deal.UnitPrice = supplyoffer.UnitPrice;
-            deal.OfferedTo = supplyoffer.ProposedBy;
-            deal.OfferId = supplyoffer.Id;
-            return View(deal);
+            if (currentuser.UserRole == ForkAndFarmUser.Portal.Purchaser)
+            {
+                deal.ProposedBy = currentuser.UserName;
+                deal.ProposedByOrganization = currentuser.Organization;
+                deal.ProposedByPhone = currentuser.Phone;
+                deal.Delivery = supplyoffer.Delivery;
+                deal.PaymentTerms = supplyoffer.PaymentTerms;
+                deal.Product = supplyoffer.Product;
+                deal.Quantity = supplyoffer.Quantity;
+                deal.Unit = supplyoffer.Unit;
+                deal.UnitPrice = supplyoffer.UnitPrice;
+                deal.OfferedTo = supplyoffer.ProposedBy;
+                deal.OfferId = supplyoffer.Id;
+                return View(deal);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
         }
 
         // POST: Deals/Create
@@ -59,6 +69,8 @@ namespace ForkAndFarm.Controllers
             deal.ExtPrice = deal.Quantity * deal.UnitPrice;
             deal.OfferedTo = supplyoffer.ProposedBy;
             deal.ProposedBy = currentuser.UserName;
+            deal.ProposedByPhone = currentuser.Phone;
+            deal.ProposedByOrganization = currentuser.Organization;
             deal.PaymentTerms = supplyoffer.PaymentTerms;
             if (ModelState.IsValid)
             {
@@ -86,7 +98,7 @@ namespace ForkAndFarm.Controllers
             var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
 
 
-            return View(offer.ResponsesToSupplyOffer);
+            return View(offer.ResponsesToSupplyOffer.OrderByDescending(x => x.CreatedOn));
         }
         // GET: Deals/Create
         [Authorize]
@@ -99,16 +111,25 @@ namespace ForkAndFarm.Controllers
             PurchaseOffer purchaseoffer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            deal.ProposedBy = currentuser.UserName;
-            deal.Delivery = purchaseoffer.Delivery;
-            deal.PaymentTerms = purchaseoffer.PaymentTerms;
-            deal.Product = purchaseoffer.Product;
-            deal.Quantity = purchaseoffer.Quantity;
-            deal.Unit = purchaseoffer.Unit;
-            deal.UnitPrice = purchaseoffer.UnitPrice;
-            deal.OfferedTo = purchaseoffer.ProposedBy;
-            deal.OfferId = purchaseoffer.Id;
-            return View(deal);
+            if(currentuser.UserRole == ForkAndFarmUser.Portal.Supplier)
+            {
+                deal.ProposedBy = currentuser.UserName;
+                deal.ProposedByOrganization = currentuser.Organization;
+                deal.ProposedByPhone = currentuser.Phone;
+                deal.Delivery = purchaseoffer.Delivery;
+                deal.PaymentTerms = purchaseoffer.PaymentTerms;
+                deal.Product = purchaseoffer.Product;
+                deal.Quantity = purchaseoffer.Quantity;
+                deal.Unit = purchaseoffer.Unit;
+                deal.UnitPrice = purchaseoffer.UnitPrice;
+                deal.OfferedTo = purchaseoffer.ProposedBy;
+                deal.OfferId = purchaseoffer.Id;
+                return View(deal);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST: Deals/Create
@@ -133,6 +154,8 @@ namespace ForkAndFarm.Controllers
             deal.ExtPrice = deal.Quantity * deal.UnitPrice;
             deal.OfferedTo = purchaseoffer.ProposedBy;
             deal.ProposedBy = currentuser.UserName;
+            deal.ProposedByPhone = currentuser.Phone;
+            deal.ProposedByOrganization = currentuser.Organization;
             deal.PaymentTerms = purchaseoffer.PaymentTerms;
             if (ModelState.IsValid)
             {
@@ -160,7 +183,7 @@ namespace ForkAndFarm.Controllers
             var offer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
 
 
-            return View(offer.ResponsesToPurchaseOffer);
+            return View(offer.ResponsesToPurchaseOffer.OrderByDescending(x => x.CreatedOn));
         }
 
         // GET: Deals

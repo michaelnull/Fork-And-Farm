@@ -13,6 +13,12 @@
             @Html.DisplayNameFor(model => model.ProposedBy)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ProposedByOrganization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProposedByPhone)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Product)
         </th>
         <th>
@@ -50,6 +56,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ProposedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProposedByOrganization)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProposedByPhone)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Product)

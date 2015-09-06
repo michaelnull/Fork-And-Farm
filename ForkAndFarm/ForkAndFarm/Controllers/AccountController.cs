@@ -151,7 +151,7 @@ namespace ForkAndFarm.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ForkAndFarmUser { UserName = model.Email, Email = model.Email };
+                var user = new ForkAndFarmUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRole, Organization = model.Organization, Phone = model.Phone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -20,6 +20,7 @@ namespace ForkAndFarm.Controllers
             portalview.MyPurchaseOffers = user.PurchaseOffers;
             portalview.MySupplyOffers = user.SupplyOffers;
             portalview.Organization = user.Organization;
+            portalview.Phone = user.Phone;
            
             portalview.DealsToMe = user.DealsToMe;
             portalview.DealsFromMe = user.DealsFromMe;
@@ -66,7 +67,7 @@ namespace ForkAndFarm.Controllers
         public ActionResult OffersToMe()
         {
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var list = user.DealsToMe;
+            var list = user.DealsToMe.OrderByDescending(x => x.CreatedOn);
             return View(list);
         }
 
@@ -74,7 +75,7 @@ namespace ForkAndFarm.Controllers
         public ActionResult MySupplyOffers()
         {
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var list = user.SupplyOffers;
+            var list = user.SupplyOffers.OrderByDescending(x=>x.CreatedOn);
             return View(list);
         }
 
@@ -82,7 +83,7 @@ namespace ForkAndFarm.Controllers
         public ActionResult MyPurchaseOffers()
         {
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var list = user.PurchaseOffers;
+            var list = user.PurchaseOffers.OrderByDescending(x => x.CreatedOn);
             return View(list);
         }
         // GET: PortalVM/Details/5

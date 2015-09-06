@@ -17,7 +17,7 @@ namespace ForkAndFarm.Controllers
         // GET: PurchaseOffers
         public ActionResult Index()
         {
-            return View(db.PurchaseOffers.ToList());
+            return View(db.PurchaseOffers.ToList().OrderByDescending(x => x.CreatedOn));
         }
 
         // GET: PurchaseOffers/Details/5
@@ -39,7 +39,12 @@ namespace ForkAndFarm.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            return View();
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (currentuser.UserRole == ForkAndFarmUser.Portal.Purchaser)
+            {
+                return View();
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: PurchaseOffers/Create
@@ -51,6 +56,8 @@ namespace ForkAndFarm.Controllers
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             purchaseOffer.ProposedBy = currentuser.UserName;
+            purchaseOffer.ProposedByOrganization = currentuser.Organization;
+            purchaseOffer.ProposedByPhone = currentuser.Phone;
             purchaseOffer.CreatedOn = DateTime.Now;
             purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
             if (ModelState.IsValid)
@@ -96,6 +103,7 @@ namespace ForkAndFarm.Controllers
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
+            purchaseOffer.Memo = "edited on " + DateTime.Now.ToString() + " " + purchaseOffer.Memo;
             if (ModelState.IsValid)
             {
                 db.Entry(purchaseOffer).State = EntityState.Modified;

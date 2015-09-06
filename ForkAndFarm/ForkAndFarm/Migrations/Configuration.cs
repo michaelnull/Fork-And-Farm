@@ -54,7 +54,9 @@ namespace ForkAndFarm.Migrations
                     Quantity = 100,
                     Unit = "lb",
                     UnitPrice = 1.25,
-                    Delivery = DateTime.Today
+                    Delivery = DateTime.Today,
+                    ExtPrice = 125
+                    
                     
                 },
 
@@ -69,7 +71,8 @@ namespace ForkAndFarm.Migrations
                     Quantity = 25,
                     Unit = "kg",
                     UnitPrice = 2.24,
-                    Delivery = DateTime.Today
+                    Delivery = DateTime.Today,
+                    ExtPrice = 56
                 });
             context.PurchaseOffers.AddOrUpdate(
                 x => x.Memo,
@@ -84,7 +87,8 @@ namespace ForkAndFarm.Migrations
                     Quantity = 50,
                     Unit = "each",
                     UnitPrice = 3.11,
-                    Delivery = DateTime.Today
+                    Delivery = DateTime.Today,
+                    ExtPrice = 155.50
                 },
                 new PurchaseOffer
                 {
@@ -97,7 +101,8 @@ namespace ForkAndFarm.Migrations
                     Unit = "quart",
                     UnitPrice = 2.95,
                     Delivery = DateTime.Today,
-                    ProposedBy = "bob@buyer.com"
+                    ProposedBy = "bob@buyer.com",
+                    ExtPrice = 132.75
 
                 }
                 );

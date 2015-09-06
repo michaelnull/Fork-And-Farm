@@ -17,5 +17,6 @@ namespace ForkAndFarm.Models
         public List<SupplyOffer> MySupplyOffers { get; set; }
         public ForkAndFarmUser.Portal UserRole { get; set; }
         public string Organization { get; set; }
+        public string Phone { get; set; }
     }
 }

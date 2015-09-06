@@ -49,7 +49,12 @@ namespace ForkAndFarm.Models
 
         [MaxLength(150)]
         public string Memo { get; set; }
+        
+        [DisplayName("Proposer's Organization")]
+        public string ProposedByOrganization { get; set; }
 
+        [DisplayName("Proposer's Contact Number")]
+        public string ProposedByPhone { get; set; }
 
     }
     public class PurchaseOffer : Offer

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ForkAndFarm.Models
 {
@@ -18,6 +19,10 @@ namespace ForkAndFarm.Models
             return userIdentity;
         }
         public string Organization { get; set; }
+
+        [DisplayFormat(DataFormatString ="{0:###-###-####}")]
+        public string Phone { get; set; }
+
         public virtual List<PurchaseOffer> PurchaseOffers { get; set; }
         public virtual List<SupplyOffer> SupplyOffers { get; set; }
         public virtual List<Deal> DealsFromMe { get; set; }

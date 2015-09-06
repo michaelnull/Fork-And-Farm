@@ -18,7 +18,7 @@ namespace ForkAndFarm.Controllers
         
         public ActionResult Index()
         {
-            return View(db.SupplyOffers.ToList());
+            return View(db.SupplyOffers.ToList().OrderByDescending(x => x.CreatedOn));
         }
 
         // GET: SupplyOffers/Details/5
@@ -39,7 +39,13 @@ namespace ForkAndFarm.Controllers
         // GET: SupplyOffers/Create
         public ActionResult Create()
         {
-            return View();
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if(currentuser.UserRole == ForkAndFarmUser.Portal.Supplier)
+            {
+                return View();
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
         }
 
         // POST: SupplyOffers/Create
@@ -52,6 +58,8 @@ namespace ForkAndFarm.Controllers
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             supplyOffer.ProposedBy = currentuser.UserName;
+            supplyOffer.ProposedByOrganization = currentuser.Organization;
+            supplyOffer.ProposedByPhone = currentuser.Phone;
             supplyOffer.CreatedOn = DateTime.Now;
             supplyOffer.ExtPrice = supplyOffer.Quantity * supplyOffer.UnitPrice;
 
