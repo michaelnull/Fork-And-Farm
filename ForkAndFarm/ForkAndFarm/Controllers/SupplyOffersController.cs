@@ -50,7 +50,7 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Invoice,SupplyOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] SupplyOffer supplyOffer)
         {
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             supplyOffer.ProposedBy = currentuser.UserName;
             supplyOffer.CreatedOn = DateTime.Now;
             supplyOffer.ExtPrice = supplyOffer.Quantity * supplyOffer.UnitPrice;
@@ -82,7 +82,7 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if (supplyOffer.ProposedBy == currentuser.UserName)
             {
                 return View(supplyOffer);
@@ -123,7 +123,7 @@ namespace ForkAndFarm.Controllers
                 return HttpNotFound();
             }
 
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if (supplyOffer.ProposedBy == currentuser.UserName)
             {
                 return View(supplyOffer);

@@ -29,16 +29,16 @@ namespace ForkAndFarm.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            var userStore = new UserStore<User>(context);
-            var userManager = new UserManager<User>(userStore);
+            var userStore = new UserStore<ForkAndFarmUser>(context);
+            var userManager = new UserManager<ForkAndFarmUser>(userStore);
             if (!(context.Users.Any(u => u.UserName == "bob@buyer.com")))
             {
-                var userToInsert = new User { UserName = "bob@buyer.com" };
+                var userToInsert = new ForkAndFarmUser { UserName = "bob@buyer.com", Organization = "Bob's Arkansas Grown Groceries", UserRole = ForkAndFarmUser.Portal.Purchaser };
                 userManager.Create(userToInsert, "Abc123!@#");
             }
             if (!(context.Users.Any(u => u.UserName == "fred@farmer.com")))
             {
-                var userToInsert = new User { UserName = "fred@farmer.com" };
+                var userToInsert = new ForkAndFarmUser { UserName = "fred@farmer.com", Organization = "Fred's Natural and Organic Farm", UserRole = ForkAndFarmUser.Portal.Supplier };
                 userManager.Create(userToInsert, "Abc123!@#");
             }
             context.SupplyOffers.AddOrUpdate(

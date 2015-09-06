@@ -49,7 +49,7 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PurchaseOffer purchaseOffer)
         {
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             purchaseOffer.ProposedBy = currentuser.UserName;
             purchaseOffer.CreatedOn = DateTime.Now;
             purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
@@ -79,7 +79,7 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if(purchaseOffer.ProposedBy == User.Identity.Name)
             {
                 return View(purchaseOffer);
@@ -94,7 +94,7 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PurchaseOffer purchaseOffer)
         {
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
             if (ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if (purchaseOffer.ProposedBy == User.Identity.Name)
             {
                 return View(purchaseOffer);

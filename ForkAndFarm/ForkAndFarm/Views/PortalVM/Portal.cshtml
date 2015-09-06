@@ -1,0 +1,70 @@
+﻿@model ForkAndFarm.Models.PortalVM
+
+@{
+    ViewBag.Title = "Portal";
+}
+
+<h2>Portal</h2>
+<h3>@Model.Organization</h3>
+<table>
+    
+   
+    @{
+        if (Model.UserRole == ForkAndFarm.Models.ForkAndFarmUser.Portal.Supplier)
+        {
+            <tr>
+                <td><strong>Offers to Buy From Me</strong></td>
+                <td>you have @Model.DealsToMe.Count offers on your advertisements</td>
+
+            </tr>
+            <tr>
+                <td><strong>My Supply Offers</strong></td>
+                <td>you have @Model.MySupplyOffers.Count advertised offers to sell goods</td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Search Purchase Orders</strong>
+                </td>
+                <td>
+                    <a href="/purchaseoffers/index">see what purchasers want to buy right now!</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Create a new Offer to Sell Advertisement</strong>
+                </td>
+                <td>
+                    <a href="/supplyoffers/create">make a new offer to sell</a>
+                </td>
+            </tr>
+        }
+        if (Model.UserRole == ForkAndFarm.Models.ForkAndFarmUser.Portal.Purchaser)
+        {
+             <tr>
+                 <td><strong>Offers to Sell to Me</strong></td>
+                 <td>you have @Model.DealsToMe.Count offers on your advertisements</td>
+             </tr>
+             <tr>
+                 <td><strong>My Purchase Offers</strong></td>
+                 <td>you have @Model.MyPurchaseOffers.Count advertised offers to purchase goods</td>
+             </tr>
+             <tr>
+                 <td>
+                     <strong>Search Supply Offers</strong>
+                 </td>
+                 <td>
+                     <a href="/supplyoffers/index">see what suppliers have to sell right now!</a>
+                 </td>
+             </tr>
+             <tr>
+                 <td><strong>Create a new Offer to Purchase Advertisement</strong></td>
+                 <td>
+                     <a href="/purchaseoffers/create">make a new offer to buy</a>
+                 </td>
+             </tr>
+        }
+    }
+   
+   
+   
+</table>

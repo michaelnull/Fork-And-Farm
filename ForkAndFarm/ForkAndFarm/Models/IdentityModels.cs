@@ -8,9 +8,9 @@ using System.Collections.Generic;
 namespace ForkAndFarm.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class User : IdentityUser
+    public class ForkAndFarmUser : IdentityUser
     {
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ForkAndFarmUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -22,8 +22,6 @@ namespace ForkAndFarm.Models
         public virtual List<SupplyOffer> SupplyOffers { get; set; }
         public virtual List<Deal> DealsFromMe { get; set; }
         public virtual List<Deal> DealsToMe { get; set; }
-        public virtual List<Deal> AcceptedDealsFromMe { get; set; }
-        public virtual List<Deal> DealsIAccepted { get; set; }
         public Portal UserRole { get; set; }
         public enum Portal
         {
@@ -33,7 +31,7 @@ namespace ForkAndFarm.Models
         
     }
 
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<ForkAndFarmUser>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -50,6 +48,5 @@ namespace ForkAndFarm.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.User> ForkAndFarmUsers { get; set; }
     }
 }
