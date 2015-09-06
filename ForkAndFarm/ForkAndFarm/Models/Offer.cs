@@ -24,9 +24,11 @@ namespace ForkAndFarm.Models
         public double Quantity { get; set; }
 
         [DisplayName("Unit Price")]
+        [DisplayFormat(DataFormatString ="{0:C}")]
         public double UnitPrice { get; set; }
 
         [DisplayName("Extended Price")]
+        [DisplayFormat(DataFormatString ="{0:C}")]
         public double ExtPrice
         {
             get; set;
@@ -34,6 +36,7 @@ namespace ForkAndFarm.Models
 
         [DisplayName("Delivery Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Required]
         public DateTime? Delivery { get; set; }
 

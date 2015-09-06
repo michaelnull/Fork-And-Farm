@@ -14,12 +14,13 @@
         <h4>Make an Offer</h4>
         <h3>@Model.OfferedTo</h3>
         <h3>@Model.Product</h3>
-        <h3>@Model.Quantity @Model.Unit  of @Model.Product at @Model.UnitPrice per @Model.Unit for delivery on @Model.Delivery</h3>
+        <h3>@Model.Quantity @Model.Unit  of @Model.Product at @String.Format("{0:C}",Model.UnitPrice) per @Model.Unit for delivery on @Model.Delivery</h3>
         <h3>Payment Terms: @Model.PaymentTerms</h3>
         <h3>Total Price: <span id="extprice"></span></h3>
         <script>
             var total = @Model.Quantity * @Model.UnitPrice;
-            document.getElementById("extprice").innerHTML = total;
+            var price = "$"+total.toFixed(2).toString;
+            document.getElementById("extprice").innerHTML = price;
         </script>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
