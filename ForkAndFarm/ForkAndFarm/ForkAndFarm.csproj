@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DealsController.cs" />
+    <Compile Include="Controllers\ForkAndFarmUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PurchaseOffersController.cs" />
@@ -275,6 +276,13 @@
     <Content Include="Views\Deals\PurchaseEdit.cshtml" />
     <Content Include="Views\Deals\PurchaseDelete.cshtml" />
     <Content Include="Views\Deals\PurchaseDetails.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\Create.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\Delete.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\Details.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\Edit.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\Index.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\PurchaserPortal.cshtml" />
+    <Content Include="Views\ForkAndFarmUsers\SupplierPortal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

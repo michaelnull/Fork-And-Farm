@@ -1,0 +1,38 @@
+﻿@model ForkAndFarm.Models.User
+
+@{
+    ViewBag.Title = "PurchaserPortal";
+}
+<h1>@Model.UserName , Welcome to Fork & Farm!</h1>
+
+<h2>Purchaser Portal</h2>
+
+<h2>@Model.Organization</h2>
+
+<table>
+    <tr>
+        <td><strong>Offers to Sell to Me</strong></td>
+        <td>you have @Model.DealsToMe.Count offers on your purchase advertisements</td>
+
+    </tr>
+    <tr>
+        <td><strong>My Supply Offers</strong></td>
+        <td>you have @Model.PurchaseOffers.Count advertised offers to make purchases</td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Search Suppliers' Offers</strong>
+        </td>
+        <td>
+            <a href="/supplyoffers/index">see what suppliers are selling right now!</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Create a new Offer to Purchase Advertisement</strong>
+        </td>
+        <td>
+            <a href="/purchaseoffers/create">make a new offer to buy</a>
+        </td>
+    </tr>
+</table>

@@ -15,6 +15,7 @@ namespace ForkAndFarm.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: SupplyOffers
+        
         public ActionResult Index()
         {
             return View(db.SupplyOffers.ToList());
@@ -49,7 +50,7 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Invoice,SupplyOffer_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] SupplyOffer supplyOffer)
         {
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             supplyOffer.ProposedBy = currentuser.UserName;
             supplyOffer.CreatedOn = DateTime.Now;
             supplyOffer.ExtPrice = supplyOffer.Quantity * supplyOffer.UnitPrice;
@@ -81,7 +82,7 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if (supplyOffer.ProposedBy == currentuser.UserName)
             {
                 return View(supplyOffer);
@@ -122,7 +123,7 @@ namespace ForkAndFarm.Controllers
                 return HttpNotFound();
             }
 
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if (supplyOffer.ProposedBy == currentuser.UserName)
             {
                 return View(supplyOffer);

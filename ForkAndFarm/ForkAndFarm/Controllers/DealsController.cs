@@ -24,7 +24,7 @@ namespace ForkAndFarm.Controllers
             }
             SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             deal.ProposedBy = currentuser.UserName;
             deal.Delivery = supplyoffer.Delivery;
             deal.PaymentTerms = supplyoffer.PaymentTerms;
@@ -98,7 +98,7 @@ namespace ForkAndFarm.Controllers
             }
             PurchaseOffer purchaseoffer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            User currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             deal.ProposedBy = currentuser.UserName;
             deal.Delivery = purchaseoffer.Delivery;
             deal.PaymentTerms = purchaseoffer.PaymentTerms;
