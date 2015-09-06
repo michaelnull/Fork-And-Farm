@@ -9,18 +9,57 @@ namespace ForkAndFarm.Controllers
 {
     public class PortalVMController : Controller
     {
-        public ActionResult Portal(ForkAndFarmUser user)
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Authorize]
+        public ActionResult Portal()
         {
+            var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             PortalVM portalview = new PortalVM();
             portalview.UserRole = user.UserRole;
             portalview.MyPurchaseOffers = user.PurchaseOffers;
             portalview.MySupplyOffers = user.SupplyOffers;
             portalview.Organization = user.Organization;
-            portalview.DealToMeCount = user.DealsToMe.Count();
-            portalview.DealFromMeCount = user.DealsFromMe.Count();
+           
             portalview.DealsToMe = user.DealsToMe;
             portalview.DealsFromMe = user.DealsFromMe;
-            return View();
+            if (user.DealsToMe != null)
+            {
+                portalview.DealToMeCount = user.DealsToMe.Count();
+            }
+            else
+            {
+                portalview.DealToMeCount = 0;
+            }
+            
+            if (user.DealsFromMe != null)
+            {
+                portalview.DealFromMeCount = user.DealsFromMe.Count();
+            }
+            else
+            {
+                portalview.DealFromMeCount = 0;
+            }
+
+            if (user.SupplyOffers != null)
+            {
+                portalview.SupplyOfferCount = user.SupplyOffers.Count();
+            }
+            else
+            {
+                portalview.SupplyOfferCount = 0;
+            }
+
+            if(user.PurchaseOffers != null)
+            {
+                portalview.PurchaseOfferCount = user.PurchaseOffers.Count();
+            }
+            else
+            {
+                portalview.PurchaseOfferCount = 0;
+            }
+           
+            return View(portalview);
         }
         // GET: PortalVM
         public ActionResult Index()
