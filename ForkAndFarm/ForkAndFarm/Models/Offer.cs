@@ -34,6 +34,7 @@ namespace ForkAndFarm.Models
 
         [DisplayName("Delivery Date")]
         [DataType(DataType.Date)]
+        [Required]
         public DateTime? Delivery { get; set; }
 
         [MaxLength(10)]

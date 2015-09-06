@@ -57,6 +57,7 @@ namespace ForkAndFarm.Migrations
                     Delivery = DateTime.Today
                     
                 },
+
                 new SupplyOffer
                 {
                     Memo = "Example 2",

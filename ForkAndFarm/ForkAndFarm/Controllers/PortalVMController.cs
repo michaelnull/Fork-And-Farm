@@ -62,11 +62,29 @@ namespace ForkAndFarm.Controllers
             return View(portalview);
         }
         // GET: PortalVM
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult OffersToMe()
         {
-            return View();
+            var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            var list = user.DealsToMe;
+            return View(list);
         }
 
+        [Authorize]
+        public ActionResult MySupplyOffers()
+        {
+            var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            var list = user.SupplyOffers;
+            return View(list);
+        }
+
+        [Authorize]
+        public ActionResult MyPurchaseOffers()
+        {
+            var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            var list = user.PurchaseOffers;
+            return View(list);
+        }
         // GET: PortalVM/Details/5
         public ActionResult Details(int id)
         {
