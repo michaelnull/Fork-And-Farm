@@ -73,10 +73,11 @@ namespace ForkAndFarm.Models
         [Display(Name = "Choose a role: Supplier or Buyer")]
         public ForkAndFarmUser.Portal UserRole { get; set; }
 
-        [Display(Name = "Your Company or Organization (Optional")]
+        [Display(Name = "Your Company or Organization (Optional)")]
         public string Organization { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:###-###-####}")]
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Contact Phone Number (Optional)")]
         public string Phone { get; set; }
 
