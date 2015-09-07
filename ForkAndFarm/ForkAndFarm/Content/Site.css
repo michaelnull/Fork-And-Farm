@@ -25,6 +25,16 @@ textarea {
 body{
     background-image: url('/Content/wheat.jpg');
     background-position:center;
-    background-size:100%;
+    background-size:cover;
+    color: maroon;
+}
+body a{
+    color:orangered;
+}
+table{
+    background-color:limegreen;
+}
+.green{
+    background-color:limegreen;
 }
 
