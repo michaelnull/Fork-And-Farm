@@ -34,7 +34,11 @@ body a{
 table{
     background-color:limegreen;
 }
-.green{
-    background-color:limegreen;
+.navbar{
+    background-color:firebrick;
+    color: purple;
+}
+.green a{
+    color: black;
 }
 
