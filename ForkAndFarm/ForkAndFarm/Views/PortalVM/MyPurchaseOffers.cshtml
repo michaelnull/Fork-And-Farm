@@ -83,9 +83,9 @@
             @Html.DisplayFor(modelItem => item.Memo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "PurchaseOffers",new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", "PurchaseOffers", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", "PurchaseOffers", new { id=item.Id })
+           <a href="/deals/edit/@item.Id">Edit</a>|
+           <a href="/deals/details/@item.Id">Details</a> |
+           <a href="/deals/delete/@item.Id">Delete</a>
         </td>
     </tr>
 }
