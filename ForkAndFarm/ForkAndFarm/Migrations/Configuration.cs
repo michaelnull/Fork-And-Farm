@@ -12,7 +12,7 @@ namespace ForkAndFarm.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ForkAndFarm.Models.ApplicationDbContext context)
@@ -33,12 +33,12 @@ namespace ForkAndFarm.Migrations
             var userManager = new UserManager<ForkAndFarmUser>(userStore);
             if (!(context.Users.Any(u => u.UserName == "bob@buyer.com")))
             {
-                var userToInsert = new ForkAndFarmUser { UserName = "bob@buyer.com", Organization = "Bob's Arkansas Grown Groceries", UserRole = ForkAndFarmUser.Portal.Purchaser };
+                var userToInsert = new ForkAndFarmUser { UserName = "bob@buyer.com", Organization = "Bob's Arkansas Grown Groceries", UserRole = ForkAndFarmUser.Portal.Purchaser, Phone = "5017654321" };
                 userManager.Create(userToInsert, "Abc123!@#");
             }
             if (!(context.Users.Any(u => u.UserName == "fred@farmer.com")))
             {
-                var userToInsert = new ForkAndFarmUser { UserName = "fred@farmer.com", Organization = "Fred's Natural and Organic Farm", UserRole = ForkAndFarmUser.Portal.Supplier };
+                var userToInsert = new ForkAndFarmUser { UserName = "fred@farmer.com", Organization = "Fred's Natural and Organic Farm", UserRole = ForkAndFarmUser.Portal.Supplier, Phone = "5012222222" };
                 userManager.Create(userToInsert, "Abc123!@#");
             }
             context.SupplyOffers.AddOrUpdate(

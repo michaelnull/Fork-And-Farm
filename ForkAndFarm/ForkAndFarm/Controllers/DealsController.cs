@@ -120,6 +120,7 @@ namespace ForkAndFarm.Controllers
                 deal.UnitPrice = purchaseoffer.UnitPrice;
                 deal.OfferedTo = purchaseoffer.ProposedBy;
                 deal.OfferId = purchaseoffer.Id;
+                deal.ExtPrice = purchaseoffer.Quantity * purchaseoffer.UnitPrice;
                 return View(deal);
             }
             else
@@ -144,15 +145,9 @@ namespace ForkAndFarm.Controllers
             var offeree = db.Users.FirstOrDefault(x => x.UserName == purchaseoffer.ProposedBy);
 
             var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            deal.Product = purchaseoffer.Product;
-            deal.Unit = purchaseoffer.Unit;
+            
             deal.CreatedOn = DateTime.Now;
             deal.ExtPrice = deal.Quantity * deal.UnitPrice;
-            deal.OfferedTo = purchaseoffer.ProposedBy;
-            deal.ProposedBy = currentuser.UserName;
-            deal.ProposedByPhone = currentuser.Phone;
-            deal.ProposedByOrganization = currentuser.Organization;
-            deal.PaymentTerms = purchaseoffer.PaymentTerms;
             if (ModelState.IsValid)
             {
                 db.Deals.Add(deal);
