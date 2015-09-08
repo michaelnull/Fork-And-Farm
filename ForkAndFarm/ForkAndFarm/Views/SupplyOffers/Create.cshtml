@@ -29,7 +29,7 @@
               @{ 
                   SelectList Products = ViewBag.Products;
               }
-                @Html.DropDownListFor(model => model.Product, Products), new { htmlAttributes = new { @() = "form-control" } })
+                @Html.EditorFor(model => model.Product, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Product, "", new { @class = "text-danger" })
             </div>
         </div>

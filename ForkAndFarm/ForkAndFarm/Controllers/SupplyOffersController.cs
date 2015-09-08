@@ -16,12 +16,22 @@ namespace ForkAndFarm.Controllers
 
         // GET: SupplyOffers
         
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             ViewBag.User = currentuser.UserName;
             ViewBag.Role = currentuser.UserRole.ToString();
-            return View(db.SupplyOffers.ToList().OrderByDescending(x => x.CreatedOn));
+            List<SupplyOffer> list = new List<SupplyOffer>();
+            if (id == null || id == "")
+
+            {
+                list = db.SupplyOffers.OrderByDescending(x => x.CreatedOn).ToList();
+            }
+            else
+            {
+                list = db.SupplyOffers.Where(x => x.Product.Contains(id)).OrderByDescending(x => x.CreatedOn).ToList();
+            }
+            return View(list);
         }
 
         // GET: SupplyOffers/Details/5

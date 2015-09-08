@@ -15,12 +15,22 @@ namespace ForkAndFarm.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: PurchaseOffers
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             ViewBag.User = currentuser.UserName;
             ViewBag.Role = currentuser.UserRole.ToString();
-            return View(db.PurchaseOffers.ToList().OrderByDescending(x => x.CreatedOn));
+            List<PurchaseOffer> list = new List<PurchaseOffer>();
+            if(id == null || id == "")
+                
+            {
+                list = db.PurchaseOffers.OrderByDescending(x => x.CreatedOn).ToList();
+            }
+            else
+            {
+                 list = db.PurchaseOffers.Where(x => x.Product.Contains(id)).OrderByDescending(x=>x.CreatedOn).ToList();
+            }
+            return View(list);
         }
 
         // GET: PurchaseOffers/Details/5

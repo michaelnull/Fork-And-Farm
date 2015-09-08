@@ -14,110 +14,130 @@
         </p>
     }
 }
+<div class="form-group">
+    <div class=" col-md-10">
+        <input class="form-control text-box single-line" id="searchdata" name="searchdata" type="text" onsubmit="search()" />
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Invoice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProposedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProposedByOrganization)
-        </th>
-      
-      
-        <th>
-            @Html.DisplayNameFor(model => model.Product)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Unit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnitPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExtPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Delivery)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PaymentTerms)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Memo)
-        </th>
-        <th></th>
-    </tr>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="btn btn-default" onclick="search()">
+                Search
+            </div>
+            <script>
+               function search() {
+                   var search = document.getElementById('searchdata').value;
+                   console.log(search)
+                   window.location.href=('/SupplyOffers/Index/'+ search);
+               }
+            </script>
+        </div>
+    </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Invoice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProposedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProposedByOrganization)
+            </th>
 
-@foreach (var item in Model) {
-    @Html.HiddenFor(modelItem => item.ProposedBy)
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Invoice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProposedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProposedByOrganization)
-        </td>
-      
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.Product)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Unit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExtPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Delivery)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaymentTerms)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Memo)
-        </td>
-        <td>
-            @{
-                if (ViewBag.User == item.ProposedBy)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })<span> | </span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })<span> | </span>
-                }
-            }
-            
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @{
-                if (ViewBag.Role == "Purchaser")
-                {
-                    <span> | </span><a href="/deals/ProposeSale/@item.Id">Make an Offer</a>
-                }
-            }
-        </td>
-    </tr>
-}
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentTerms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Memo)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            @Html.HiddenFor(modelItem => item.ProposedBy)
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Invoice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProposedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProposedByOrganization)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Delivery)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentTerms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Memo)
+                </td>
+                <td>
+                    @{
+                        if (ViewBag.User == item.ProposedBy)
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })<span> | </span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })<span> | </span>
+                        }
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @{
+                        if (ViewBag.Role == "Purchaser")
+                        {
+                            <span> | </span><a href="/deals/ProposeSale/@item.Id">Make an Offer</a>
+                        }
+                    }
+                </td>
+            </tr>
+                        }
+
+    </table>
