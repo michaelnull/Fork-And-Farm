@@ -26,10 +26,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Product, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Product, new { htmlAttributes = new { @class = "form-control" } })
+              @{ 
+                  SelectList Products = ViewBag.Products;
+              }
+                @Html.DropDownListFor(model => model.Product, Products), new { htmlAttributes = new { @() = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Product, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-2" })

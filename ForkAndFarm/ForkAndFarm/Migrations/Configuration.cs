@@ -55,9 +55,11 @@ namespace ForkAndFarm.Migrations
                     Unit = "lb",
                     UnitPrice = 1.25,
                     Delivery = DateTime.Today,
-                    ExtPrice = 125
-                    
-                    
+                    ExtPrice = 125,
+                    ProposedByOrganization = "Fred's Farm",
+                    ProposedByPhone = "501-123-4567"
+
+
                 },
 
                 new SupplyOffer
@@ -72,7 +74,10 @@ namespace ForkAndFarm.Migrations
                     Unit = "kg",
                     UnitPrice = 2.24,
                     Delivery = DateTime.Today,
-                    ExtPrice = 56
+                    ExtPrice = 56,
+                    ProposedByOrganization = "Fred's Farm",
+                    ProposedByPhone = "501-123-4567"
+                    
                 });
             context.PurchaseOffers.AddOrUpdate(
                 x => x.Memo,
@@ -88,7 +93,9 @@ namespace ForkAndFarm.Migrations
                     Unit = "each",
                     UnitPrice = 3.11,
                     Delivery = DateTime.Today,
-                    ExtPrice = 155.50
+                    ExtPrice = 155.50,
+                    ProposedByOrganization = "Bob's Market",
+                    ProposedByPhone = "501-123-4567"
                 },
                 new PurchaseOffer
                 {
@@ -102,9 +109,37 @@ namespace ForkAndFarm.Migrations
                     UnitPrice = 2.95,
                     Delivery = DateTime.Today,
                     ProposedBy = "bob@buyer.com",
-                    ExtPrice = 132.75
-
+                    ExtPrice = 132.75,
+                    ProposedByOrganization = "Bob's Market",
+                    ProposedByPhone = "501-123-4567"
                 }
+                );
+            context.ForkAndFarmCategories.AddOrUpdate(
+                x => x.ListName,
+                new ForkAndFarmCategory
+                {
+                    ListName = "Product",
+                    ItemList = {new ForkAndFarmItem {ItemName = "Potatoes" },
+                        new ForkAndFarmItem {ItemName = "Tomatoes" },
+                        new ForkAndFarmItem {ItemName = "Watermelons" },
+                        new ForkAndFarmItem {ItemName = "Okra" },
+                        new ForkAndFarmItem {ItemName = "Yellow Squash" },
+                        new ForkAndFarmItem {ItemName = "Blackberries" } }
+                },
+                new ForkAndFarmCategory
+                {
+                    ListName = "Unit",
+                    ItemList = {new ForkAndFarmItem {ItemName = "lb" },
+                    new ForkAndFarmItem {ItemName = "kg" },
+                    new ForkAndFarmItem {ItemName = "each" },
+                    new ForkAndFarmItem {ItemName = "gallon" },
+                    new ForkAndFarmItem {ItemName = "pint" },
+                    new ForkAndFarmItem {ItemName = "bushel" }
+                    }
+                },
+                new ForkAndFarmCategory { ListName = "Payment Terms",
+                    ItemList = { new ForkAndFarmItem { ItemName = "cash on delivery" },
+                        new ForkAndFarmItem { ItemName = "net 10 days" } } }
                 );
              
         }

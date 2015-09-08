@@ -169,6 +169,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DealsController.cs" />
+    <Compile Include="Controllers\ForkAndFarmCategoriesController.cs" />
+    <Compile Include="Controllers\ForkAndFarmItemsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PortalVMController.cs" />
@@ -197,8 +199,13 @@
     <Compile Include="Migrations\201509062339331_five.Designer.cs">
       <DependentUpon>201509062339331_five.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509080244434_six.cs" />
+    <Compile Include="Migrations\201509080244434_six.Designer.cs">
+      <DependentUpon>201509080244434_six.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ForkAndFarmItems.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Offer.cs" />
@@ -217,6 +224,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\forkandfarm %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\forkandfarm.pubxml" />
+    <None Include="Properties\PublishProfiles\forkandfarmarkansas.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -287,6 +297,16 @@
     <Content Include="Views\PortalVM\OffersToMe.cshtml" />
     <Content Include="Views\PortalVM\MySupplyOffers.cshtml" />
     <Content Include="Views\PortalVM\MyPurchaseOffers.cshtml" />
+    <Content Include="Views\ForkAndFarmCategories\Create.cshtml" />
+    <Content Include="Views\ForkAndFarmCategories\Delete.cshtml" />
+    <Content Include="Views\ForkAndFarmCategories\Details.cshtml" />
+    <Content Include="Views\ForkAndFarmCategories\Edit.cshtml" />
+    <Content Include="Views\ForkAndFarmCategories\Index.cshtml" />
+    <Content Include="Views\ForkAndFarmItems\Create.cshtml" />
+    <Content Include="Views\ForkAndFarmItems\Delete.cshtml" />
+    <Content Include="Views\ForkAndFarmItems\Details.cshtml" />
+    <Content Include="Views\ForkAndFarmItems\Edit.cshtml" />
+    <Content Include="Views\ForkAndFarmItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509062339331_five.resx">
       <DependentUpon>201509062339331_five.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509080244434_six.resx">
+      <DependentUpon>201509080244434_six.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

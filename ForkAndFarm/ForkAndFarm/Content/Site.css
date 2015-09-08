@@ -38,7 +38,10 @@ table{
     background-color:firebrick;
     color: purple;
 }
-.green a{
-    color: black;
+.navbar a{
+    color:mediumpurple;
+}
+.green {
+    background-color:limegreen;
 }
 
