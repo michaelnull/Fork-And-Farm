@@ -13,7 +13,7 @@ namespace ForkAndFarm.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201509080244434_six"; }
+            get { return "201509081444356_six"; }
         }
         
         string IMigrationMetadata.Source

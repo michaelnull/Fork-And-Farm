@@ -114,33 +114,7 @@ namespace ForkAndFarm.Migrations
                     ProposedByPhone = "501-123-4567"
                 }
                 );
-            context.ForkAndFarmCategories.AddOrUpdate(
-                x => x.ListName,
-                new ForkAndFarmCategory
-                {
-                    ListName = "Product",
-                    ItemList = {new ForkAndFarmItem {ItemName = "Potatoes" },
-                        new ForkAndFarmItem {ItemName = "Tomatoes" },
-                        new ForkAndFarmItem {ItemName = "Watermelons" },
-                        new ForkAndFarmItem {ItemName = "Okra" },
-                        new ForkAndFarmItem {ItemName = "Yellow Squash" },
-                        new ForkAndFarmItem {ItemName = "Blackberries" } }
-                },
-                new ForkAndFarmCategory
-                {
-                    ListName = "Unit",
-                    ItemList = {new ForkAndFarmItem {ItemName = "lb" },
-                    new ForkAndFarmItem {ItemName = "kg" },
-                    new ForkAndFarmItem {ItemName = "each" },
-                    new ForkAndFarmItem {ItemName = "gallon" },
-                    new ForkAndFarmItem {ItemName = "pint" },
-                    new ForkAndFarmItem {ItemName = "bushel" }
-                    }
-                },
-                new ForkAndFarmCategory { ListName = "Payment Terms",
-                    ItemList = { new ForkAndFarmItem { ItemName = "cash on delivery" },
-                        new ForkAndFarmItem { ItemName = "net 10 days" } } }
-                );
+           
              
         }
     }

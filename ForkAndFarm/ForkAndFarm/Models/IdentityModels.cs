@@ -53,8 +53,5 @@ namespace ForkAndFarm.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.ForkAndFarmCategory> ForkAndFarmCategories { get; set; }
-
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.ForkAndFarmItem> ForkAndFarmItems { get; set; }
     }
 }

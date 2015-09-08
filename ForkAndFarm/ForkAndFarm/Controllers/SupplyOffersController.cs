@@ -39,8 +39,8 @@ namespace ForkAndFarm.Controllers
         // GET: SupplyOffers/Create
         public ActionResult Create()
         {
-            var products = db.ForkAndFarmCategories.FirstOrDefault(x => x.ListName == "Products");
-            ViewBag.Products = products.ItemList;
+           
+          
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if(currentuser.UserRole == ForkAndFarmUser.Portal.Supplier)
             {
