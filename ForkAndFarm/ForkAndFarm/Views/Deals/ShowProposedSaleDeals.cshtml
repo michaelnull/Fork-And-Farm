@@ -98,9 +98,17 @@
 
 
             <td>
-                @Html.ActionLink("Edit", "PurchaseEdit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "PurchaseDetails", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "PurchaseDelete", new { id = item.Id })
+                @{
+                    if (ViewBag.User == item.ProposedBy)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <span> | </span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })<span> | </span>
+
+                    }
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                
             </td>
         </tr>
     }

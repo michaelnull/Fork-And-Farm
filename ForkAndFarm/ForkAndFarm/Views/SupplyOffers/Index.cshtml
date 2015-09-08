@@ -6,10 +6,15 @@
 
 <h2>Index</h2>
 
+@{
+    if (ViewBag.Role == "Supplier")
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -96,10 +101,21 @@
             @Html.DisplayFor(modelItem => item.Memo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
-            <a href="/deals/proposepurchase/@item.Id">Propose Purchase</a>
+            @{
+                if (ViewBag.User == item.ProposedBy)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })<span> | </span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })<span> | </span>
+                }
+            }
+            
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+            @{
+                if (ViewBag.Role == "Purchaser")
+                {
+                    <span> | </span><a href="/deals/ProposeSale/@item.Id">Make an Offer</a>
+                }
+            }
         </td>
     </tr>
 }

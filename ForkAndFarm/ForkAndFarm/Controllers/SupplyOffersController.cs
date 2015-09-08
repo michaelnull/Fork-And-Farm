@@ -18,6 +18,9 @@ namespace ForkAndFarm.Controllers
         
         public ActionResult Index()
         {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ViewBag.User = currentuser.UserName;
+            ViewBag.Role = currentuser.UserRole.ToString();
             return View(db.SupplyOffers.ToList().OrderByDescending(x => x.CreatedOn));
         }
 

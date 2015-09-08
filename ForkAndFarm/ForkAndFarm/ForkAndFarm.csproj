@@ -294,16 +294,6 @@
     <Content Include="Views\PortalVM\OffersToMe.cshtml" />
     <Content Include="Views\PortalVM\MySupplyOffers.cshtml" />
     <Content Include="Views\PortalVM\MyPurchaseOffers.cshtml" />
-    <Content Include="Views\ForkAndFarmCategories\Create.cshtml" />
-    <Content Include="Views\ForkAndFarmCategories\Delete.cshtml" />
-    <Content Include="Views\ForkAndFarmCategories\Details.cshtml" />
-    <Content Include="Views\ForkAndFarmCategories\Edit.cshtml" />
-    <Content Include="Views\ForkAndFarmCategories\Index.cshtml" />
-    <Content Include="Views\ForkAndFarmItems\Create.cshtml" />
-    <Content Include="Views\ForkAndFarmItems\Delete.cshtml" />
-    <Content Include="Views\ForkAndFarmItems\Details.cshtml" />
-    <Content Include="Views\ForkAndFarmItems\Edit.cshtml" />
-    <Content Include="Views\ForkAndFarmItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

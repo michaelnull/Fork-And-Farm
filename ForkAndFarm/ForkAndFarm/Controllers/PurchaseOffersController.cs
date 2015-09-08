@@ -17,6 +17,9 @@ namespace ForkAndFarm.Controllers
         // GET: PurchaseOffers
         public ActionResult Index()
         {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ViewBag.User = currentuser.UserName;
+            ViewBag.Role = currentuser.UserRole.ToString();
             return View(db.PurchaseOffers.ToList().OrderByDescending(x => x.CreatedOn));
         }
 
@@ -87,11 +90,15 @@ namespace ForkAndFarm.Controllers
                 return HttpNotFound();
             }
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            if(purchaseOffer.ProposedBy == User.Identity.Name)
+            if(purchaseOffer.ProposedBy == currentuser.UserName)
             {
                 return View(purchaseOffer);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
         }
 
         // POST: PurchaseOffers/Edit/5
@@ -101,7 +108,6 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PurchaseOffer purchaseOffer)
         {
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             purchaseOffer.ExtPrice = purchaseOffer.Quantity * purchaseOffer.UnitPrice;
             purchaseOffer.Memo = "edited on " + DateTime.Now.ToString() + " " + purchaseOffer.Memo;
             if (ModelState.IsValid)

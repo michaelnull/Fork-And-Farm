@@ -93,7 +93,7 @@ namespace ForkAndFarm.Controllers
             }
             var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
 
-
+            ViewBag.User = User.Identity.Name;
             return View(offer.ResponsesToSupplyOffer.OrderByDescending(x => x.CreatedOn));
         }
         // GET: Deals/Create
@@ -173,7 +173,7 @@ namespace ForkAndFarm.Controllers
             }
             var offer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
 
-
+            ViewBag.User = User.Identity.Name;
             return View(offer.ResponsesToPurchaseOffer.OrderByDescending(x => x.CreatedOn));
         }
 
@@ -250,11 +250,16 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            if (deal.ProposedBy == User.Identity.Name)
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (deal.ProposedBy == currentuser.UserName)
             {
                 return View(deal);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
         }
 
         // POST: Deals/Edit/5
@@ -289,11 +294,15 @@ namespace ForkAndFarm.Controllers
             {
                 return HttpNotFound();
             }
-            if (deal.ProposedBy == User.Identity.Name)
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (deal.ProposedBy == currentuser.UserName)
             {
                 return View(deal);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // POST: Deals/Delete/5
