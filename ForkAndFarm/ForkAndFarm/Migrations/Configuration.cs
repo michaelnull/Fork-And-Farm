@@ -31,6 +31,7 @@ namespace ForkAndFarm.Migrations
             //
             var userStore = new UserStore<ForkAndFarmUser>(context);
             var userManager = new UserManager<ForkAndFarmUser>(userStore);
+
             if (!(context.Users.Any(u => u.UserName == "bob@buyer.com")))
             {
                 var userToInsert = new ForkAndFarmUser { UserName = "bob@buyer.com", Organization = "Bob's Arkansas Grown Groceries", UserRole = ForkAndFarmUser.Portal.Purchaser, Phone = "5017654321" };
@@ -41,9 +42,10 @@ namespace ForkAndFarm.Migrations
                 var userToInsert = new ForkAndFarmUser { UserName = "fred@farmer.com", Organization = "Fred's Natural and Organic Farm", UserRole = ForkAndFarmUser.Portal.Supplier, Phone = "5012222222" };
                 userManager.Create(userToInsert, "Abc123!@#");
             }
-            context.SupplyOffers.AddOrUpdate(
+
+            context.Advertisements.AddOrUpdate(
                 x => x.Memo,
-                new SupplyOffer
+                new Advertisement
                 {
                     Memo = "Example 1",
                     CreatedOn = DateTime.Now,
@@ -57,12 +59,13 @@ namespace ForkAndFarm.Migrations
                     Delivery = DateTime.Today,
                     ExtPrice = 125,
                     ProposedByOrganization = "Fred's Farm",
-                    ProposedByPhone = "501-123-4567"
-
+                    ProposedByPhone = "501-123-4567",
+                    AdType = AdType.SupplyOffer
+                   
 
                 },
 
-                new SupplyOffer
+                new Advertisement
                 {
                     Memo = "Example 2",
                     CreatedOn = DateTime.Now,
@@ -76,32 +79,32 @@ namespace ForkAndFarm.Migrations
                     Delivery = DateTime.Today,
                     ExtPrice = 56,
                     ProposedByOrganization = "Fred's Farm",
-                    ProposedByPhone = "501-123-4567"
+                    ProposedByPhone = "501-123-4567",
+                    AdType = AdType.SupplyOffer
                     
-                });
-            context.PurchaseOffers.AddOrUpdate(
-                x => x.Memo,
-                new PurchaseOffer
-                {
-                    Memo = "Example 1",
-                    CreatedOn = DateTime.Now,
-                    PurchaseOrder = "1",
-                    PaymentTerms = "net10",
-                    Product = "Watermelon",
-                    ProposedBy = "bob@buyer.com",
-                    Quantity = 50,
-                    Unit = "each",
-                    UnitPrice = 3.11,
-                    Delivery = DateTime.Today,
-                    ExtPrice = 155.50,
-                    ProposedByOrganization = "Bob's Market",
-                    ProposedByPhone = "501-123-4567"
                 },
-                new PurchaseOffer
+                 new Advertisement
+                 {
+                     Memo = "Example 3",
+                     CreatedOn = DateTime.Now,
+                     Invoice = "1",
+                     PaymentTerms = "net10",
+                     Product = "Watermelon",
+                     ProposedBy = "bob@buyer.com",
+                     Quantity = 50,
+                     Unit = "each",
+                     UnitPrice = 3.11,
+                     Delivery = DateTime.Today,
+                     ExtPrice = 155.50,
+                     ProposedByOrganization = "Bob's Market",
+                     ProposedByPhone = "501-123-4567",
+                     AdType = AdType.PurchaseOffer
+                 },
+                new Advertisement
                 {
-                    Memo = "Example 2",
+                    Memo = "Example 4",
                     CreatedOn = DateTime.Now,
-                    PurchaseOrder= "2",
+                    Invoice = "2",
                     PaymentTerms = "net10",
                     Product = "Purple Hull Peas",
                     Quantity = 45,
@@ -111,9 +114,12 @@ namespace ForkAndFarm.Migrations
                     ProposedBy = "bob@buyer.com",
                     ExtPrice = 132.75,
                     ProposedByOrganization = "Bob's Market",
-                    ProposedByPhone = "501-123-4567"
+                    ProposedByPhone = "501-123-4567",
+                    AdType = AdType.PurchaseOffer
                 }
+
                 );
+           
            
              
         }

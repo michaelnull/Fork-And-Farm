@@ -8,6 +8,31 @@ namespace ForkAndFarm.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Advertisements",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Invoice = c.String(),
+                        AdType = c.Int(nullable: false),
+                        ProposedBy = c.String(),
+                        Product = c.String(maxLength: 20),
+                        Unit = c.String(maxLength: 10),
+                        Quantity = c.Double(nullable: false),
+                        UnitPrice = c.Double(nullable: false),
+                        ExtPrice = c.Double(nullable: false),
+                        Delivery = c.DateTime(nullable: false),
+                        PaymentTerms = c.String(maxLength: 10),
+                        CreatedOn = c.DateTime(),
+                        Memo = c.String(maxLength: 150),
+                        ProposedByOrganization = c.String(),
+                        ProposedByPhone = c.String(),
+                        ForkAndFarmUser_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ForkAndFarmUser_Id)
+                .Index(t => t.ForkAndFarmUser_Id);
+            
+            CreateTable(
                 "dbo.Deals",
                 c => new
                     {
@@ -20,46 +45,23 @@ namespace ForkAndFarm.Migrations
                         Quantity = c.Double(nullable: false),
                         UnitPrice = c.Double(nullable: false),
                         ExtPrice = c.Double(nullable: false),
-                        Delivery = c.DateTime(),
+                        Delivery = c.DateTime(nullable: false),
                         PaymentTerms = c.String(maxLength: 10),
                         CreatedOn = c.DateTime(),
                         Memo = c.String(maxLength: 150),
-                        PurchaseOffer_Id = c.Int(),
-                        SupplyOffer_Id = c.Int(),
+                        ProposedByOrganization = c.String(),
+                        ProposedByPhone = c.String(),
+                        Advertisement_Id = c.Int(),
                         ForkAndFarmUser_Id = c.String(maxLength: 128),
                         ForkAndFarmUser_Id1 = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.PurchaseOffers", t => t.PurchaseOffer_Id)
-                .ForeignKey("dbo.SupplyOffers", t => t.SupplyOffer_Id)
+                .ForeignKey("dbo.Advertisements", t => t.Advertisement_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ForkAndFarmUser_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ForkAndFarmUser_Id1)
-                .Index(t => t.PurchaseOffer_Id)
-                .Index(t => t.SupplyOffer_Id)
+                .Index(t => t.Advertisement_Id)
                 .Index(t => t.ForkAndFarmUser_Id)
                 .Index(t => t.ForkAndFarmUser_Id1);
-            
-            CreateTable(
-                "dbo.PurchaseOffers",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        PurchaseOrder = c.String(),
-                        ProposedBy = c.String(),
-                        Product = c.String(maxLength: 20),
-                        Unit = c.String(maxLength: 10),
-                        Quantity = c.Double(nullable: false),
-                        UnitPrice = c.Double(nullable: false),
-                        ExtPrice = c.Double(nullable: false),
-                        Delivery = c.DateTime(),
-                        PaymentTerms = c.String(maxLength: 10),
-                        CreatedOn = c.DateTime(),
-                        Memo = c.String(maxLength: 150),
-                        ForkAndFarmUser_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ForkAndFarmUser_Id)
-                .Index(t => t.ForkAndFarmUser_Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -85,33 +87,12 @@ namespace ForkAndFarm.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "dbo.SupplyOffers",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Invoice = c.String(),
-                        ProposedBy = c.String(),
-                        Product = c.String(maxLength: 20),
-                        Unit = c.String(maxLength: 10),
-                        Quantity = c.Double(nullable: false),
-                        UnitPrice = c.Double(nullable: false),
-                        ExtPrice = c.Double(nullable: false),
-                        Delivery = c.DateTime(),
-                        PaymentTerms = c.String(maxLength: 10),
-                        CreatedOn = c.DateTime(),
-                        Memo = c.String(maxLength: 150),
-                        ForkAndFarmUser_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ForkAndFarmUser_Id)
-                .Index(t => t.ForkAndFarmUser_Id);
-            
-            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Organization = c.String(),
+                        Phone = c.String(),
                         UserRole = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -157,36 +138,31 @@ namespace ForkAndFarm.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.SupplyOffers", "ForkAndFarmUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.PurchaseOffers", "ForkAndFarmUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Advertisements", "ForkAndFarmUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Deals", "ForkAndFarmUser_Id1", "dbo.AspNetUsers");
             DropForeignKey("dbo.Deals", "ForkAndFarmUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Deals", "SupplyOffer_Id", "dbo.SupplyOffers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Deals", "PurchaseOffer_Id", "dbo.PurchaseOffers");
+            DropForeignKey("dbo.Deals", "Advertisement_Id", "dbo.Advertisements");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.SupplyOffers", new[] { "ForkAndFarmUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.PurchaseOffers", new[] { "ForkAndFarmUser_Id" });
             DropIndex("dbo.Deals", new[] { "ForkAndFarmUser_Id1" });
             DropIndex("dbo.Deals", new[] { "ForkAndFarmUser_Id" });
-            DropIndex("dbo.Deals", new[] { "SupplyOffer_Id" });
-            DropIndex("dbo.Deals", new[] { "PurchaseOffer_Id" });
+            DropIndex("dbo.Deals", new[] { "Advertisement_Id" });
+            DropIndex("dbo.Advertisements", new[] { "ForkAndFarmUser_Id" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.SupplyOffers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.PurchaseOffers");
             DropTable("dbo.Deals");
+            DropTable("dbo.Advertisements");
         }
     }
 }

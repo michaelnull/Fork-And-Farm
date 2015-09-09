@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdvertisementsController.cs" />
     <Compile Include="Controllers\DealsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -177,29 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509061246271_initial.cs" />
-    <Compile Include="Migrations\201509061246271_initial.Designer.cs">
-      <DependentUpon>201509061246271_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509061715192_two.cs" />
-    <Compile Include="Migrations\201509061715192_two.Designer.cs">
-      <DependentUpon>201509061715192_two.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509062157311_three.cs" />
-    <Compile Include="Migrations\201509062157311_three.Designer.cs">
-      <DependentUpon>201509062157311_three.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509062207479_four.cs" />
-    <Compile Include="Migrations\201509062207479_four.Designer.cs">
-      <DependentUpon>201509062207479_four.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509062339331_five.cs" />
-    <Compile Include="Migrations\201509062339331_five.Designer.cs">
-      <DependentUpon>201509062339331_five.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509081843360_six.cs" />
-    <Compile Include="Migrations\201509081843360_six.Designer.cs">
-      <DependentUpon>201509081843360_six.cs</DependentUpon>
+    <Compile Include="Migrations\201509091841470_initial.cs" />
+    <Compile Include="Migrations\201509091841470_initial.Designer.cs">
+      <DependentUpon>201509091841470_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -294,6 +275,14 @@
     <Content Include="Views\PortalVM\OffersToMe.cshtml" />
     <Content Include="Views\PortalVM\MySupplyOffers.cshtml" />
     <Content Include="Views\PortalVM\MyPurchaseOffers.cshtml" />
+    <Content Include="Views\Advertisements\Create.cshtml" />
+    <Content Include="Views\Advertisements\Delete.cshtml" />
+    <Content Include="Views\Advertisements\Details.cshtml" />
+    <Content Include="Views\Advertisements\Edit.cshtml" />
+    <Content Include="Views\Advertisements\Index.cshtml" />
+    <Content Include="Views\PortalVM\MyAds.cshtml" />
+    <Content Include="Views\Advertisements\SupplyAds.cshtml" />
+    <Content Include="Views\Advertisements\PurchaseAds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,23 +296,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509061246271_initial.resx">
-      <DependentUpon>201509061246271_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509061715192_two.resx">
-      <DependentUpon>201509061715192_two.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509062157311_three.resx">
-      <DependentUpon>201509062157311_three.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509062207479_four.resx">
-      <DependentUpon>201509062207479_four.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509062339331_five.resx">
-      <DependentUpon>201509062339331_five.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509081843360_six.resx">
-      <DependentUpon>201509081843360_six.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509091841470_initial.resx">
+      <DependentUpon>201509091841470_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

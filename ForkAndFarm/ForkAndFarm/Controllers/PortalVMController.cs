@@ -17,8 +17,8 @@ namespace ForkAndFarm.Controllers
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             PortalVM portalview = new PortalVM();
             portalview.UserRole = user.UserRole;
-            portalview.MyPurchaseOffers = user.PurchaseOffers;
-            portalview.MySupplyOffers = user.SupplyOffers;
+            portalview.MyAdvertisements = user.MyAdvertisements;
+            //portalview.MySupplyOffers = user.SupplyOffers;
             portalview.Organization = user.Organization;
             portalview.Phone = user.Phone;
            
@@ -42,23 +42,16 @@ namespace ForkAndFarm.Controllers
                 portalview.DealFromMeCount = 0;
             }
 
-            if (user.SupplyOffers != null)
+            if (user.MyAdvertisements != null)
             {
-                portalview.SupplyOfferCount = user.SupplyOffers.Count();
+                portalview.AdCount = user.MyAdvertisements.Count();
             }
             else
             {
-                portalview.SupplyOfferCount = 0;
+                portalview.AdCount = 0;
             }
 
-            if(user.PurchaseOffers != null)
-            {
-                portalview.PurchaseOfferCount = user.PurchaseOffers.Count();
-            }
-            else
-            {
-                portalview.PurchaseOfferCount = 0;
-            }
+           
            
             return View(portalview);
         }
@@ -70,12 +63,19 @@ namespace ForkAndFarm.Controllers
             var list = user.DealsToMe.OrderByDescending(x => x.CreatedOn);
             return View(list);
         }
+        [Authorize]
+        public ActionResult MyAds()
+        {
+            var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            var list = user.MyAdvertisements.OrderByDescending(x => x.CreatedOn);
+            return View(list);
+        }
 
         [Authorize]
         public ActionResult MySupplyOffers()
         {
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var list = user.SupplyOffers.OrderByDescending(x=>x.CreatedOn);
+            var list = user.MyAdvertisements.OrderByDescending(x=>x.CreatedOn);
             return View(list);
         }
 
@@ -83,7 +83,7 @@ namespace ForkAndFarm.Controllers
         public ActionResult MyPurchaseOffers()
         {
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            var list = user.PurchaseOffers.OrderByDescending(x => x.CreatedOn);
+            var list = user.MyAdvertisements.OrderByDescending(x => x.CreatedOn);
             return View(list);
         }
         // GET: PortalVM/Details/5

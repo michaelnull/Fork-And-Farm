@@ -22,7 +22,7 @@ namespace ForkAndFarm.Controllers
             {
                 return RedirectToAction("Index","SupplyOffers");
             }
-            SupplyOffer supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
+            Advertisement supplyoffer = db.Advertisements.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if (currentuser.UserRole == ForkAndFarmUser.Portal.Purchaser)
@@ -56,7 +56,7 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProposePurchase(Deal deal)
         {
-            var supplyoffer = db.SupplyOffers.FirstOrDefault(x => x.Id == deal.OfferId);
+            var supplyoffer = db.Advertisements.FirstOrDefault(x => x.Id == deal.OfferId);
             if (supplyoffer == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -74,7 +74,7 @@ namespace ForkAndFarm.Controllers
 
                 currentuser.DealsFromMe.Add(deal);
                 offeree.DealsToMe.Add(deal);
-                supplyoffer.ResponsesToSupplyOffer.Add(deal);
+                supplyoffer.ResponseToAdvertisement.Add(deal);
                 db.SaveChanges();
                 
                 return RedirectToAction("ShowProposedDeals", new { id = deal.OfferId });
@@ -94,13 +94,13 @@ namespace ForkAndFarm.Controllers
             ViewBag.User = User.Identity.Name;
             if (ViewBag.Title == "ShowProposedSaleDeals")
             {
-                var offer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
-                return View(offer.ResponsesToPurchaseOffer.OrderByDescending(x => x.CreatedOn));
+                var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
+                return View(offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn));
             }
             else
             {
-                var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
-                return View(offer.ResponsesToSupplyOffer.OrderByDescending(x => x.CreatedOn));
+                var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
+                return View(offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn));
             }
            
 
@@ -115,7 +115,7 @@ namespace ForkAndFarm.Controllers
             {
                 return RedirectToAction("Index", "PurchaseOffers");
             }
-            PurchaseOffer purchaseoffer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
+            Advertisement purchaseoffer = db.Advertisements.FirstOrDefault(x => x.Id == id);
             Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             if(currentuser.UserRole == ForkAndFarmUser.Portal.Supplier)
@@ -148,7 +148,7 @@ namespace ForkAndFarm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProposeSale(Deal deal)
         {
-            var purchaseoffer = db.PurchaseOffers.FirstOrDefault(x => x.Id == deal.OfferId);
+            var purchaseoffer = db.Advertisements.FirstOrDefault(x => x.Id == deal.OfferId);
             if (purchaseoffer == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -165,7 +165,7 @@ namespace ForkAndFarm.Controllers
 
                 currentuser.DealsFromMe.Add(deal);
                 offeree.DealsToMe.Add(deal);
-                purchaseoffer.ResponsesToPurchaseOffer.Add(deal);
+                purchaseoffer.ResponseToAdvertisement.Add(deal);
                 db.SaveChanges();
 
                 return RedirectToAction("ShowProposedSaleDeals", new { id = deal.OfferId });
@@ -182,10 +182,10 @@ namespace ForkAndFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var offer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
+            var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
 
             ViewBag.User = User.Identity.Name;
-            return View(offer.ResponsesToPurchaseOffer.OrderByDescending(x => x.CreatedOn));
+            return View(offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn));
         }
 
         // GET: Deals

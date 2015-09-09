@@ -57,25 +57,17 @@ namespace ForkAndFarm.Models
         public string ProposedByPhone { get; set; }
 
     }
-    public class PurchaseOffer : Offer
+    public class Advertisement : Offer
     {
-        [DisplayName("Purchaser Purchase Order")]
-        public string PurchaseOrder { get; set; }
+        [DisplayName("Invoice or Purchase Order")]
+        public string Invoice{ get; set; }
 
-        public virtual ICollection<Deal>ResponsesToPurchaseOffer { get; set; }
+        public AdType AdType { get; set; }
 
+        public virtual ICollection<Deal>ResponseToAdvertisement { get; set; }
 
     }
-    public class SupplyOffer : Offer
-    {
-        [DisplayName("Seller Invoice")]
-        public string Invoice { get; set; }
-        
-       public virtual ICollection<Deal>ResponsesToSupplyOffer { get; set; }
-
-
-
-    }
+  
     public class Deal : Offer
     {
        
@@ -83,11 +75,13 @@ namespace ForkAndFarm.Models
         [DisplayName("Offered To")]
         public string OfferedTo { get; set; }
 
-      
-     
-
         public int OfferId { get; set; }
 
         
+    }
+    public enum AdType
+    {
+        PurchaseOffer,
+        SupplyOffer
     }
 }

@@ -1,19 +1,10 @@
-﻿@*@model IEnumerable<ForkAndFarm.Models.PurchaseOffer>
+﻿@model IEnumerable<ForkAndFarm.Models.Advertisement>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
-@{
-    if (ViewBag.Role == "Purchaser")
-    {
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-    }
-}
 <div class="row">
     <div class="col-lg-6">
         <div class="input-group">
@@ -28,22 +19,24 @@
 <script>
     function search() {
         var search = document.getElementById('searchdata').value;
-        window.location.href=('/PurchaseOffers/Index/'+ search);
+        window.location.href=('/Advertisements/Index/'+ search);
     }
 </script>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PurchaseOrder)
+            @Html.DisplayNameFor(model => model.Invoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProposedBy)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProposedByOrganization)
-        </th>
-     
         <th>
             @Html.DisplayNameFor(model => model.Product)
         </th>
@@ -71,21 +64,26 @@
         <th>
             @Html.DisplayNameFor(model => model.Memo)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProposedByOrganization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProposedByPhone)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PurchaseOrder)
+            @Html.DisplayFor(modelItem => item.Invoice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdType)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProposedBy)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProposedByOrganization)
-        </td>
-       
         <td>
             @Html.DisplayFor(modelItem => item.Product)
         </td>
@@ -113,6 +111,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Memo)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProposedByOrganization)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProposedByPhone)
+        </td>
         <td>@{
             if (ViewBag.User == item.ProposedBy)
             {
@@ -120,17 +124,17 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })<span> | </span>
             }
         }
-           
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) 
-            @{ 
-                if(ViewBag.Role == "Supplier")
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+            @{
+                if ((ViewBag.Role == "Supplier" && item.AdType.ToString() == "PurchaseOffer")||
+                    (ViewBag.Role == "Purchaser" && item.AdType.ToString() == "SupplyOffer"))
                 {
                     <span> | </span><a href="/deals/ProposeSale/@item.Id">Make an Offer</a>
                 }
             }
-            
+           
         </td>
     </tr>
 }
 
-</table>*@
+</table>

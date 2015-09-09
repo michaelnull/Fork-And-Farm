@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ForkAndFarm.Models.PurchaseOffer>
+﻿@model IEnumerable<ForkAndFarm.Models.Advertisement>
 
 @{
     ViewBag.Title = "MyPurchaseOffers";
@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PurchaseOrder)
+            @Html.DisplayNameFor(model => model.Invoice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProposedBy)
@@ -50,7 +50,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PurchaseOrder)
+            @Html.DisplayFor(modelItem => item.Invoice)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProposedBy)

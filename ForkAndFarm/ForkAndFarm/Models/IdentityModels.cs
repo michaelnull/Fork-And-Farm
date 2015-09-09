@@ -23,8 +23,7 @@ namespace ForkAndFarm.Models
         [DisplayFormat(DataFormatString ="{0:###-###-####}")]
         public string Phone { get; set; }
 
-        public virtual List<PurchaseOffer> PurchaseOffers { get; set; }
-        public virtual List<SupplyOffer> SupplyOffers { get; set; }
+        public virtual List<Advertisement> MyAdvertisements { get; set; }
         public virtual List<Deal> DealsFromMe { get; set; }
         public virtual List<Deal> DealsToMe { get; set; }
         public Portal UserRole { get; set; }
@@ -42,9 +41,11 @@ namespace ForkAndFarm.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.PurchaseOffer> PurchaseOffers { get; set; }
+        //public System.Data.Entity.DbSet<ForkAndFarm.Models.PurchaseOffer> PurchaseOffers { get; set; }
 
-        public System.Data.Entity.DbSet<ForkAndFarm.Models.SupplyOffer> SupplyOffers { get; set; }
+        //public System.Data.Entity.DbSet<ForkAndFarm.Models.SupplyOffer> SupplyOffers { get; set; }
+
+        public DbSet<Advertisement> Advertisements { get; set; }
 
         public System.Data.Entity.DbSet<ForkAndFarm.Models.Deal> Deals { get; set; }
 

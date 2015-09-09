@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<ForkAndFarm.Models.Advertisement>
 
 @{
-    ViewBag.Title = "MySupplyOffers";
+    ViewBag.Title = "MyAds";
 }
 
-<h2>MySupplyOffers</h2>
+<h2>MyAds</h2>
 
 <p>
-    <a href="/SupplyOffers/Create">Create New</a>
+    <a href="/Advertisements/create">Create New</a>
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Invoice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProposedBy)
@@ -44,6 +47,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Memo)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProposedByOrganization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProposedByPhone)
+        </th>
         <th></th>
     </tr>
 
@@ -51,6 +60,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Invoice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdType)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProposedBy)
@@ -83,9 +95,15 @@
             @Html.DisplayFor(modelItem => item.Memo)
         </td>
         <td>
-            <a href="/SupplyOffers/Edit/@item.Id">Edit</a> |
-            <a href="/SupplyOffers/Details/@item.Id">Details</a> |
-            <a href="/SupplyOffers/Delete/@item.Id">Delete</a> |
+            @Html.DisplayFor(modelItem => item.ProposedByOrganization)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProposedByPhone)
+        </td>
+        <td>
+            <a href="/Advertisements/edit/@item.Id">Edit</a>|
+            <a href="/Advertisements/details/@item.Id">Details</a> |
+            <a href="/Advertisements/delete/@item.Id">Delete</a>
         </td>
     </tr>
 }
