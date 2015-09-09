@@ -92,20 +92,11 @@ namespace ForkAndFarm.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.User = User.Identity.Name;
-            if (ViewBag.Title == "ShowProposedSaleDeals")
-            {
-                var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
-                return View(offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn));
-            }
-            else
-            {
-                var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
-                return View(offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn));
-            }
            
+            var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
+            return View(offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn));
 
-           
-            
+
         }
         // GET: Deals/Create
         [Authorize]
@@ -223,28 +214,7 @@ namespace ForkAndFarm.Controllers
             return View(deal);
         }
 
-        // GET: Deals/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Deals/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AcceptedOn,AcceptanceComments,Complete,Deal_Id,ProposedBy_Id,AcceptedBy_Id,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo")] Deal deal)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Deals.Add(deal);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(deal);
-        }
+     
 
         // GET: Deals/Edit/5
         [Authorize]

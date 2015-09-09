@@ -179,15 +179,6 @@ namespace ForkAndFarm.Controllers
                 db.Entry(advertisement).State = EntityState.Modified;
                 db.SaveChanges();
 
-                //switch (advertisement.AdType)
-                //{
-                //    case AdType.PurchaseOffer:
-                //        return RedirectToAction("PurchaseAds");
-                        
-                //    case AdType.SupplyOffer:
-                //        return RedirectToAction("SupplyAds");
-                       
-                //}
                 return RedirectToAction("MyAds", "PortalVM");
             }
             return View(advertisement);
@@ -226,14 +217,7 @@ namespace ForkAndFarm.Controllers
 
             db.Advertisements.Remove(advertisement);
             db.SaveChanges();
-            //switch (type)
-            //{
-            //    case AdType.PurchaseOffer:
-            //        return RedirectToAction("PurchaseAds");
-
-            //    case AdType.SupplyOffer:
-            //        return RedirectToAction("SupplyAds");
-            //}
+           
             return RedirectToAction("MyAds", "PortalVM");
         }
 
