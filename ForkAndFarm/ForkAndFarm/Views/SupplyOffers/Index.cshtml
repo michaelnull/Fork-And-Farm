@@ -14,27 +14,28 @@
         </p>
     }
 }
-<div class="form-group">
-    <div class=" col-md-10">
-        <input class="form-control text-box single-line" id="searchdata" name="searchdata" type="text" onsubmit="search()" />
+<div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default"onclick="search()" type="button">Go Search!</button>
+            </span>
+            <input type="text" class="form-control" id="searchdata" placeholder="Search for Products...">
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
 
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <div class="btn btn-default" onclick="search()">
-                Search
-            </div>
-            <script>
-               function search() {
-                   var search = document.getElementById('searchdata').value;
-                   console.log(search)
-                   window.location.href=('/SupplyOffers/Index/'+ search);
-               }
-            </script>
-        </div>
-    </div>
-    </div>
-    <table class="table">
+<script>
+    function search() {
+        var search = document.getElementById('searchdata').value;
+        console.log(search)
+        window.location.href=('/SupplyOffers/Index/'+ search);
+    }
+</script>
+        
+   
+    
+<table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Invoice)
