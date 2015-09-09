@@ -91,10 +91,21 @@ namespace ForkAndFarm.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
-
             ViewBag.User = User.Identity.Name;
-            return View(offer.ResponsesToSupplyOffer.OrderByDescending(x => x.CreatedOn));
+            if (ViewBag.Title == "ShowProposedSaleDeals")
+            {
+                var offer = db.PurchaseOffers.FirstOrDefault(x => x.Id == id);
+                return View(offer.ResponsesToPurchaseOffer.OrderByDescending(x => x.CreatedOn));
+            }
+            else
+            {
+                var offer = db.SupplyOffers.FirstOrDefault(x => x.Id == id);
+                return View(offer.ResponsesToSupplyOffer.OrderByDescending(x => x.CreatedOn));
+            }
+           
+
+           
+            
         }
         // GET: Deals/Create
         [Authorize]
