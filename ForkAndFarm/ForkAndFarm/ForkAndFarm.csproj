@@ -254,14 +254,9 @@
     <Content Include="Views\PurchaseOffers\Details.cshtml" />
     <Content Include="Views\PurchaseOffers\Edit.cshtml" />
     <Content Include="Views\PurchaseOffers\Index.cshtml" />
-    <Content Include="Views\SupplyOffers\Delete.cshtml" />
-    <Content Include="Views\SupplyOffers\Details.cshtml" />
-    <Content Include="Views\SupplyOffers\Edit.cshtml" />
     <Content Include="Views\Deals\Delete.cshtml" />
     <Content Include="Views\Deals\Details.cshtml" />
     <Content Include="Views\Deals\Edit.cshtml" />
-    <Content Include="Views\SupplyOffers\Index.cshtml" />
-    <Content Include="Views\SupplyOffers\Create.cshtml" />
     <Content Include="Views\Deals\ProposePurchase.cshtml" />
     <Content Include="Views\Deals\ShowProposedDeals.cshtml" />
     <Content Include="Views\Deals\ProposeSale.cshtml" />
@@ -281,6 +276,7 @@
     <Content Include="Views\PortalVM\MyAds.cshtml" />
     <Content Include="Views\Advertisements\SupplyAds.cshtml" />
     <Content Include="Views\Advertisements\PurchaseAds.cshtml" />
+    <Content Include="Views\Deals\ProposeDeal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
