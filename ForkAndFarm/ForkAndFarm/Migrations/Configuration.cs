@@ -116,8 +116,406 @@ namespace ForkAndFarm.Migrations
                     ProposedByOrganization = "Bob's Market",
                     ProposedByPhone = "501-123-4567",
                     AdType = AdType.PurchaseOffer
-                }
+                },
+                new Advertisement
+                {
+                    Memo = "Example 5",
+                    CreatedOn = DateTime.Now,
+                    Invoice = "2",
+                    PaymentTerms = "cod",
+                    Product = "Apples",
+                    ProposedBy = "fred@farmer.com",
+                    Quantity = 25,
+                    Unit = "kg",
+                    UnitPrice = 2.24,
+                    Delivery = DateTime.Today,
+                    ExtPrice = 56,
+                    ProposedByOrganization = "Fred's Farm",
+                    ProposedByPhone = "501-123-4567",
+                    AdType = AdType.SupplyOffer
 
+                },
+                 new Advertisement
+                 {
+                     Memo = "Example 6",
+                     CreatedOn = DateTime.Now,
+                     Invoice = "1",
+                     PaymentTerms = "net10",
+                     Product = "Bananas",
+                     ProposedBy = "bob@buyer.com",
+                     Quantity = 50,
+                     Unit = "each",
+                     UnitPrice = 3.11,
+                     Delivery = DateTime.Today,
+                     ExtPrice = 155.50,
+                     ProposedByOrganization = "Bob's Market",
+                     ProposedByPhone = "501-123-4567",
+                     AdType = AdType.PurchaseOffer
+                 },
+                  new Advertisement
+                  {
+                      Memo = "Example 7",
+                      CreatedOn = DateTime.Now,
+                      Invoice = "2",
+                      PaymentTerms = "net10",
+                      Product = "Cucumber",
+                      Quantity = 45,
+                      Unit = "quart",
+                      UnitPrice = 2.95,
+                      Delivery = DateTime.Today,
+                      ProposedBy = "bob@buyer.com",
+                      ExtPrice = 132.75,
+                      ProposedByOrganization = "Bob's Market",
+                      ProposedByPhone = "501-123-4567",
+                      AdType = AdType.PurchaseOffer
+                  },
+                  new Advertisement
+                  {
+                      Memo = "Example 8",
+                      CreatedOn = DateTime.Now,
+                      Invoice = "2",
+                      PaymentTerms = "cod",
+                      Product = "Dewberries",
+                      ProposedBy = "fred@farmer.com",
+                      Quantity = 25,
+                      Unit = "kg",
+                      UnitPrice = 2.24,
+                      Delivery = DateTime.Today,
+                      ExtPrice = 56,
+                      ProposedByOrganization = "Fred's Farm",
+                      ProposedByPhone = "501-123-4567",
+                      AdType = AdType.SupplyOffer
+
+                  },
+                   new Advertisement
+                   {
+                       Memo = "Example 9",
+                       CreatedOn = DateTime.Now,
+                       Invoice = "1",
+                       PaymentTerms = "net10",
+                       Product = "Elderberries",
+                       ProposedBy = "bob@buyer.com",
+                       Quantity = 50,
+                       Unit = "each",
+                       UnitPrice = 3.11,
+                       Delivery = DateTime.Today,
+                       ExtPrice = 155.50,
+                       ProposedByOrganization = "Bob's Market",
+                       ProposedByPhone = "501-123-4567",
+                       AdType = AdType.PurchaseOffer
+                   },
+                    new Advertisement
+                    {
+                        Memo = "Example 10",
+                        CreatedOn = DateTime.Now,
+                        Invoice = "2",
+                        PaymentTerms = "net10",
+                        Product = "Flowers",
+                        Quantity = 45,
+                        Unit = "quart",
+                        UnitPrice = 2.95,
+                        Delivery = DateTime.Today,
+                        ProposedBy = "bob@buyer.com",
+                        ExtPrice = 132.75,
+                        ProposedByOrganization = "Bob's Market",
+                        ProposedByPhone = "501-123-4567",
+                        AdType = AdType.PurchaseOffer
+                    },
+                    new Advertisement
+                    {
+                        Memo = "Example 11",
+                        CreatedOn = DateTime.Now,
+                        Invoice = "2",
+                        PaymentTerms = "cod",
+                        Product = "Gooseberries",
+                        ProposedBy = "fred@farmer.com",
+                        Quantity = 25,
+                        Unit = "kg",
+                        UnitPrice = 2.24,
+                        Delivery = DateTime.Today,
+                        ExtPrice = 56,
+                        ProposedByOrganization = "Fred's Farm",
+                        ProposedByPhone = "501-123-4567",
+                        AdType = AdType.SupplyOffer
+
+                    },
+                     new Advertisement
+                     {
+                         Memo = "Example 12",
+                         CreatedOn = DateTime.Now,
+                         Invoice = "1",
+                         PaymentTerms = "net10",
+                         Product = "Hot Peppers",
+                         ProposedBy = "bob@buyer.com",
+                         Quantity = 50,
+                         Unit = "each",
+                         UnitPrice = 3.11,
+                         Delivery = DateTime.Today,
+                         ExtPrice = 155.50,
+                         ProposedByOrganization = "Bob's Market",
+                         ProposedByPhone = "501-123-4567",
+                         AdType = AdType.PurchaseOffer
+                     },
+                      new Advertisement
+                      {
+                          Memo = "Example 13",
+                          CreatedOn = DateTime.Now,
+                          Invoice = "2",
+                          PaymentTerms = "net10",
+                          Product = "Indian Corn",
+                          Quantity = 45,
+                          Unit = "quart",
+                          UnitPrice = 2.95,
+                          Delivery = DateTime.Today,
+                          ProposedBy = "bob@buyer.com",
+                          ExtPrice = 132.75,
+                          ProposedByOrganization = "Bob's Market",
+                          ProposedByPhone = "501-123-4567",
+                          AdType = AdType.PurchaseOffer
+                      },
+                      new Advertisement
+                      {
+                          Memo = "Example 14",
+                          CreatedOn = DateTime.Now,
+                          Invoice = "2",
+                          PaymentTerms = "cod",
+                          Product = "Juniper Berries",
+                          ProposedBy = "fred@farmer.com",
+                          Quantity = 25,
+                          Unit = "kg",
+                          UnitPrice = 2.24,
+                          Delivery = DateTime.Today,
+                          ExtPrice = 56,
+                          ProposedByOrganization = "Fred's Farm",
+                          ProposedByPhone = "501-123-4567",
+                          AdType = AdType.SupplyOffer
+
+                      },
+                       new Advertisement
+                       {
+                           Memo = "Example 15",
+                           CreatedOn = DateTime.Now,
+                           Invoice = "1",
+                           PaymentTerms = "net10",
+                           Product = "Kiwi Fruit",
+                           ProposedBy = "bob@buyer.com",
+                           Quantity = 50,
+                           Unit = "each",
+                           UnitPrice = 3.11,
+                           Delivery = DateTime.Today,
+                           ExtPrice = 155.50,
+                           ProposedByOrganization = "Bob's Market",
+                           ProposedByPhone = "501-123-4567",
+                           AdType = AdType.PurchaseOffer
+                       },
+                         new Advertisement
+                         {
+                             Memo = "Example 16",
+                             CreatedOn = DateTime.Now,
+                             Invoice = "2",
+                             PaymentTerms = "net10",
+                             Product = "Lemons",
+                             Quantity = 45,
+                             Unit = "quart",
+                             UnitPrice = 2.95,
+                             Delivery = DateTime.Today,
+                             ProposedBy = "bob@buyer.com",
+                             ExtPrice = 132.75,
+                             ProposedByOrganization = "Bob's Market",
+                             ProposedByPhone = "501-123-4567",
+                             AdType = AdType.PurchaseOffer
+                         },
+                         new Advertisement
+                         {
+                             Memo = "Example 17",
+                             CreatedOn = DateTime.Now,
+                             Invoice = "2",
+                             PaymentTerms = "cod",
+                             Product = "Mangoes",
+                             ProposedBy = "fred@farmer.com",
+                             Quantity = 25,
+                             Unit = "kg",
+                             UnitPrice = 2.24,
+                             Delivery = DateTime.Today,
+                             ExtPrice = 56,
+                             ProposedByOrganization = "Fred's Farm",
+                             ProposedByPhone = "501-123-4567",
+                             AdType = AdType.SupplyOffer
+
+                         },
+                          new Advertisement
+                          {
+                              Memo = "Example 18",
+                              CreatedOn = DateTime.Now,
+                              Invoice = "1",
+                              PaymentTerms = "net10",
+                              Product = "Nasturtium",
+                              ProposedBy = "bob@buyer.com",
+                              Quantity = 50,
+                              Unit = "each",
+                              UnitPrice = 3.11,
+                              Delivery = DateTime.Today,
+                              ExtPrice = 155.50,
+                              ProposedByOrganization = "Bob's Market",
+                              ProposedByPhone = "501-123-4567",
+                              AdType = AdType.PurchaseOffer
+                          },
+                           new Advertisement
+                           {
+                               Memo = "Example 19",
+                               CreatedOn = DateTime.Now,
+                               Invoice = "2",
+                               PaymentTerms = "net10",
+                               Product = "Okra",
+                               Quantity = 45,
+                               Unit = "quart",
+                               UnitPrice = 2.95,
+                               Delivery = DateTime.Today,
+                               ProposedBy = "bob@buyer.com",
+                               ExtPrice = 132.75,
+                               ProposedByOrganization = "Bob's Market",
+                               ProposedByPhone = "501-123-4567",
+                               AdType = AdType.PurchaseOffer
+                           },
+                           new Advertisement
+                           {
+                               Memo = "Example 20",
+                               CreatedOn = DateTime.Now,
+                               Invoice = "2",
+                               PaymentTerms = "cod",
+                               Product = "Peas",
+                               ProposedBy = "fred@farmer.com",
+                               Quantity = 25,
+                               Unit = "kg",
+                               UnitPrice = 2.24,
+                               Delivery = DateTime.Today,
+                               ExtPrice = 56,
+                               ProposedByOrganization = "Fred's Farm",
+                               ProposedByPhone = "501-123-4567",
+                               AdType = AdType.SupplyOffer
+
+                           },
+                            new Advertisement
+                            {
+                                Memo = "Example 21",
+                                CreatedOn = DateTime.Now,
+                                Invoice = "1",
+                                PaymentTerms = "net10",
+                                Product = "Quince",
+                                ProposedBy = "bob@buyer.com",
+                                Quantity = 50,
+                                Unit = "each",
+                                UnitPrice = 3.11,
+                                Delivery = DateTime.Today,
+                                ExtPrice = 155.50,
+                                ProposedByOrganization = "Bob's Market",
+                                ProposedByPhone = "501-123-4567",
+                                AdType = AdType.PurchaseOffer
+                            },
+                             new Advertisement
+                             {
+                                 Memo = "Example 22",
+                                 CreatedOn = DateTime.Now,
+                                 Invoice = "2",
+                                 PaymentTerms = "net10",
+                                 Product = "Rhubarb",
+                                 Quantity = 45,
+                                 Unit = "quart",
+                                 UnitPrice = 2.95,
+                                 Delivery = DateTime.Today,
+                                 ProposedBy = "bob@buyer.com",
+                                 ExtPrice = 132.75,
+                                 ProposedByOrganization = "Bob's Market",
+                                 ProposedByPhone = "501-123-4567",
+                                 AdType = AdType.PurchaseOffer
+                             },
+                             new Advertisement
+                             {
+                                 Memo = "Example 23",
+                                 CreatedOn = DateTime.Now,
+                                 Invoice = "2",
+                                 PaymentTerms = "cod",
+                                 Product = "Snap Beans",
+                                 ProposedBy = "fred@farmer.com",
+                                 Quantity = 25,
+                                 Unit = "kg",
+                                 UnitPrice = 2.24,
+                                 Delivery = DateTime.Today,
+                                 ExtPrice = 56,
+                                 ProposedByOrganization = "Fred's Farm",
+                                 ProposedByPhone = "501-123-4567",
+                                 AdType = AdType.SupplyOffer
+
+                             },
+                              new Advertisement
+                              {
+                                  Memo = "Example 24",
+                                  CreatedOn = DateTime.Now,
+                                  Invoice = "1",
+                                  PaymentTerms = "net10",
+                                  Product = "Tomatoes",
+                                  ProposedBy = "bob@buyer.com",
+                                  Quantity = 50,
+                                  Unit = "each",
+                                  UnitPrice = 3.11,
+                                  Delivery = DateTime.Today,
+                                  ExtPrice = 155.50,
+                                  ProposedByOrganization = "Bob's Market",
+                                  ProposedByPhone = "501-123-4567",
+                                  AdType = AdType.PurchaseOffer
+                              },
+                               new Advertisement
+                               {
+                                   Memo = "Example 25",
+                                   CreatedOn = DateTime.Now,
+                                   Invoice = "2",
+                                   PaymentTerms = "net10",
+                                   Product = "Uglifruit",
+                                   Quantity = 45,
+                                   Unit = "quart",
+                                   UnitPrice = 2.95,
+                                   Delivery = DateTime.Today,
+                                   ProposedBy = "bob@buyer.com",
+                                   ExtPrice = 132.75,
+                                   ProposedByOrganization = "Bob's Market",
+                                   ProposedByPhone = "501-123-4567",
+                                   AdType = AdType.PurchaseOffer
+                               },
+                               new Advertisement
+                               {
+                                   Memo = "Example 26",
+                                   CreatedOn = DateTime.Now,
+                                   Invoice = "2",
+                                   PaymentTerms = "cod",
+                                   Product = "Velvet",
+                                   ProposedBy = "fred@farmer.com",
+                                   Quantity = 25,
+                                   Unit = "kg",
+                                   UnitPrice = 2.24,
+                                   Delivery = DateTime.Today,
+                                   ExtPrice = 56,
+                                   ProposedByOrganization = "Fred's Farm",
+                                   ProposedByPhone = "501-123-4567",
+                                   AdType = AdType.SupplyOffer
+
+                               },
+                                new Advertisement
+                                {
+                                    Memo = "Example 27",
+                                    CreatedOn = DateTime.Now,
+                                    Invoice = "1",
+                                    PaymentTerms = "net10",
+                                    Product = "Watermelon",
+                                    ProposedBy = "bob@buyer.com",
+                                    Quantity = 50,
+                                    Unit = "each",
+                                    UnitPrice = 3.11,
+                                    Delivery = DateTime.Today,
+                                    ExtPrice = 155.50,
+                                    ProposedByOrganization = "Bob's Market",
+                                    ProposedByPhone = "501-123-4567",
+                                    AdType = AdType.PurchaseOffer
+                                }
                 );
            
            

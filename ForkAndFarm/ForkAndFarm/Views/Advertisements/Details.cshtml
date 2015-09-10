@@ -125,7 +125,16 @@
     </dl>
 </div>
 <p>
-  
-    @Html.ActionLink("All Ads", "Index")
-   
+  @if((ViewBag.UserRole == "Supplier" && Model.AdType.ToString() == "PurchaseOffer") ||(ViewBag.UserRole == "Purchaser" && Model.AdType.ToString() == "SupplyOffer"))
+  {
+      <a href="/Deals/ProposeDeal/@Model.Id">Make an offer</a><span> | </span>
+          
+  }
+    @Html.ActionLink("All Ads", "Adlist")
+
+    @if(ViewBag.User == Model.ProposedBy)
+    {
+      <span> | </span> <a href="/Advertisements/Edit/@Model.Id">Edit</a>
+    }
+
 </p>

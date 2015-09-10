@@ -76,12 +76,16 @@ namespace ForkAndFarm.Controllers
         }
 
         // GET: Advertisements/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ViewBag.UserRole = currentuser.UserRole.ToString();
+            ViewBag.User = currentuser.UserName;
             Advertisement advertisement = db.Advertisements.Find(id);
             if (advertisement == null)
             {
@@ -224,9 +228,16 @@ namespace ForkAndFarm.Controllers
         {
             return View();
         }
-        public ActionResult AllAds()
+
+        public ActionResult AllAds(string id)
         {
-            return Json(db.Advertisements.ToList(), JsonRequestBehavior.AllowGet);
+            if (id == null || id == "")
+            {
+                return Json(db.Advertisements.OrderByDescending(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            return Json(db.Advertisements.Where(x => x.Product.Contains(id)).OrderByDescending(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+
+            
         }
 
         protected override void Dispose(bool disposing)

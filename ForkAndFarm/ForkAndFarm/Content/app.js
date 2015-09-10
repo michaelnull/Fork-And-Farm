@@ -3,39 +3,58 @@
 
     app.controller('DisplayController', ['$http', function ($http) {
 
-        this.page = 1;
         var display = this;
+        this.all = [];
+       
 
-        this.index = function (page) {
+        this.goto = function (page) {
             display.page = page;
+            var start = (page - 1) * 25;
+            var end = start + 25;
+            display.show = display.all.slice(start, end);
+            console.log(display.page);
+            for (i = 0; i < 25; i++) {
+                display.show[i].CreatedOn = new Date(parseInt(display.show[i].CreatedOn.substr(6)));
+                display.show[i].Delivery = new Date(parseInt(display.show[i].Delivery.substr(6)));
+                if (display.show[i].AdType == 1) {
+                    display.show[i].AdType = "Supply Ad";
+                }
+                else {
+                    display.show[i].AdType = "Purchase Ad";
+                }
+
+            }
+        };
+
+        this.index = function () {
             $http.get('/Advertisements/AllAds/').success(function (data) {
                 display.all = data;
-                var start = (page - 1) * 25;
-                var end = start + 25;
-                display.show = display.all.slice(start, end);
-                return display.show;
+                display.goto(1);
+            });
+        };
+        this.search = function (terms) {
+            $http.get('/Advertisements/AllAds/' + terms).success(function (data) {
+                display.all = data;
+                display.goto(1);
             });
         };
 
-        this.index(this.page);
-
-        this.add = function (pick) {
-            display.works = " create function called successfully";
-
-            $http.post('/picks/create', { File: pick.file, Description: pick.description, Url: pick.url })
-                 .then(function (response) {
-
-
-                     display.pictures.unshift(response.data);
-                     $("#createModal").modal('hide');
-                     pick.description = "";
-                     pick.url = "";
-                     display.addpickform.$setPristine();
-
-                 });
-
+        this.details = function (id) {
+            location.href = ('/Advertisements/Details/' + id);
         };
+
+        this.create = function () {
+            location.href = ('/Advertisements/Create');
+        };
+
+       
+
+        this.index();
+       
+
+        
+
+      
     }]);
-    app.controller('CreateController', ['$http', function ($http) {
-    }]);
+    
 })();

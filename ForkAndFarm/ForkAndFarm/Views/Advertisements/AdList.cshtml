@@ -4,17 +4,35 @@
 }
 
 <h2>AdList</h2>
+
 <section ng-controller="DisplayController as display" ng-init="display.page = 1">
+    <button ng-click='display.create()'>Create New</button>
+    <div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click='display.search(searchdata)' type="button">Click to Search!</button>
+            </span>
+            <input type="text" class="form-control" ng-model="searchdata" placeholder="Search for Products...">
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
     <table class="table">
         <tr>
+            <th>
+                Ad Type
+            </th>
+            <th>
+                Ad Posted
+            </th>
             <th>
                 Product
             </th>
             <th>
-                Unit
+                Quantity
             </th>
             <th>
-                Quantity
+                Unit
             </th>
             <th>
                 Unit Price
@@ -25,70 +43,61 @@
             <th>
                 Delivery Date
             </th>
-            <th>
-                Payment Terms
-            </th>
-            <th>
-                Ad Created on
-            </th>
-            <th>
-                Ad Posted by
-            </th>
+            
+            
+           
             <th>
                 Organization
             </th>
-            <th>
-                Phone
-            </th>
+           
             <th>
                 Memo
             </th>
         </tr>
-        <tr ng-repeat="ad in display.show">
+        <tr ng-repeat="ad in display.show" >
             <td>
-                {{ad.Product}}
+                {{ad.AdType}}
             </td>
             <td>
-                {{ad.Unit}}
+                {{ad.CreatedOn | date: "mediumDate"}}
+            </td>
+            <td>
+                {{ad.Product}}
             </td>
             <td>
                 {{ad.Quantity}}
             </td>
             <td>
-                ${{ad.UnitPrice}}
+                {{ad.Unit}}
+            </td>
+           
+            <td>
+                {{ad.UnitPrice | currency}}
+            </td>
+            <td ng->
+                {{ad.ExtPrice | currency}}
             </td>
             <td>
-                ${{ad.ExtPrice}}
-            </td>
-            <td>
-                {{ad.Delivery}}
-            </td>
-            <td>
-                {{ad.PaymentTerms}}
-            </td>
-            <td>
-                {{ad.CreatedOn}}
-            </td>
-            <td>
-                {{ad.ProposedBy}}
+                {{ad.Delivery | date: "mediumDate"}}
             </td>
             <td>
                 {{ad.ProposedByOrganization}}
             </td>
             <td>
-               <a href="tel:{{ad.ProposedByPhone}}">{{ad.ProposedByPhone}}</a> 
-            </td>
-            <td>
                 {{ad.Memo}}
             </td>
+            <td>
+                <button ng-click='display.details(ad.Id)'>Details</button>
+            </td>
+            
         </tr>
     </table>
 
     <div class="pagebar btn-group" role="group" aria-label="...">
-        <button ng-hide="display.page <= 2" type="button" class="btn btn-default"><a href ng-click='display.index(1)'>go to page 1</a></button>
-        <button ng-hide="display.page === 1" type="button" class="btn btn-default"><a href ng-click='display.index(display.page - 1)'>go to page {{display.page - 1}}</a></button>
+        <button ng-hide="display.page <= 2" type="button" class="btn btn-default"><div ng-click='display.goto(1)'>go to page 1</div></button>
+        <button ng-hide="display.page === 1" type="button" class="btn btn-default"><div ng-click='display.goto(display.page - 1)'>go to page {{display.page - 1}}</div></button>
         <button type="button" class="btn btn-default">this is page {{display.page}}</button>
-        <button type="button" class="btn btn-default"><a href ng-click='display.index(display.page + 1)'>go to page {{display.page + 1}}</a></button>
+        <button type="button" class="btn btn-default"><div ng-click='display.goto(display.page + 1)'>go to page {{display.page + 1}}</div></button>
 
     </div>
 </section>
@@ -96,4 +105,5 @@
     @section scripts{
         <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
         <script type="text/javascript" src="~/Content/app.js"></script>
+        
     }
