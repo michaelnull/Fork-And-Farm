@@ -220,6 +220,14 @@ namespace ForkAndFarm.Controllers
            
             return RedirectToAction("MyAds", "PortalVM");
         }
+        public ActionResult AdList()
+        {
+            return View();
+        }
+        public ActionResult AllAds()
+        {
+            return Json(db.Advertisements.ToList(), JsonRequestBehavior.AllowGet);
+        }
 
         protected override void Dispose(bool disposing)
         {
