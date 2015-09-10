@@ -11,22 +11,32 @@
     <div class="col-lg-6">
         <div class="input-group">
             <span class="input-group-btn">
-                <button class="btn btn-default" ng-click='display.search(searchdata)' type="button">Click to Search!</button>
+                <button class="btn btn-default" ng-click='display.search("/Advertisements/AllAds/", searchdata)' type="button">Search Products!</button>
             </span>
             <input type="text" class="form-control" ng-model="searchdata" placeholder="Search for Products...">
         </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="orgsearch" placeholder="Search Suplliers and Purchasers">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click='display.search("/Advertisements/SearchOrg/" , orgsearch)' type="button">Search Organizations!</button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
     <table class="table">
         <tr>
             <th>
-                Ad Type
+                
+                <button ng-click='display.getdata("/Advertisements/SupplyList")'>supply</button>
+                <button ng-click='display.getdata("/Advertisements/PurchaseList")'>purchase</button>
             </th>
             <th>
-                Ad Posted
+                <button ng-click='display.getdata("/Advertisements/AllAds")'>Ad Posted</button>
             </th>
             <th>
-                Product
+                <button ng-click='display.getdata("/Advertisements/Products")'>Product</button>
             </th>
             <th>
                 Quantity
@@ -41,7 +51,7 @@
                 Total Price
             </th>
             <th>
-                Delivery Date
+               <button ng-click='display.getdata("/Advertisements/Delivery")'>Delivery Date</button>
             </th>
             
             

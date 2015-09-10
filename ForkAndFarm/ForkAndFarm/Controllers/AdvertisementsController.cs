@@ -240,6 +240,39 @@ namespace ForkAndFarm.Controllers
             
         }
 
+        public ActionResult SupplyList()
+        {
+            var list = db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer).OrderByDescending(x => x.CreatedOn).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PurchaseList()
+        {
+            var list = db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer).OrderByDescending(x => x.CreatedOn).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+       public ActionResult Products()
+        {
+            var list = db.Advertisements.OrderBy(x => x.Product).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delivery()
+        {
+            var list = db.Advertisements.OrderBy(x => x.Delivery).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        
+        public ActionResult SearchOrg(string id)
+        {
+            if (id == null || id == "")
+            {
+                return Json(db.Advertisements.OrderBy(x => x.ProposedByOrganization).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            return Json(db.Advertisements.Where(x => x.ProposedByOrganization.Contains(id)).OrderBy(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

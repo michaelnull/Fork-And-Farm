@@ -26,14 +26,10 @@
             }
         };
 
-        this.index = function () {
-            $http.get('/Advertisements/AllAds/').success(function (data) {
-                display.all = data;
-                display.goto(1);
-            });
-        };
-        this.search = function (terms) {
-            $http.get('/Advertisements/AllAds/' + terms).success(function (data) {
+       
+       
+        this.search = function (string, terms) {
+            $http.get(string + terms).success(function (data) {
                 display.all = data;
                 display.goto(1);
             });
@@ -46,10 +42,19 @@
         this.create = function () {
             location.href = ('/Advertisements/Create');
         };
+        
+        this.getdata = function (string) {
+            $http.get(string).success(function (data) {
+                display.all = data;
+                display.goto(1);
+            });
+        };
+
+        
 
        
 
-        this.index();
+        this.getdata('/Advertisements/AllAds/');
        
 
         
