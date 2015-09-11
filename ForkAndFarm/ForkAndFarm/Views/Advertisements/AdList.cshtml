@@ -25,18 +25,16 @@
             </div><!-- /input-group -->
         </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
-    <table class="table">
+    <table class="table" id="table_id">
         <tr>
             <th>
-                
-                <button ng-click='display.getdata("/Advertisements/SupplyList")'>supply</button>
-                <button ng-click='display.getdata("/Advertisements/PurchaseList")'>purchase</button>
+              Ad type
             </th>
             <th>
-                <button ng-click='display.getdata("/Advertisements/AllAds")'>Ad Posted</button>
+              Posted On
             </th>
             <th>
-                <button ng-click='display.getdata("/Advertisements/Products")'>Product</button>
+               Product
             </th>
             <th>
                 Quantity
@@ -51,7 +49,7 @@
                 Total Price
             </th>
             <th>
-               <button ng-click='display.getdata("/Advertisements/Delivery")'>Delivery Date</button>
+              Delivery Date
             </th>
             
             
@@ -115,5 +113,28 @@
     @section scripts{
         <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
         <script type="text/javascript" src="~/Content/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="~/Content/dataTables.bootstrap.min.css" />
+        @*<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+
+        <script>
+            var alldata;
+            $http.get('/Advertisements/AllAds').success(function (data) {
+                 alldata = data;
+            });
+            $(document).ready(function () {
+                $('#table_id').DataTable();
+            });
+            $('#table_id').dataTable({
+                alldata
+            })
+        </script>*@
+        
         
     }

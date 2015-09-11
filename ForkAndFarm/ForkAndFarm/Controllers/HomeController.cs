@@ -10,7 +10,10 @@ namespace ForkAndFarm.Controllers
 {
     public class HomeController : Controller
     {
-        
+        public ActionResult AdList()
+        {
+            return View();
+        }
        
 
         public ActionResult About()
