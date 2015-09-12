@@ -78,8 +78,9 @@
                         <button ng-click="showOffer = !showOffer">Make an Offer</button>
                         <div ng-show="showOffer">
                             <h3>Make an Offer</h3>
-                            <form ng-submit='display.submitoffer(ad.Id, deal)' id="offerform" class="form-horizontal">
-                                <div class="form-group">
+                            <form id="offerform" name="offerform" class="form-horizontal" ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()' >
+                               
+                                 <div class="form-group">
                                     <label class="control-label col-md-2">Quantity</label>
                                     <div class="col-md-10">
                                         <input class="form-control text-box single-line" type="text" ng-model="deal.Quantity" ng-init="deal.Quantity = ad.Quantity" />
@@ -116,12 +117,16 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-offset-2 col-md-10">
-                                    <button type="submit" onclick="resetform('offerform')" class="btn btn-default">Submit</button>
-                                   
+                                <div class="col-md-offset-2 col-md-1">
+                                    <input class="btn btn-primary" ng-disabled="offerform.$pristine" type="submit" value="Submit"  />
                                 </div>
+                                <div class="col-md-1">
+                                    <input type="reset" class="btn btn-danger" value="Reset" ng-click="display.offermessage='awaiting data'; offerform.$setPristine()" />
+                                </div>
+                                   
+                                
+                               
                             </form>
-                            <button onclick="resetform('offerform')" class="btn btn-danger">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -143,7 +148,9 @@
         <script type="text/javascript" src="~/Content/app.js"></script>
         <link rel="stylesheet" type="text/css" href="~/Content/dataTables.bootstrap.min.css" />
         <script>function resetform(id) {
-        document.getElementById(id).reset();
+   
+    document.getElementById(id).reset();
+    window.alert("clear function called for " + id);
         }
         </script>
        

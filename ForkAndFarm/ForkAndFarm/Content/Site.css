@@ -56,3 +56,7 @@ table.sortable thead {
 .mylist{
     border: 2px inset;
 }
+.ng-pristine{
+    
+    color:red;
+}

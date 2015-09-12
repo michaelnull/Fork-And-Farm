@@ -12,8 +12,7 @@
             $http.post('/Deals/SubmitOffer', { OfferId: id, UnitPrice:info.UnitPrice, Quantity: info.Quantity, Delivery: info.Delivery, PaymentTerms: info.PaymentTerms, Memo: info.Memo })
                 .then(function (response) {
                     display.offermessage = response.data;
-                  
-                   
+                    display.offerform.$setPristine();
             });
         };
 
