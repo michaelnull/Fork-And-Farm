@@ -298,7 +298,6 @@ namespace ForkAndFarm.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Deals.Add(deal);
-
                     currentuser.DealsFromMe.Add(deal);
                     offeree.DealsToMe.Add(deal);
                     offer.ResponseToAdvertisement.Add(deal);
@@ -306,11 +305,28 @@ namespace ForkAndFarm.Controllers
 
                     return Content(String.Format("offer to {0} for {1} {2} of {3} for {4:C}", deal.OfferedTo, deal.Quantity, deal.Unit, deal.Product, deal.ExtPrice));
                 }
-
                 return Content("data missing");
-
             }
             return Content("transaction not allowed");
+        }
+
+        public ActionResult GetOffers(int? id)
+        {
+            if (id == null)
+            {
+                return Json(new List<Deal> { new Deal { ProposedByOrganization = "error, the advertisement ID was not found!!" } }, JsonRequestBehavior.AllowGet);
+            }
+            var offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
+            if (offer == null)
+            {
+                return Json(new List<Deal> { new Deal { ProposedByOrganization = "error, the advertisement was not found in the list" } }, JsonRequestBehavior.AllowGet);
+            }
+            var list = offer.ResponseToAdvertisement.OrderByDescending(x => x.CreatedOn);
+            if (list.Count() <= 0)
+            {
+                return Json(new List<Deal> { new Deal { ProposedByOrganization = "there are no responses to this ad yet" } }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);  
         }
 
         protected override void Dispose(bool disposing)
