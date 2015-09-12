@@ -7,12 +7,13 @@
         this.all = [];
         var details = [];
         this.offermessage = 'awaiting data';
+        var responsecount = 0;
+        
 
         this.submitoffer = function (id, info) {
             $http.post('/Deals/SubmitOffer', { OfferId: id, UnitPrice:info.UnitPrice, Quantity: info.Quantity, Delivery: info.Delivery, PaymentTerms: info.PaymentTerms, Memo: info.Memo })
                 .then(function (response) {
                     display.offermessage = response.data;
-                   
                     console.log(response)
                     display.getresponses(id);
             });
@@ -26,9 +27,22 @@
         this.getresponses = function (id) {
             console.log("get responses called " + id);
             $http.get('/deals/getoffers/' + id).success(function (data) {
-                display.responses = data;
+                display.allresponses = data;
+                var i = 0;
+                angular.forEach(display.allresponses, function (value, key){
+                    display.allresponses[i].CreatedOn = new Date(parseInt(display.allresponses[i].CreatedOn.substr(6)));
+                    display.allresponses[i].Delivery = new Date(parseInt(display.allresponses[i].Delivery.substr(6)));
+                    i++;
+                });
+                responsecount = 0;
+                display.showtenmoreresponses();
             })
         };
+
+        this.showtenmoreresponses = function () {
+            responsecount += 10;
+            display.responses = display.allresponses.slice(0, responsecount)
+        }
 
         this.goto = function (page) {
             display.page = page;

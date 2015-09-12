@@ -68,9 +68,9 @@
 
                 <button ng-click="showDetails = !showDetails; display.responses = {}; display.offermessage = 'awaiting data'">Details</button>
                 <div ng-show="showDetails">
-                    these are the details:
-                    {{ad.ProposedBy}}
-                    {{ad.ProposedByPhone}}
+                    Proposed by user: {{ad.ProposedBy}} 
+                    Contact Phone Number: {{ad.ProposedByPhone}}
+                    Reference number: {{ad.Invoice}}
                    
                     <!--Hide section if transaction not allowed-->
                     <div ng-show="(ad.AdType=='Purchase Ad' && display.userinfo.UserRole =='Supplier') || (ad.AdType=='Supply Ad' && display.userinfo.UserRole=='Purchaser')">
@@ -123,9 +123,6 @@
                                 <div class="col-md-1">
                                     <input type="reset" class="btn btn-danger" value="Reset" ng-click="display.offermessage='awaiting data'; offerform.$setPristine()" />
                                 </div>
-                                   
-                                
-                               
                             </form>
                         </div>
                     </div><!--end of make offer collapsable section-->
@@ -134,7 +131,7 @@
                         <div> <!--list of offers section-->
                            
                             <div class="container mylist" ng-repeat="response in display.responses">
-                                <div class="row">
+                                <div class="container row">
                                     <div>
                                         Proposed by: {{response.ProposedByOrganization}}
                                         Quantity: {{response.Quantity}}
@@ -142,12 +139,15 @@
                                         Extended Price: {{response.ExtPrice | currency}}
                                         Delivery Date: {{response.Delivery | date:"mediumDate"}}
                                     </div>
-                                    <div class="row">
+                                    <div class="container row">
                                         Memo: {{response.Memo}}
                                     </div>
                                 </div>
 
                             </div>
+                        <div ng-show="display.allresponses.length > display.responses.length">
+                            <button ng-click="display.showtenmoreresponses()">Show 10 more responses</button>
+                        </div>
                     </div><!--end of list of offers section-->
                 </div>
             </div> <!--end of details collapsable section-->
