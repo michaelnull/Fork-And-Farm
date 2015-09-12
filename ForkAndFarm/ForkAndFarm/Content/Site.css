@@ -53,3 +53,6 @@ table.sortable thead {
     font-weight: bold;
     cursor: default;
 }
+.mylist{
+    border: 2px inset;
+}

@@ -272,7 +272,82 @@ namespace ForkAndFarm.Controllers
             }
             return Json(db.Advertisements.Where(x => x.ProposedByOrganization.Contains(id)).OrderBy(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
         }
-        
+
+        [Authorize]
+        public ActionResult MakeOffer(int? id)
+        {
+            if (id == null)
+            {
+                return Content("id not received");
+            }
+            Advertisement offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
+            Deal deal = new Deal();
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if ((currentuser.UserRole == ForkAndFarmUser.Portal.Purchaser && offer.AdType == AdType.SupplyOffer) ||
+                (currentuser.UserRole == ForkAndFarmUser.Portal.Supplier && offer.AdType == AdType.PurchaseOffer))
+            {
+                deal.ProposedBy = currentuser.UserName;
+                deal.ProposedByOrganization = currentuser.Organization;
+                deal.ProposedByPhone = currentuser.Phone;
+                deal.Delivery = offer.Delivery;
+                deal.PaymentTerms = offer.PaymentTerms;
+                deal.Product = offer.Product;
+                deal.Quantity = offer.Quantity;
+                deal.Unit = offer.Unit;
+                deal.UnitPrice = offer.UnitPrice;
+                deal.OfferedTo = offer.ProposedBy;
+                deal.OfferId = offer.Id;
+                deal.ExtPrice = offer.UnitPrice * offer.Quantity;
+                return View(deal);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+
+        }
+
+        // POST: Deals/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
+        [HttpPost]
+        public ActionResult MakeOffer(Deal deal)
+        {
+
+            var offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
+            var offer = db.Advertisements.FirstOrDefault(x => x.Id == deal.OfferId);
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+
+            deal.CreatedOn = DateTime.Now;
+            deal.ExtPrice = deal.Quantity * deal.UnitPrice;
+
+            if (ModelState.IsValid)
+            {
+                db.Deals.Add(deal);
+
+                currentuser.DealsFromMe.Add(deal);
+                offeree.DealsToMe.Add(deal);
+                offer.ResponseToAdvertisement.Add(deal);
+                db.SaveChanges();
+
+                return Content("Offer was successfully recorded"+ deal.Id);
+            }
+
+
+            return Content("Offer was not recorded");
+        }
+
+        public ActionResult GetUserInfo()
+        {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            {
+                if (currentuser == null)
+                    return new EmptyResult();
+            }
+            return Json(new { UserName = currentuser.UserName, UserRole = currentuser.UserRole.ToString() }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -282,6 +282,7 @@
     <Content Include="Views\Advertisements\PurchaseAds.cshtml" />
     <Content Include="Views\Deals\ProposeDeal.cshtml" />
     <Content Include="Views\Advertisements\AdList.cshtml" />
+    <Content Include="Views\Advertisements\MakeOffer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

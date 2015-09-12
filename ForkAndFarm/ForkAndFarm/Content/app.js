@@ -5,7 +5,22 @@
 
         var display = this;
         this.all = [];
-       
+        var details = [];
+        this.offermessage = 'awaiting data';
+
+        this.submitoffer = function (id, info) {
+            $http.post('/Deals/SubmitOffer', { OfferId: id, UnitPrice:info.UnitPrice, Quantity: info.Quantity, Delivery: info.Delivery, PaymentTerms: info.PaymentTerms, Memo: info.Memo })
+                .then(function (response) {
+                    display.offermessage = response.data;
+                  
+                   
+            });
+        };
+
+        this.getuserinfo = function () {
+            $http.get('/advertisements/getUserInfo').success(function (data) {
+                display.userinfo = data;
+            })};
 
         this.goto = function (page) {
             display.page = page;
@@ -36,7 +51,10 @@
         };
 
         this.details = function (id) {
-            location.href = ('/Advertisements/Details/' + id);
+            $http.get('advertisements/getdetails/'+id).success(function (data) {
+                display.showdetails = data;
+                
+            });
         };
 
         this.create = function () {
@@ -50,12 +68,19 @@
             });
         };
 
+        this.getinfo = function (string) {
+            $http.get(string).success(function(data){
+                var result = data;
+                return result;
+            });
+            };
+       
+      
         
-
        
 
         this.getdata('/Advertisements/AllAds/');
-       
+        this.getuserinfo();
 
         
 

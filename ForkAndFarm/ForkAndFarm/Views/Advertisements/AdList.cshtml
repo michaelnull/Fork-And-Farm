@@ -25,81 +25,109 @@
             </div><!-- /input-group -->
         </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
-    <table class="table" id="table_id">
-        <tr>
-            <th>
-              Ad type
-            </th>
-            <th>
-              Posted On
-            </th>
-            <th>
-               Product
-            </th>
-            <th>
-                Quantity
-            </th>
-            <th>
-                Unit
-            </th>
-            <th>
-                Unit Price
-            </th>
-            <th>
-                Total Price
-            </th>
-            <th>
-              Delivery Date
-            </th>
+    <div class="container green">
+        
+        <div class="container mylist" ng-repeat="ad in display.show" >
+            <div class="row">
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    {{ad.AdType}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    Posted on:<br />  {{ad.CreatedOn | date: "mediumDate"}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    {{ad.Product}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    {{ad.Quantity}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    {{ad.Unit}}
+                </div>
+
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    per unit: <br />  {{ad.UnitPrice | currency}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    total: <br />  {{ad.ExtPrice | currency}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    for delivery on: <br />  {{ad.Delivery | date: "mediumDate"}}
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-1">
+                    {{ad.ProposedByOrganization}}
+                </div>
+               
+            </div>
             
-            
-           
-            <th>
-                Organization
-            </th>
-           
-            <th>
-                Memo
-            </th>
-        </tr>
-        <tr ng-repeat="ad in display.show" >
-            <td>
-                {{ad.AdType}}
-            </td>
-            <td>
-                {{ad.CreatedOn | date: "mediumDate"}}
-            </td>
-            <td>
-                {{ad.Product}}
-            </td>
-            <td>
-                {{ad.Quantity}}
-            </td>
-            <td>
-                {{ad.Unit}}
-            </td>
-           
-            <td>
-                {{ad.UnitPrice | currency}}
-            </td>
-            <td ng->
-                {{ad.ExtPrice | currency}}
-            </td>
-            <td>
-                {{ad.Delivery | date: "mediumDate"}}
-            </td>
-            <td>
-                {{ad.ProposedByOrganization}}
-            </td>
-            <td>
-                {{ad.Memo}}
-            </td>
-            <td>
-                <button ng-click='display.details(ad.Id)'>Details</button>
-            </td>
-            
-        </tr>
-    </table>
+            <div class="row">
+                Memo:  {{ad.Memo}}
+
+            </div>
+            <div class="row">
+
+                <button ng-click="showDetails = !showDetails">Details</button>
+                <div ng-show="showDetails">
+                    these are the details:
+                    {{ad.ProposedBy}}
+                    {{ad.ProposedByPhone}}
+                   
+                    <!--Hide section if transaction not allowed-->
+                    <div ng-show="(ad.AdType=='Purchase Ad' && display.userinfo.UserRole =='Supplier') || (ad.AdType=='Supply Ad' && display.userinfo.UserRole=='Purchaser')">
+                        <h4 ng-hide="display.offermessage=='awaiting data'">{{display.offermessage}}</h4> 
+                        <button ng-click="showOffer = !showOffer">Make an Offer</button>
+                        <div ng-show="showOffer">
+                            <h3>Make an Offer</h3>
+                            <form ng-submit='display.submitoffer(ad.Id, deal)' id="offerform" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Quantity</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control text-box single-line" type="text" ng-model="deal.Quantity" ng-init="deal.Quantity = ad.Quantity" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Unit Price</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control text-box single-line" type="text" ng-model="deal.UnitPrice" ng-init="deal.UnitPrice = ad.UnitPrice" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Unit Price" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Delivery Date</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control text-box single-line" type="date" ng-model="deal.Delivery" ng-init="deal.Delivery = ad.Delivery" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Delivery Date" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Payment Terms</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control text-box single-line" type="text" ng-model="deal.PaymentTerms" ng-init="deal.PaymentTerms = ad.PaymentTerms" />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Payment Terms" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Memo</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control text-box single-line" type="text" ng-model="deal.Memo" placeholder="Enter Memo notes here..."/>
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Memo" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" onclick="resetform('offerform')" class="btn btn-default">Submit</button>
+                                   
+                                </div>
+                            </form>
+                            <button onclick="resetform('offerform')" class="btn btn-danger">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="pagebar btn-group" role="group" aria-label="...">
         <button ng-hide="display.page <= 2" type="button" class="btn btn-default"><div ng-click='display.goto(1)'>go to page 1</div></button>
@@ -114,27 +142,10 @@
         <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
         <script type="text/javascript" src="~/Content/app.js"></script>
         <link rel="stylesheet" type="text/css" href="~/Content/dataTables.bootstrap.min.css" />
-        @*<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
-
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-
-<!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
-
-        <script>
-            var alldata;
-            $http.get('/Advertisements/AllAds').success(function (data) {
-                 alldata = data;
-            });
-            $(document).ready(function () {
-                $('#table_id').DataTable();
-            });
-            $('#table_id').dataTable({
-                alldata
-            })
-        </script>*@
-        
+        <script>function resetform(id) {
+        document.getElementById(id).reset();
+        }
+        </script>
+       
         
     }
