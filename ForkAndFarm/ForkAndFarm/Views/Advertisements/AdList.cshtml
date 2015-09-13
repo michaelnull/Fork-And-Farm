@@ -33,7 +33,7 @@
                     {{ad.AdType}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
-                    Posted on:<br />  {{ad.CreatedOn | date: "mediumDate"}}
+                    Posted on:<br />  {{display.getjsdate(ad.CreatedOn) | date: "mediumDate"}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.Product}}
@@ -51,7 +51,7 @@
                     total: <br />  {{ad.ExtPrice | currency}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
-                    for delivery on: <br />  {{ad.Delivery | date: "mediumDate"}}
+                    for delivery on: <br />  {{display.getjsdate(ad.Delivery) | date: "mediumDate"}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.ProposedByOrganization}}
@@ -69,6 +69,7 @@
 
                 <button class="btn btn-info" ng-click="showDetails = !showDetails; display.responses = {}; display.offermessage = 'awaiting data'">Details</button>
                 <div ng-show="showDetails">
+                
                     Proposed by user: {{ad.ProposedBy}} 
                     Contact Phone Number: {{ad.ProposedByPhone}}
                     Reference number: {{ad.Invoice}}
@@ -131,11 +132,12 @@
                             <div class="container mylist" ng-repeat="response in ad.ResponseToAdvertisement">
                                 <div class="container row">
                                     <div>
+                                        Response to Advertisement:<br/>
                                         Proposed by: {{response.ProposedByOrganization}}
                                         Quantity: {{response.Quantity}}
                                         Unit Price: {{response.UnitPrice | currency}}
                                         Extended Price: {{response.ExtPrice | currency}}
-                                        Delivery Date: {{response.Delivery | date:"mediumDate"}}
+                                        Delivery Date: {{display.getjsdate(response.Delivery) | date:"mediumDate"}}
                                     </div>
                                     <div class="container row">
                                         Memo: {{response.Memo}}

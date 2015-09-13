@@ -25,20 +25,7 @@
             })};
 
 
-        this.getresponses = function (id) {
-            console.log("get responses called " + id);
-            $http.get('/deals/getoffers/' + id).success(function (data) {
-                display.allresponses = data;
-                var i = 0;
-                angular.forEach(display.allresponses, function (value, key){
-                    display.allresponses[i].CreatedOn = new Date(parseInt(display.allresponses[i].CreatedOn.substr(6)));
-                    display.allresponses[i].Delivery = new Date(parseInt(display.allresponses[i].Delivery.substr(6)));
-                    i++;
-                });
-                responsecount = 0;
-                display.showtenmoreresponses();
-            })
-        };
+       
 
         this.showtenmoreresponses = function () {
             responsecount += 10;
@@ -51,17 +38,7 @@
             var end = start + 25;
             display.show = display.all.slice(start, end);
             console.log(display.page);
-            for (i = 0; i < 25; i++) {
-                display.show[i].CreatedOn = new Date(parseInt(display.show[i].CreatedOn.substr(6)));
-                display.show[i].Delivery = new Date(parseInt(display.show[i].Delivery.substr(6)));
-                if (display.show[i].AdType == 1) {
-                    display.show[i].AdType = "Supply Ad";
-                }
-                else {
-                    display.show[i].AdType = "Purchase Ad";
-                }
-
-            }
+           
         };
 
        
@@ -87,8 +64,24 @@
         this.getdata = function (string) {
             $http.get(string).success(function (data) {
                 display.all = data;
+                var i = 0;
+                angular.forEach(display.all, function (value, key) {
+                    if (display.all[i].AdType == 1) {
+                        display.all[i].AdType = "Supply Ad";
+                    }
+                    else {
+                        display.all[i].AdType = "Purchase Ad";
+                    }
+                    i++;
+                })
                 display.goto(1);
             });
+        };
+
+        this.getjsdate = function (csdate) {
+            var jsdate = '';
+            jsdate = new Date(parseInt(csdate.substr(6)));
+            return jsdate;
         };
 
         this.getinfo = function (string) {
