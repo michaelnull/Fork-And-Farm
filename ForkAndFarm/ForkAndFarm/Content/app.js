@@ -20,7 +20,7 @@
         };
 
         this.getuserinfo = function () {
-            $http.get('/advertisements/getUserInfo').success(function (data) {
+            $http.get('/portalVM/getUserInfo').success(function (data) {
                 display.userinfo = data;
             })};
 
@@ -95,13 +95,13 @@
             var msg = '';
             $http.get('deleteAd/' + id).success(function (response) {
                 console.log(response);
-                msg = 'delete this ad?--Posted on ' + response.CreatedOn +
-                    ' Product: ' + response.Product +
-                    ' Units: ' + response.Unit +
-                    'Quantity: ' + response.Quantity + 
-                    'Unit Price: ' + response.UnitPrice +
-                    'Delivery Date: ' + response.Delivery +
-                    'Memo: ' + response.Memo;
+                msg = 'delete this ad?--Posted on ' + display.getjsdate(response.CreatedOn) +
+                    '\n Product: ' + response.Product +
+                    '\n Units: ' + response.Unit +
+                    '\n Quantity: ' + response.Quantity + 
+                    '\n Unit Price: ' + response.UnitPrice +
+                    '\n Delivery Date: ' + display.getjsdate(response.Delivery) +
+                    '\n Memo: ' + response.Memo;
                 if (confirm(msg)) {
                     $http.post('DeleteAd/' + id).then(function (response) {
                         window.alert(response.data);
@@ -119,16 +119,17 @@
             $http.get('/deals/deleteresponse/' + id).success(function (response) {
                 adid = response.OfferId;
                 console.log(response);
-                var msg = 'delete response? ' +
-                    ' Quantity: ' + response.Quantity +
-                    ' Unit Price: ' + response.UnitPrice +
-                    ' Total Price ' + response.ExtPrice + 
-                    ' Delivery Date ' + response.Delivery +
-                    'Memo: ' + response .Memo;
+                var msg = 'delete response? --created on: ' + display.getjsdate(response.CreatedOn) +
+                    '\n Quantity: ' + response.Quantity +
+                    '\n Unit Price: ' + response.UnitPrice +
+                    '\n Total Price ' + response.ExtPrice + 
+                    '\n Delivery Date ' + display.getjsdate(response.Delivery) +
+                    '\n Memo: ' + response .Memo;
                 if (confirm(msg)) {
                     $http.post('/deals/deleteresponse/' + id).then(function (answer) {
                         window.alert(answer.data);
-                        display.getresponses(adid);
+                        display.getdata('allads');
+                        display.goto(display.page);
                     })
                 }
             });

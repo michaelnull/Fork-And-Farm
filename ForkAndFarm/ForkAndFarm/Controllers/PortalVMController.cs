@@ -16,14 +16,11 @@ namespace ForkAndFarm.Controllers
         {
             var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             PortalVM portalview = new PortalVM();
-            portalview.UserRole = user.UserRole;
-            portalview.MyAdvertisements = user.MyAdvertisements;
+            portalview.UserName = user.UserName;
+            portalview.UserRole = user.UserRole.ToString();
             //portalview.MySupplyOffers = user.SupplyOffers;
             portalview.Organization = user.Organization;
             portalview.Phone = user.Phone;
-           
-            portalview.DealsToMe = user.DealsToMe;
-            portalview.DealsFromMe = user.DealsFromMe;
             if (user.DealsToMe != null)
             {
                 portalview.DealToMeCount = user.DealsToMe.Count();
@@ -86,76 +83,46 @@ namespace ForkAndFarm.Controllers
             var list = user.MyAdvertisements.OrderByDescending(x => x.CreatedOn);
             return View(list);
         }
-        // GET: PortalVM/Details/5
-        public ActionResult Details(int id)
+       
+        [Authorize]
+        public ActionResult GetUserInfo()
         {
-            return View();
-        }
-
-        // GET: PortalVM/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PortalVM/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            var user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            PortalVM portalview = new PortalVM();
+            portalview.UserName = user.UserName;
+            portalview.UserRole = user.UserRole.ToString();
+            portalview.Organization = user.Organization;
+            portalview.Phone = user.Phone;
+         
+            if (user.DealsToMe != null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                portalview.DealToMeCount = user.DealsToMe.Count();
             }
-            catch
+            else
             {
-                return View();
+                portalview.DealToMeCount = 0;
             }
-        }
 
-        // GET: PortalVM/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PortalVM/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            if (user.DealsFromMe != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                portalview.DealFromMeCount = user.DealsFromMe.Count();
             }
-            catch
+            else
             {
-                return View();
+                portalview.DealFromMeCount = 0;
             }
-        }
 
-        // GET: PortalVM/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PortalVM/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            if (user.MyAdvertisements != null)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                portalview.AdCount = user.MyAdvertisements.Count();
             }
-            catch
+            else
             {
-                return View();
+                portalview.AdCount = 0;
             }
+            return Json(portalview, JsonRequestBehavior.AllowGet);
         }
+        
     }
-}
+    }
+

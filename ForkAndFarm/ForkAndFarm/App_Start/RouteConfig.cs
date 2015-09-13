@@ -16,13 +16,13 @@ namespace ForkAndFarm
             routes.MapRoute(
                name: "Home",
                url: "Home/Index/{id}",
-               defaults: new { controller = "PortalVM", action = "Portal", id = UrlParameter.Optional }
+               defaults: new { controller = "Advertisements", action = "AdList", id = UrlParameter.Optional }
            );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "PortalVM", action = "Portal", id = UrlParameter.Optional }
+                defaults: new { controller = "Advertisements", action = "AdList", id = UrlParameter.Optional }
             );
         }
     }
