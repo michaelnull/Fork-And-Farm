@@ -127,11 +127,8 @@
                             </form>
                         </div>
                     </div><!--end of make offer collapsable section-->
-                    <div>
-                        <button class="btn btn-primary" ng-click="display.getresponses(ad.Id)">Show responses on this Ad</button>
                         <div> <!--list of offers section-->
-                           
-                            <div class="container mylist" ng-repeat="response in display.responses">
+                            <div class="container mylist" ng-repeat="response in ad.ResponseToAdvertisement">
                                 <div class="container row">
                                     <div>
                                         Proposed by: {{response.ProposedByOrganization}}
@@ -152,7 +149,6 @@
                             <button ng-click="display.showtenmoreresponses()">Show 10 more responses</button>
                         </div>
                     </div><!--end of list of offers section-->
-                </div>
             </div> <!--end of details collapsable section-->
         </div>
     </div>
@@ -171,12 +167,7 @@
         <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
         <script type="text/javascript" src="~/Content/app.js"></script>
         <link rel="stylesheet" type="text/css" href="~/Content/dataTables.bootstrap.min.css" />
-        <script>function resetform(id) {
-   
-    document.getElementById(id).reset();
-    window.alert("clear function called for " + id);
-        }
-        </script>
+       
        
         
     }

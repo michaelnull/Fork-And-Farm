@@ -24,6 +24,7 @@
                 display.userinfo = data;
             })};
 
+
         this.getresponses = function (id) {
             console.log("get responses called " + id);
             $http.get('/deals/getoffers/' + id).success(function (data) {
@@ -101,7 +102,13 @@
             var msg = '';
             $http.get('deleteAd/' + id).success(function (response) {
                 console.log(response);
-                msg = 'delete ad with Memo ' + response.Memo;
+                msg = 'delete this ad?--Posted on ' + response.CreatedOn +
+                    ' Product: ' + response.Product +
+                    ' Units: ' + response.Unit +
+                    'Quantity: ' + response.Quantity + 
+                    'Unit Price: ' + response.UnitPrice +
+                    'Delivery Date: ' + response.Delivery +
+                    'Memo: ' + response.Memo;
                 if (confirm(msg)) {
                     $http.post('DeleteAd/' + id).then(function (response) {
                         window.alert(response.data);
@@ -119,7 +126,12 @@
             $http.get('/deals/deleteresponse/' + id).success(function (response) {
                 adid = response.OfferId;
                 console.log(response);
-                var msg = 'delete response where Memo is ' + response.Memo;
+                var msg = 'delete response? ' +
+                    ' Quantity: ' + response.Quantity +
+                    ' Unit Price: ' + response.UnitPrice +
+                    ' Total Price ' + response.ExtPrice + 
+                    ' Delivery Date ' + response.Delivery +
+                    'Memo: ' + response .Memo;
                 if (confirm(msg)) {
                     $http.post('/deals/deleteresponse/' + id).then(function (answer) {
                         window.alert(answer.data);
