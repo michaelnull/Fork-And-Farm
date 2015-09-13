@@ -97,6 +97,17 @@
             });
             };
        
+        this.deletead = function (id) {
+            
+            $http.get('deleteAd/' + id).success(function (data) {
+                console.log(data);
+            });
+            if (confirm('delete this ad?'))
+            {
+                $http.post('DeleteAd/' + id);
+            }
+           
+        };
       
         
        

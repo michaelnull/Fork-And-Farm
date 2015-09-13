@@ -44,7 +44,6 @@
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.Unit}}
                 </div>
-
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     per unit: <br />  {{ad.UnitPrice | currency}}
                 </div>
@@ -57,7 +56,9 @@
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.ProposedByOrganization}}
                 </div>
-               
+                <div>
+                    <button ng-show="display.userinfo.UserName == ad.ProposedBy" class="btn btn-danger" ng-click="display.deletead(ad.Id)">Delete</button>
+                </div>
             </div>
             
             <div class="row">

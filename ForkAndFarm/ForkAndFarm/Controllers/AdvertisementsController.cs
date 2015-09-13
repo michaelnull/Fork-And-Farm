@@ -348,6 +348,73 @@ namespace ForkAndFarm.Controllers
             return Json(new { UserName = currentuser.UserName, UserRole = currentuser.UserRole.ToString() }, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
+        //get acton
+        public ActionResult DeleteAd(int? id)
+        {
+            if(id == null)
+            {
+                return Content("error, id not sent");
+            }
+           
+            Advertisement advertisement = db.Advertisements.Find(id);
+            if (advertisement == null)
+            {
+                return Content("error, advertisement not found in database");
+            }
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if(currentuser==null)
+            {
+                return Content("error, user not found in database");
+            }
+            if(currentuser.UserName != advertisement.ProposedBy)
+            {
+                return Content("error, user name does not match user that originally posted the ad");
+            }
+            return Json(advertisement, JsonRequestBehavior.AllowGet);
+        }
+        //post action
+        [HttpPost, ActionName("DeleteAd")]
+        [Authorize]
+        public ActionResult DeleteAdConfirmed(int? id)
+        {
+            Advertisement advertisement = db.Advertisements.Find(id);
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            var list = advertisement.ResponseToAdvertisement;
+            if (list != null)
+            { 
+                foreach (Deal deal in list)
+                {
+                    Deal trade = db.Deals.FirstOrDefault(x => x.Id == deal.Id);
+                    //get poster of response and remove response from user's list
+                    ForkAndFarmUser poster = db.Users.FirstOrDefault(x => x.UserName == trade.ProposedBy);
+                    poster.DealsFromMe.Remove(trade);
+                    //remove response from list of ad owner's responses
+                    currentuser.DealsToMe.Remove(trade);
+                  
+                }
+                //remove trades from database
+                db.Deals.RemoveRange(list);
+                //remove response from list of responses to ad
+                advertisement.ResponseToAdvertisement.Clear();
+            }
+            //remove ad from list of ads to user
+            currentuser.MyAdvertisements.Remove(advertisement);
+
+            db.Advertisements.Remove(advertisement);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception err)
+            {
+                ModelState.AddModelError(String.Empty, err.Message);
+            }
+           
+
+            return Content("advertisement deleted successfully");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
