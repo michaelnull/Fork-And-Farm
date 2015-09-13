@@ -101,33 +101,33 @@
             var msg = '';
             $http.get('deleteAd/' + id).success(function (response) {
                 console.log(response);
-                msg = response;
+                msg = 'delete ad with Memo ' + response.Memo;
+                if (confirm(msg)) {
+                    $http.post('DeleteAd/' + id).then(function (response) {
+                        window.alert(response.data);
+                        display.getdata('allads');
+                        display.goto(display.page);
+                    });
+                }
             });
-            if (confirm('delete this ad?'+ msg))
-            {
-                $http.post('DeleteAd/' + id).then(function (response) {
-                    window.alert('ad successfully deleted'+response.data);
-                    display.getdata('allads');
-                    display.goto(display.page);
-                });
-            }
+           
         };
 
         this.deleteresponse = function (id) {
-            var msg = '';
+           
             var adid = '';
             $http.get('/deals/deleteresponse/' + id).success(function (response) {
                 adid = response.OfferId;
                 console.log(response);
-                msg = response;
+                var msg = 'delete response where Memo is ' + response.Memo;
+                if (confirm(msg)) {
+                    $http.post('/deals/deleteresponse/' + id).then(function (answer) {
+                        window.alert(answer.data);
+                        display.getresponses(adid);
+                    })
+                }
             });
-            if (confirm('delete this response?'))
-            {
-                $http.post('/deals/deleteresponse/' + id).then(function (response) {
-                    window.alert(response.data);
-                    display.getresponses(adid);
-                })
-            }
+           
         };
         
        

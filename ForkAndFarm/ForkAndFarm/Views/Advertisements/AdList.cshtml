@@ -67,7 +67,7 @@
             </div>
             <div class="row">
 
-                <button ng-click="showDetails = !showDetails; display.responses = {}; display.offermessage = 'awaiting data'">Details</button>
+                <button class="btn btn-info" ng-click="showDetails = !showDetails; display.responses = {}; display.offermessage = 'awaiting data'">Details</button>
                 <div ng-show="showDetails">
                     Proposed by user: {{ad.ProposedBy}} 
                     Contact Phone Number: {{ad.ProposedByPhone}}
@@ -76,7 +76,7 @@
                     <!--Hide section if transaction not allowed-->
                     <div ng-show="(ad.AdType=='Purchase Ad' && display.userinfo.UserRole =='Supplier') || (ad.AdType=='Supply Ad' && display.userinfo.UserRole=='Purchaser')">
                         <h4 ng-hide="display.offermessage=='awaiting data'">{{display.offermessage}}</h4> 
-                        <button ng-click="showOffer = !showOffer">Make an Offer</button>
+                        <button class="btn btn-warning" ng-click="showOffer = !showOffer">Make an Offer</button>
                         <div ng-show="showOffer">
                             <h3>Make an Offer</h3>
                             <form id="offerform" name="offerform" class="form-horizontal" ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()' >
@@ -128,7 +128,7 @@
                         </div>
                     </div><!--end of make offer collapsable section-->
                     <div>
-                        <button ng-click="display.getresponses(ad.Id)">Show responses on this Ad</button>
+                        <button class="btn btn-primary" ng-click="display.getresponses(ad.Id)">Show responses on this Ad</button>
                         <div> <!--list of offers section-->
                            
                             <div class="container mylist" ng-repeat="response in display.responses">
