@@ -98,21 +98,37 @@
             };
        
         this.deletead = function (id) {
-            
-            $http.get('deleteAd/' + id).success(function (data) {
-                console.log(data);
+            var msg = '';
+            $http.get('deleteAd/' + id).success(function (response) {
+                console.log(response);
+                msg = response;
             });
-            if (confirm('delete this ad?'))
+            if (confirm('delete this ad?'+ msg))
             {
-                $http.post('DeleteAd/' + id).then(function (data) {
-                    window.alert('ad successfully deleted');
+                $http.post('DeleteAd/' + id).then(function (response) {
+                    window.alert('ad successfully deleted'+response.data);
                     display.getdata('allads');
                     display.goto(display.page);
                 });
             }
-           
         };
-      
+
+        this.deleteresponse = function (id) {
+            var msg = '';
+            var adid = '';
+            $http.get('/deals/deleteresponse/' + id).success(function (response) {
+                adid = response.OfferId;
+                console.log(response);
+                msg = response;
+            });
+            if (confirm('delete this response?'))
+            {
+                $http.post('/deals/deleteresponse/' + id).then(function (response) {
+                    window.alert(response.data);
+                    display.getresponses(adid);
+                })
+            }
+        };
         
        
 

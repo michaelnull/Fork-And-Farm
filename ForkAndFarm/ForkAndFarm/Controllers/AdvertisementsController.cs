@@ -363,14 +363,8 @@ namespace ForkAndFarm.Controllers
                 return Content("error, advertisement not found in database");
             }
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            if(currentuser==null)
-            {
-                return Content("error, user not found in database");
-            }
-            if(currentuser.UserName != advertisement.ProposedBy)
-            {
-                return Content("error, user name does not match user that originally posted the ad");
-            }
+           
+           
             return Json(advertisement, JsonRequestBehavior.AllowGet);
         }
         //post action
@@ -380,7 +374,19 @@ namespace ForkAndFarm.Controllers
         public ActionResult DeleteAdConfirmed(int? id)
         {
             Advertisement advertisement = db.Advertisements.Find(id);
+            if (advertisement == null)
+            {
+                return Content("error, advertisement not found in database");
+            }
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            if (currentuser == null)
+            {
+                return Content("error, user not found in database");
+            }
+            if (currentuser.UserName != advertisement.ProposedBy)
+            {
+                return Content("error, user name does not match user that originally posted the ad");
+            }
             var list = advertisement.ResponseToAdvertisement;
             if (list != null)
             { 

@@ -328,6 +328,44 @@ namespace ForkAndFarm.Controllers
             }
             return Json(list, JsonRequestBehavior.AllowGet);  
         }
+        [Authorize]
+        public ActionResult DeleteResponse(int? id)
+        {
+            if (id == null)
+            {
+                return Content("error, response ID missing");
+            }
+            Deal deal = db.Deals.Find(id);
+            if (deal == null)
+            {
+                return Content("error, response not found in database");
+            }
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            return Json(deal, JsonRequestBehavior.AllowGet);  
+        }
+        [Authorize]
+        [HttpPost, ActionName("DeleteResponse")]
+        public ActionResult DeleteResponseConfirmed(int? id)
+        {
+
+            Deal deal = db.Deals.Find(id);
+            if (deal == null)
+            {
+                return Content("error, response not found in database");
+            }
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            ForkAndFarmUser offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
+            if (currentuser == null || currentuser.UserName != deal.ProposedBy)
+            {
+                return Content("error, user not found in database");
+            }
+            offeree.DealsToMe.Remove(deal);
+            currentuser.DealsToMe.Remove(deal);
+            db.Deals.Remove(deal);
+            db.SaveChanges();
+            return Content("response successfully deleted");
+
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -143,8 +143,10 @@
                                     <div class="container row">
                                         Memo: {{response.Memo}}
                                     </div>
+                                    <div ng-show="response.ProposedBy == display.userinfo.UserName">
+                                        <button class="btn btn-danger" ng-click="display.deleteresponse(response.Id)">Delete</button>
+                                    </div>
                                 </div>
-
                             </div>
                         <div ng-show="display.allresponses.length > display.responses.length">
                             <button ng-click="display.showtenmoreresponses()">Show 10 more responses</button>
