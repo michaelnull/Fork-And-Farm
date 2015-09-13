@@ -104,7 +104,11 @@
             });
             if (confirm('delete this ad?'))
             {
-                $http.post('DeleteAd/' + id);
+                $http.post('DeleteAd/' + id).then(function (data) {
+                    window.alert('ad successfully deleted');
+                    display.getdata('allads');
+                    display.goto(display.page);
+                });
             }
            
         };

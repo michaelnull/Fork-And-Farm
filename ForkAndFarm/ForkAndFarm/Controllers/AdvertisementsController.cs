@@ -376,6 +376,7 @@ namespace ForkAndFarm.Controllers
         //post action
         [HttpPost, ActionName("DeleteAd")]
         [Authorize]
+        //due to the many to many relationship, the subordinate deals must be removed from all lists, then removed from the db, then the ad must be removed from the user's list and then removed from the db
         public ActionResult DeleteAdConfirmed(int? id)
         {
             Advertisement advertisement = db.Advertisements.Find(id);
