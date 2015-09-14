@@ -1,35 +1,40 @@
 ﻿
 @{
-    ViewBag.Title = "AdList";
+    ViewBag.Title = "Fork & Farm Arkansas";
 }
 
 
 <section ng-controller="DisplayController as display" ng-init="display.page = 1">
     <!--information bar-->
     <div class="green">
-        My Organization: <span class="bigtext">{{display.userinfo.Organization}}</span>
+       
         <button class="btn btn-primary" ng-click="display.getdata('/advertisements/allads')">All Ads</button>
         <button class="btn btn-primary" ng-click="display.getdata('/advertisements/supplylist')">Suppliers' Ads</button>
         <button class="btn btn-primary" ng-click="display.getdata('/advertisements/purchaselist')">Purchasers' Ads</button>
-        <ul class="notification">
-            <li>
-                <a # ng-click="display.getdata('/deals/dealstome')">Offers to me: <span class=" bigtext">{{display.userinfo.DealToMeCount}}</span></a>
-            </li>
-            <li>
-               <a # ng-click="display.getdata('/advertisements/myads')"> My active advertisements: <span class="bigtext">{{display.userinfo.AdCount}}</span></a>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">new ad</button>
-            </li>
-            <li>
-               <a # ng-click="display.getdata('/deals/dealsfromme')">Offers from me: <span class="bigtext">{{display.userinfo.DealFromMeCount}}</span></a>
-            </li>
-            <li>
-                My Role: <span class="bigtext">{{display.userinfo.UserRole}}</span>
-            </li>
-           
-            <li>
-                <a>My Contact Phone: <span class="bigtext">{{display.userinfo.Phone}}</span></a>
-            </li>
-        </ul>
+        <div ng-show="display.userinfo.UserName == null"><!--show when no user logged in--><span class="bigtext">Please <a href="/Account/Login">Login</a> or <a href="/Account/Register">Register</a></span></div>
+        <div ng-hide="display.userinfo.UserName == null"><!--hide when no user logged in-->
+            My Organization: <span class="bigtext">{{display.userinfo.Organization}}</span>
+            <ul class="notification">
+                <li>
+                    <a # ng-click="display.getdata('/deals/dealstome')">Offers to me: <span class=" bigtext">{{display.userinfo.DealToMeCount}}</span></a>
+                </li>
+                <li>
+                    <a # ng-click="display.getdata('/advertisements/myads')"> My active advertisements: <span class="bigtext">{{display.userinfo.AdCount}}</span></a>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">new ad</button>
+                </li>
+                <li>
+                    <a # ng-click="display.getdata('/deals/dealsfromme')">Offers from me: <span class="bigtext">{{display.userinfo.DealFromMeCount}}</span></a>
+                </li>
+                <li>
+                    My Role: <span class="bigtext">{{display.userinfo.UserRole}}</span>
+                </li>
+
+                <li>
+                    <a>My Contact Phone: <span class="bigtext">{{display.userinfo.Phone}}</span></a>
+                </li>
+            </ul>
+        </div>
+        
     </div>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -151,7 +156,7 @@
                     {{ad.Product}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
-                    {{ad.Quantity}}
+                    {{ad.Quantity}} {{ad.Unit}}
                 </div>
                
                 <div class="col-xs-6 col-sm-2 col-md-1">
@@ -181,9 +186,7 @@
                     <button class="btn btn-warning" ng-click="showOffer = !showOffer">Make an Offer</button>
                 </div>
 
-                    <button class="btn btn-info" ng-click="showDetails = !showDetails; display.responses = {}; display.offermessage = 'awaiting data'">Details and Responses</button>
-                    
-                    <h4 ng-hide="display.offermessage=='awaiting data'">{{display.offermessage}}</h4>
+                    <button class="btn btn-info" ng-click="showDetails = !showDetails; display.responses = {}">Details and Responses</button>
                     <div ng-show="showOffer" class="container">
                         <h3>Make an Offer</h3>
                         <form id="offerform" name="offerform" class="form-horizontal" ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()'>
@@ -229,7 +232,7 @@
                                 <input class="btn btn-primary" ng-disabled="offerform.$pristine" type="submit" value="Submit" />
                             </div>
                             <div class="col-md-1">
-                                <input type="reset" class="btn btn-danger" value="Reset" ng-click="display.offermessage='awaiting data'; offerform.$setPristine()" />
+                                <input type="reset" class="btn btn-danger" value="Reset" ng-click="offerform.$setPristine()" />
                             </div>
                         </form>
                 </div><!--end of make offer collapsable section-->
@@ -244,7 +247,7 @@
                                     <div>
                                         Response to Advertisement:<br/>
                                         Proposed by: {{response.ProposedByOrganization}}
-                                        Quantity: {{response.Quantity}}
+                                        Quantity: {{response.Quantity}} {{response.Unit}}
                                         Unit Price: {{response.UnitPrice | currency}}
                                         Extended Price: {{response.ExtPrice | currency}}
                                         Delivery Date: {{display.getjsdate(response.Delivery) | date:"mediumDate"}}
