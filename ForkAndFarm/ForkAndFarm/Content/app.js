@@ -14,6 +14,7 @@
                 .then(function (response) {
                     display.offermessage = response.data;
                     window.alert(response.data);
+                    document.getElementById('offerform').reset();
                     display.getdata('/advertisements/allads');
             });
         };
@@ -60,7 +61,7 @@
             .then(function (response) {
                 
                 $("#myModal").modal('hide');
-                display.createform.reset();
+                document.getElementById('createform').reset();
                 window.alert(response.data);
                 display.getdata('/advertisements/allads');
 
