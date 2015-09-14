@@ -340,7 +340,7 @@ namespace ForkAndFarm.Controllers
             {
                 return Content("error, response not found in database");
             }
-            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+           
             return Json(deal, JsonRequestBehavior.AllowGet);  
         }
         [Authorize]
@@ -365,6 +365,20 @@ namespace ForkAndFarm.Controllers
             db.SaveChanges();
             return Content("response successfully deleted");
 
+        }
+
+        [Authorize]
+        public ActionResult DealsToMe()
+        {
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            return Json(currentuser.DealsToMe.OrderBy(x => x.CreatedOn), JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult DealsFromMe()
+        {
+            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            return Json(currentuser.DealsFromMe.OrderBy(x => x.CreatedOn), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

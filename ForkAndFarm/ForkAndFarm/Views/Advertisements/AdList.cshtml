@@ -6,29 +6,115 @@
 
 <section ng-controller="DisplayController as display" ng-init="display.page = 1">
     <!--information bar-->
-    <div class="green container">
-        <ul>
+    <div class="green">
+        My Organization: <span class="bigtext">{{display.userinfo.Organization}}</span>
+        <button class="btn btn-primary" ng-click="display.getdata('/advertisements/allads')">All Ads</button>
+        <button class="btn btn-primary" ng-click="display.getdata('/advertisements/supplylist')">Suppliers' Ads</button>
+        <button class="btn btn-primary" ng-click="display.getdata('/advertisements/purchaselist')">Purchasers' Ads</button>
+        <ul class="notification">
             <li>
-                Offers to me: <span class=" bigtext">{{display.userinfo.DealToMeCount}}</span>
+                <a # ng-click="display.getdata('/deals/dealstome')">Offers to me: <span class=" bigtext">{{display.userinfo.DealToMeCount}}</span></a>
             </li>
             <li>
-                My active advertisements: <span class="bigtext">{{display.userinfo.AdCount}}</span>
+               <a # ng-click="display.getdata('/advertisements/myads')"> My active advertisements: <span class="bigtext">{{display.userinfo.AdCount}}</span></a>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">new ad</button>
             </li>
             <li>
-                Offers from me: <span class="bigtext">{{display.userinfo.DealFromMeCount}}</span>
+               <a # ng-click="display.getdata('/deals/dealsfromme')">Offers from me: <span class="bigtext">{{display.userinfo.DealFromMeCount}}</span></a>
             </li>
             <li>
                 My Role: <span class="bigtext">{{display.userinfo.UserRole}}</span>
             </li>
+           
             <li>
-                My Organization: <span class="bigtext">{{display.userinfo.Organization}}</span>
-            </li>
-            <li>
-                My Contact Phone: <span class="bigtext">{{display.userinfo.Phone}}</span>
+                <a>My Contact Phone: <span class="bigtext">{{display.userinfo.Phone}}</span></a>
             </li>
         </ul>
     </div>
-    <button ng-click='display.create()'>Create New</button>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create a new Advertisement!</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="createform" name="createform" class="form-horizontal" ng-submit='display.create(newad); createform.$setPristine()'>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Product</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.Product" placeholder="What Product?" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Product" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Quantity</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.Quantity" placeholder="How Many?" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Quantity" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Unit</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.Unit" placeholder="lbs, quarts, each, etc." />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Unit" data-valmsg-replace="true"></span>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Unit Price</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.UnitPrice" placeholder="how much per?" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Unit Price" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Payment Terms</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.PaymentTerms" placeholder="cash, net15, etc." />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Payment Terms" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Reference</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.Invoice" placeholder="Invoice or Purchase order #" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Reference" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Memo</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="text" ng-model="newad.Memo" placeholder="put additional information here" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Memo" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Delivery Date</label>
+                            <div class="col-md-10">
+                                <input class="form-control text-box single-line" type="date" ng-model="newad.Delivery" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Delivery Date" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-1 col-md-1 container">
+                            <input class="btn btn-primary" ng-disabled="createform.$pristine" type="submit" value="Submit" />
+                        </div>
+                        <div class="col-md-offset-3 col-md-1">
+                            <input type="reset" class="btn btn-danger" value="Reset" ng-click="createform.$setPristine()" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
 
     <div class="row">
     <div class="col-lg-6">
@@ -54,6 +140,9 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.AdType}}
+                    <div ng-show="ad.AdType =='response'">
+                        <button class="btn btn-warning" ng-init="id = ad.OfferId" ng-click="display.getdata('/Advertisements/GetOneAd/'+id)">Go To Ad</button>
+                    </div>
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     Posted on:<br />  {{display.getjsdate(ad.CreatedOn) | date: "mediumDate"}}
@@ -64,11 +153,9 @@
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.Quantity}}
                 </div>
+               
                 <div class="col-xs-6 col-sm-2 col-md-1">
-                    {{ad.Unit}}
-                </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    per unit: <br />  {{ad.UnitPrice | currency}}
+                    per {{ad.Unit}}: <br />  {{ad.UnitPrice | currency}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     total: <br />  {{ad.ExtPrice | currency}}
@@ -80,7 +167,7 @@
                     {{ad.ProposedByOrganization}}
                 </div>
                 <div>
-                    <button ng-show="display.userinfo.UserName == ad.ProposedBy" class="btn btn-danger" ng-click="display.deletead(ad.Id)">Delete</button>
+                    <button ng-show="display.userinfo.UserName == ad.ProposedBy && ad.AdType != 'response'" class="btn btn-danger" ng-click="display.deletead(ad.Id)">Delete</button>
                 </div>
             </div>
             

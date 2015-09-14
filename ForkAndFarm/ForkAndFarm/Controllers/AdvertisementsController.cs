@@ -273,44 +273,43 @@ namespace ForkAndFarm.Controllers
             return Json(db.Advertisements.Where(x => x.ProposedByOrganization.Contains(id)).OrderBy(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         [Authorize]
-        public ActionResult MakeOffer(int? id)
+       public ActionResult SubmitAd(Advertisement advertisement)
         {
-            if (id == null)
-            {
-                return Content("id not received");
-            }
-            Advertisement offer = db.Advertisements.FirstOrDefault(x => x.Id == id);
-            Deal deal = new Deal();
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            if ((currentuser.UserRole == ForkAndFarmUser.Portal.Purchaser && offer.AdType == AdType.SupplyOffer) ||
-                (currentuser.UserRole == ForkAndFarmUser.Portal.Supplier && offer.AdType == AdType.PurchaseOffer))
+            advertisement.ProposedBy = currentuser.UserName;
+            advertisement.ProposedByOrganization = currentuser.Organization;
+            advertisement.ProposedByPhone = currentuser.Phone;
+            advertisement.CreatedOn = DateTime.Now;
+            advertisement.ExtPrice = advertisement.Quantity * advertisement.UnitPrice;
+
+            switch (currentuser.UserRole)
             {
-                deal.ProposedBy = currentuser.UserName;
-                deal.ProposedByOrganization = currentuser.Organization;
-                deal.ProposedByPhone = currentuser.Phone;
-                deal.Delivery = offer.Delivery;
-                deal.PaymentTerms = offer.PaymentTerms;
-                deal.Product = offer.Product;
-                deal.Quantity = offer.Quantity;
-                deal.Unit = offer.Unit;
-                deal.UnitPrice = offer.UnitPrice;
-                deal.OfferedTo = offer.ProposedBy;
-                deal.OfferId = offer.Id;
-                deal.ExtPrice = offer.UnitPrice * offer.Quantity;
-                return View(deal);
+                case ForkAndFarmUser.Portal.Purchaser:
+                    advertisement.AdType = AdType.PurchaseOffer;
+                    break;
+
+                case ForkAndFarmUser.Portal.Supplier:
+                    advertisement.AdType = AdType.SupplyOffer;
+                    break;
             }
-            else
+            if (ModelState.IsValid)
             {
-                return new EmptyResult();
+                currentuser.MyAdvertisements.Add(advertisement);
+                db.Advertisements.Add(advertisement);
+                db.SaveChanges();
             }
 
+            return Content("advertisement successfully created");
         }
 
-        // POST: Deals/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+    
+
+    // POST: Deals/Create
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [Authorize]
         [HttpPost]
         public ActionResult MakeOffer(Deal deal)
         {
@@ -338,14 +337,12 @@ namespace ForkAndFarm.Controllers
             return Content("Offer was not recorded");
         }
 
-        public ActionResult GetUserInfo()
+        [Authorize]
+        public ActionResult MyAds()
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            {
-                if (currentuser == null)
-                    return new EmptyResult();
-            }
-            return Json(new { UserName = currentuser.UserName, UserRole = currentuser.UserRole.ToString() }, JsonRequestBehavior.AllowGet);
+
+            return Json(currentuser.MyAdvertisements.OrderByDescending(x => x.CreatedOn), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -420,6 +417,22 @@ namespace ForkAndFarm.Controllers
            
 
             return Content("advertisement deleted successfully");
+        }
+
+        public ActionResult GetOneAd(int? id)
+        {
+            List<Advertisement> list = new List<Advertisement>();
+            if (id == null)
+            {
+                list.Add(new Advertisement { Product = "error, Id not received" });
+            }
+            Advertisement advertisement = db.Advertisements.FirstOrDefault(x => x.Id == id);
+            if (advertisement == null)
+            {
+                list.Add(new Advertisement { Product = "Error, Ad not found" });
+            }
+            list.Add(advertisement);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
