@@ -28,8 +28,16 @@
             $http.get('/portalVM/getUserInfo').success(function (data) {
                 display.userinfo = data;
                 display.role = data.UserRole;
-                console.log(display.role)
-                return display.role
+                console.log('get user function says: ' + display.role)
+                if (display.role == 'Purchaser') {
+                    display.all = display.getdata('/advertisements/SupplyList');
+                }
+                else if (display.role == 'Supplier') {
+                    display.all = display.getdata('/advertisements/purchaselist');
+                }
+                else {
+                    display.all = display.getdata('/advertisements/allads');
+                }
             })};
 
         this.goto = function (page) {
@@ -61,8 +69,6 @@
             });
         };
 
-      
-
         this.create = function (ad, info) {
             $http.post('/advertisements/submitad',{Product: ad.Product, Quantity: ad.Quantity, Unit: ad.Unit, UnitPrice: ad.UnitPrice, PaymentTerms: ad.PaymentTerms, Invoice: ad.Invoice, Memo: ad.Memo, Delivery: ad.Delivery})
             .then(function (response) {
@@ -71,7 +77,6 @@
                 window.alert(response.data);
                 display.userinfo.AdCount++;
                 display.getdata('/advertisements/allads');
-
             });
         };
         
@@ -143,7 +148,6 @@
                     })
                 }
             });
-           
         };
         
         this.resetcount = function () {
@@ -159,13 +163,25 @@
             });
         };
 
+        this.getfirstads = function () {
+            if (display.role == 'Supplier') {
+                $http.get('/advertisements/PurchaseList').success(function(response){
+                    display.all = response;
+                });
+            }
+            if (display.role == 'Purchaser') {
+                $http.get('/advertisements/SupplyList').success(function (response) {
+                    display.all = response;
+                });
+            }
+           
+                $http.get('/advertisements/AllAds').success(function (response) {
+                    display.all = response;
+                });
+                display.goto(1);
+        };
+
         this.getuserinfo();
-
-        this.getdata('/advertisements/AllAds');
-       
-        
-
-        
 
       
     }]);

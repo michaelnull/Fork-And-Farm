@@ -265,36 +265,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\PurchaseOffers\Create.cshtml" />
-    <Content Include="Views\PurchaseOffers\Delete.cshtml" />
-    <Content Include="Views\PurchaseOffers\Details.cshtml" />
-    <Content Include="Views\PurchaseOffers\Edit.cshtml" />
-    <Content Include="Views\PurchaseOffers\Index.cshtml" />
-    <Content Include="Views\Deals\Delete.cshtml" />
-    <Content Include="Views\Deals\Details.cshtml" />
-    <Content Include="Views\Deals\Edit.cshtml" />
-    <Content Include="Views\Deals\ProposePurchase.cshtml" />
-    <Content Include="Views\Deals\ShowProposedDeals.cshtml" />
-    <Content Include="Views\Deals\ProposeSale.cshtml" />
-    <Content Include="Views\Deals\ShowProposedSaleDeals.cshtml" />
-    <Content Include="Views\Deals\PurchaseEdit.cshtml" />
-    <Content Include="Views\Deals\PurchaseDelete.cshtml" />
-    <Content Include="Views\Deals\PurchaseDetails.cshtml" />
-    <Content Include="Views\PortalVM\Portal.cshtml" />
-    <Content Include="Views\PortalVM\OffersToMe.cshtml" />
-    <Content Include="Views\PortalVM\MySupplyOffers.cshtml" />
-    <Content Include="Views\PortalVM\MyPurchaseOffers.cshtml" />
-    <Content Include="Views\Advertisements\Create.cshtml" />
-    <Content Include="Views\Advertisements\Delete.cshtml" />
-    <Content Include="Views\Advertisements\Details.cshtml" />
-    <Content Include="Views\Advertisements\Edit.cshtml" />
-    <Content Include="Views\Advertisements\Index.cshtml" />
-    <Content Include="Views\PortalVM\MyAds.cshtml" />
-    <Content Include="Views\Advertisements\SupplyAds.cshtml" />
-    <Content Include="Views\Advertisements\PurchaseAds.cshtml" />
-    <Content Include="Views\Deals\ProposeDeal.cshtml" />
     <Content Include="Views\Advertisements\AdList.cshtml" />
-    <Content Include="Views\Advertisements\MakeOffer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
