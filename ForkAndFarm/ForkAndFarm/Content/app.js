@@ -154,10 +154,8 @@
         };
 
         this.setold = function (id) {
-
             $http.get('/deals/setold/' + id).success(function(response){
                 console.log(response);
-
             });
         };
 

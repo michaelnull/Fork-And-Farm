@@ -250,8 +250,10 @@
                                     <div>
                                         
                                         <div class="form-group" ng-show="response.IsNew && display.userinfo.UserName == response.OfferedTo">
-                                            <button class="btn btn-danger">New!</button>
-                                            <input type="checkbox" class="form-control" ng-model="response.IsNew"/>
+                                            <form ng-model="response">
+                                            <button class="btn btn-danger" ng-click="display.setold(response.Id)">New!</button>
+                                            <input type="checkbox" class="form-control" ng-model="response.IsNew" ng-click="display.setold(response.Id)"/>
+                                            </form>
                                         </div>
                                         
                                         Response to Advertisement:   |
