@@ -5,16 +5,12 @@
 
         var display = this;
         this.all = [];
-        var details = [];
-        var responsecount = 0;
-        
+        this.role = '';
+
         this.submitoffer = function (id, info) {
-            if(confirm('Confirm Offer \n Product: ' + info.Product +
-                '\n Quantity: ' + info.Quantity +
-                '\n Unit: ' + info.Unit +
+            if(confirm('Confirm Offer \n Quantity: ' + info.Quantity +
                 '\n Unit Price: ' + info.UnitPrice +
                 '\n Payment Terms: ' + info.PaymentTerms +
-                '\n Reference: ' + info.Invoice +
                 '\n Memo: ' + info.Memo +
                 '\n Delivery Date: ' + info.Delivery
                 )) {
@@ -26,12 +22,14 @@
                display.getdata('/advertisements/allads');
            });
             }
-           
         };
 
         this.getuserinfo = function () {
             $http.get('/portalVM/getUserInfo').success(function (data) {
                 display.userinfo = data;
+                display.role = data.UserRole;
+                console.log(display.role)
+                return display.role
             })};
 
         this.goto = function (page) {
@@ -156,15 +154,18 @@
         };
 
         this.setold = function (id) {
+
             $http.get('/deals/setold/' + id).success(function(response){
                 console.log(response);
 
             });
         };
 
-        this.getdata('/Advertisements/AllAds/');
-       
         this.getuserinfo();
+
+        this.getdata('/advertisements/AllAds');
+       
+        
 
         
 

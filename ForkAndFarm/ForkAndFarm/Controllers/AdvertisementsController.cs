@@ -14,216 +14,216 @@ namespace ForkAndFarm.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Advertisements
-        public ActionResult Index(string id)
-        {
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            if (currentuser != null)
-            {
-                ViewBag.User = currentuser.UserName;
-                ViewBag.Role = currentuser.UserRole.ToString();
-            }
-            
-            if (id == null || id == "")
-            {
-                return View(db.Advertisements.ToList());
-            }
-            return View(db.Advertisements.Where(x => x.Product.Contains(id)).OrderByDescending(x=>x.CreatedOn).ToList());
-           
-        }
+        //// GET: Advertisements
+        //public ActionResult Index(string id)
+        //{
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    if (currentuser != null)
+        //    {
+        //        ViewBag.User = currentuser.UserName;
+        //        ViewBag.Role = currentuser.UserRole.ToString();
+        //    }
 
-        public ActionResult SupplyAds(string id)
-        {
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            ViewBag.User = currentuser.UserName;
-            ViewBag.Role = currentuser.UserRole.ToString();
-            List<Advertisement> list = new List<Advertisement>();
-            if(id == null || id == "")
-            {
-                list = db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer).
-                    OrderByDescending(x => x.CreatedOn).
-                    ToList();
-            }
-            else
-            {
-                list = db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer).
-                    Where(x => x.Product.Contains(id)).
-                    OrderByDescending(x => x.CreatedOn).
-                    ToList();
-            }
-            return View(list);
-        }
-        public ActionResult PurchaseAds(string id)
-        {
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            ViewBag.User = currentuser.UserName;
-            ViewBag.Role = currentuser.UserRole.ToString();
-            List<Advertisement> list = new List<Advertisement>();
-            if (id == null || id == "")
-            {
-                list = db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer).
-                    OrderByDescending(x => x.CreatedOn).
-                    ToList();
-            }
-            else
-            {
-                list = db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer).
-                    Where(x => x.Product.Contains(id)).
-                    OrderByDescending(x => x.CreatedOn).
-                    ToList();
-            }
-            return View(list);
-        }
+        //    if (id == null || id == "")
+        //    {
+        //        return View(db.Advertisements.ToList());
+        //    }
+        //    return View(db.Advertisements.Where(x => x.Product.Contains(id)).OrderByDescending(x=>x.CreatedOn).ToList());
+
+        //}
+
+        //public ActionResult SupplyAds(string id)
+        //{
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    ViewBag.User = currentuser.UserName;
+        //    ViewBag.Role = currentuser.UserRole.ToString();
+        //    List<Advertisement> list = new List<Advertisement>();
+        //    if(id == null || id == "")
+        //    {
+        //        list = db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer).
+        //            OrderByDescending(x => x.CreatedOn).
+        //            ToList();
+        //    }
+        //    else
+        //    {
+        //        list = db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer).
+        //            Where(x => x.Product.Contains(id)).
+        //            OrderByDescending(x => x.CreatedOn).
+        //            ToList();
+        //    }
+        //    return View(list);
+        //}
+        //public ActionResult PurchaseAds(string id)
+        //{
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    ViewBag.User = currentuser.UserName;
+        //    ViewBag.Role = currentuser.UserRole.ToString();
+        //    List<Advertisement> list = new List<Advertisement>();
+        //    if (id == null || id == "")
+        //    {
+        //        list = db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer).
+        //            OrderByDescending(x => x.CreatedOn).
+        //            ToList();
+        //    }
+        //    else
+        //    {
+        //        list = db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer).
+        //            Where(x => x.Product.Contains(id)).
+        //            OrderByDescending(x => x.CreatedOn).
+        //            ToList();
+        //    }
+        //    return View(list);
+        //}
 
         // GET: Advertisements/Details/5
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            ViewBag.UserRole = currentuser.UserRole.ToString();
-            ViewBag.User = currentuser.UserName;
-            Advertisement advertisement = db.Advertisements.Find(id);
-            if (advertisement == null)
-            {
-                return HttpNotFound();
-            }
-            return View(advertisement);
-        }
+        //[Authorize]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    ViewBag.UserRole = currentuser.UserRole.ToString();
+        //    ViewBag.User = currentuser.UserName;
+        //    Advertisement advertisement = db.Advertisements.Find(id);
+        //    if (advertisement == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(advertisement);
+        //}
 
-        // GET: Advertisements/Create
-        [Authorize]
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: Advertisements/Create
+        //[Authorize]
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Advertisements/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Invoice,AdType,ProposedBy,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo,ProposedByOrganization,ProposedByPhone")] Advertisement advertisement)
-        {
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            advertisement.ProposedBy = currentuser.UserName;
-            advertisement.ProposedByOrganization = currentuser.Organization;
-            advertisement.ProposedByPhone = currentuser.Phone;
-            advertisement.CreatedOn = DateTime.Now;
-            advertisement.ExtPrice = advertisement.Quantity * advertisement.UnitPrice;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,Invoice,AdType,ProposedBy,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo,ProposedByOrganization,ProposedByPhone")] Advertisement advertisement)
+        //{
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    advertisement.ProposedBy = currentuser.UserName;
+        //    advertisement.ProposedByOrganization = currentuser.Organization;
+        //    advertisement.ProposedByPhone = currentuser.Phone;
+        //    advertisement.CreatedOn = DateTime.Now;
+        //    advertisement.ExtPrice = advertisement.Quantity * advertisement.UnitPrice;
 
-            switch (currentuser.UserRole)
-            {
-                case ForkAndFarmUser.Portal.Purchaser:
-                    advertisement.AdType = AdType.PurchaseOffer;
-                    break;
+        //    switch (currentuser.UserRole)
+        //    {
+        //        case ForkAndFarmUser.Portal.Purchaser:
+        //            advertisement.AdType = AdType.PurchaseOffer;
+        //            break;
 
-                case ForkAndFarmUser.Portal.Supplier:
-                    advertisement.AdType = AdType.SupplyOffer;
-                    break;
-            }
-            if (ModelState.IsValid)
-            {
-                currentuser.MyAdvertisements.Add(advertisement);
-                db.Advertisements.Add(advertisement);
-                db.SaveChanges();
-                switch (currentuser.UserRole)
-                {
-                    case ForkAndFarmUser.Portal.Purchaser:
-                        return RedirectToAction("PurchaseAds");
+        //        case ForkAndFarmUser.Portal.Supplier:
+        //            advertisement.AdType = AdType.SupplyOffer;
+        //            break;
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        currentuser.MyAdvertisements.Add(advertisement);
+        //        db.Advertisements.Add(advertisement);
+        //        db.SaveChanges();
+        //        switch (currentuser.UserRole)
+        //        {
+        //            case ForkAndFarmUser.Portal.Purchaser:
+        //                return RedirectToAction("PurchaseAds");
 
-                    case ForkAndFarmUser.Portal.Supplier:
-                        return RedirectToAction("SupplyAds");
+        //            case ForkAndFarmUser.Portal.Supplier:
+        //                return RedirectToAction("SupplyAds");
 
-                    default:
-                        return RedirectToAction("Index");
-                }
-                
-            }
+        //            default:
+        //                return RedirectToAction("Index");
+        //        }
 
-            return View(advertisement);
-        }
+        //    }
+
+        //    return View(advertisement);
+        //}
 
         // GET: Advertisements/Edit/5
-        [Authorize]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Advertisement advertisement = db.Advertisements.Find(id);
-            if (advertisement == null)
-            {
-                return HttpNotFound();
-            }
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            if(advertisement.ProposedBy == currentuser.UserName)
-            {
-                return View(advertisement);
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
+        //[Authorize]
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Advertisement advertisement = db.Advertisements.Find(id);
+        //    if (advertisement == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    if(advertisement.ProposedBy == currentuser.UserName)
+        //    {
+        //        return View(advertisement);
+        //    }
+        //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //}
 
         // POST: Advertisements/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Invoice,AdType,ProposedBy,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo,ProposedByOrganization,ProposedByPhone")] Advertisement advertisement)
-        {
-            advertisement.ExtPrice = advertisement.Quantity * advertisement.UnitPrice;
-            advertisement.Memo = "edited on " + DateTime.Now.ToString() + " " + advertisement.Memo;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,Invoice,AdType,ProposedBy,Product,Unit,Quantity,UnitPrice,ExtPrice,Delivery,PaymentTerms,CreatedOn,Memo,ProposedByOrganization,ProposedByPhone")] Advertisement advertisement)
+        //{
+        //    advertisement.ExtPrice = advertisement.Quantity * advertisement.UnitPrice;
+        //    advertisement.Memo = "edited on " + DateTime.Now.ToString() + " " + advertisement.Memo;
 
-            if (ModelState.IsValid)
-            {
-                db.Entry(advertisement).State = EntityState.Modified;
-                db.SaveChanges();
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(advertisement).State = EntityState.Modified;
+        //        db.SaveChanges();
 
-                return RedirectToAction("MyAds", "PortalVM");
-            }
-            return View(advertisement);
-        }
+        //        return RedirectToAction("MyAds", "PortalVM");
+        //    }
+        //    return View(advertisement);
+        //}
 
         // GET: Advertisements/Delete/5
-        [Authorize]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Advertisement advertisement = db.Advertisements.Find(id);
-            if (advertisement == null)
-            {
-                return HttpNotFound();
-            }
+        //[Authorize]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Advertisement advertisement = db.Advertisements.Find(id);
+        //    if (advertisement == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            if (advertisement.ProposedBy == currentuser.UserName)
-            {
-                return View(advertisement);
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    if (advertisement.ProposedBy == currentuser.UserName)
+        //    {
+        //        return View(advertisement);
+        //    }
+        //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //}
 
         // POST: Advertisements/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Advertisement advertisement = db.Advertisements.Find(id);
-            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
-            currentuser.MyAdvertisements.Remove(advertisement);
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Advertisement advertisement = db.Advertisements.Find(id);
+        //    ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    currentuser.MyAdvertisements.Remove(advertisement);
 
-            db.Advertisements.Remove(advertisement);
-            db.SaveChanges();
-           
-            return RedirectToAction("MyAds", "PortalVM");
-        }
+        //    db.Advertisements.Remove(advertisement);
+        //    db.SaveChanges();
+
+        //    return RedirectToAction("MyAds", "PortalVM");
+        //}
         public ActionResult AdList()
         {
             return View();
@@ -236,8 +236,6 @@ namespace ForkAndFarm.Controllers
                 return Json(db.Advertisements.OrderByDescending(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
             }
             return Json(db.Advertisements.Where(x => x.Product.Contains(id)).OrderByDescending(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
-
-            
         }
 
         public ActionResult SupplyList()
@@ -254,13 +252,13 @@ namespace ForkAndFarm.Controllers
 
        public ActionResult Products()
         {
-            var list = db.Advertisements.OrderBy(x => x.Product).ToList();
+            var list = db.Advertisements.OrderBy(x => x.Product).OrderBy(x => x.CreatedOn).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Delivery()
         {
-            var list = db.Advertisements.OrderBy(x => x.Delivery).ToList();
+            var list = db.Advertisements.OrderBy(x => x.Delivery).OrderBy(x=>x.CreatedOn).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         
@@ -268,14 +266,14 @@ namespace ForkAndFarm.Controllers
         {
             if (id == null || id == "")
             {
-                return Json(db.Advertisements.OrderBy(x => x.ProposedByOrganization).ToList(), JsonRequestBehavior.AllowGet);
+                return Json(db.Advertisements.OrderBy(x => x.ProposedByOrganization).OrderBy(x=>x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
             }
             return Json(db.Advertisements.Where(x => x.ProposedByOrganization.Contains(id)).OrderBy(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [Authorize]
-       public ActionResult SubmitAd(Advertisement advertisement)
+        public ActionResult SubmitAd([Bind(Include ="Product, Quantity, Unit, UnitPrice, PaymentTerms, Invoice, Memo, Delivery")]Advertisement advertisement)
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
             advertisement.ProposedBy = currentuser.UserName;
@@ -294,12 +292,20 @@ namespace ForkAndFarm.Controllers
                     advertisement.AdType = AdType.SupplyOffer;
                     break;
             }
-            if (ModelState.IsValid)
+            try
             {
-                currentuser.MyAdvertisements.Add(advertisement);
-                db.Advertisements.Add(advertisement);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    currentuser.MyAdvertisements.Add(advertisement);
+                    db.Advertisements.Add(advertisement);
+                    db.SaveChanges();
+                }
             }
+            catch (DataException dex)
+            {
+                return Content(dex.Message);
+            }
+           
 
             return Content("advertisement successfully created");
         }
@@ -309,33 +315,39 @@ namespace ForkAndFarm.Controllers
     // POST: Deals/Create
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [Authorize]
-        [HttpPost]
-        public ActionResult MakeOffer(Deal deal)
-        {
+    //[Authorize]
+    //[HttpPost]
+    //public ActionResult MakeOffer([Bind(Include ="Quantity, UnitPrice, Delivery, PaymentTerms, Memo")]Deal deal)
+    //{
 
-            var offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
-            var offer = db.Advertisements.FirstOrDefault(x => x.Id == deal.OfferId);
-            var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //var offeree = db.Users.FirstOrDefault(x => x.UserName == deal.OfferedTo);
+        //var offer = db.Advertisements.FirstOrDefault(x => x.Id == deal.OfferId);
+        //var currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
 
-            deal.CreatedOn = DateTime.Now;
-            deal.ExtPrice = deal.Quantity * deal.UnitPrice;
+        //deal.CreatedOn = DateTime.Now;
+        //deal.ExtPrice = deal.Quantity * deal.UnitPrice;
 
-            if (ModelState.IsValid)
-            {
-                db.Deals.Add(deal);
+        //try
+        //{
+            //if (ModelState.IsValid)
+            //{
+                //db.Deals.Add(deal);
 
-                currentuser.DealsFromMe.Add(deal);
-                offeree.DealsToMe.Add(deal);
-                offer.ResponseToAdvertisement.Add(deal);
-                db.SaveChanges();
+                //currentuser.DealsFromMe.Add(deal);
+                //offeree.DealsToMe.Add(deal);
+                //offer.ResponseToAdvertisement.Add(deal);
+                //db.SaveChanges();
 
-                return Content("Offer was successfully recorded"+ deal.Id);
-            }
+                //return Content("Offer was successfully recorded" + deal.Id);
+            //}
+        //}
+        //catch(DataException dex)
+        //{
+            //return Content(dex.Message);
+        //}
 
-
-            return Content("Offer was not recorded");
-        }
+            //return Content("Offer was not recorded");
+    //}
 
         [Authorize]
         public ActionResult MyAds()
@@ -412,10 +424,8 @@ namespace ForkAndFarm.Controllers
             }
             catch (Exception err)
             {
-                ModelState.AddModelError(String.Empty, err.Message);
+                return Content(err.Message);
             }
-           
-
             return Content("advertisement deleted successfully");
         }
 

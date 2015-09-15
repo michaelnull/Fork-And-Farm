@@ -149,11 +149,11 @@
                     {{ad.AdType}}
                     <div ng-show="ad.AdType =='response'">
                         <button class="btn btn-warning" ng-init="id = ad.OfferId" ng-click="display.getdata('/Advertisements/GetOneAd/'+id)">Go To Ad</button>
-                        <button class="btn btn-danger" ng-show="ad.IsNew" ng-click="display.setold(ad.Id)"> New!</button>
+                        <button class="btn btn-danger" ng-show="ad.IsNew"> New!</button>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
-                    Posted on:<br />  {{display.getjsdate(ad.CreatedOn) | date: "mediumDate"}}
+                    Posted on:<br />  {{display.getjsdate(ad.CreatedOn) | date: "short"}}
                 </div>
                 <div class="col-xs-6 col-sm-2 col-md-1">
                     {{ad.Product}}
@@ -248,12 +248,18 @@
                             <div class="container mylist" ng-repeat="response in ad.ResponseToAdvertisement">
                                 <div class="container row">
                                     <div>
-                                        <button ng-show="response.IsNew" class="btn btn-danger" ng-click="display.setold(response.Id); !responseIsNew">New!</button>
-                                        Response to Advertisement:<br/>
-                                        Proposed by: {{response.ProposedByOrganization}}
-                                        Quantity: {{response.Quantity}} {{response.Unit}}
-                                        Unit Price: {{response.UnitPrice | currency}}
-                                        Extended Price: {{response.ExtPrice | currency}}
+                                        
+                                        <div class="form-group" ng-show="response.IsNew && display.userinfo.UserName == response.OfferedTo">
+                                            <button class="btn btn-danger">New!</button>
+                                            <input type="checkbox" class="form-control" ng-model="response.IsNew"/>
+                                        </div>
+                                        
+                                        Response to Advertisement:   |
+                                        Responded On: {{display.getjsdate(response.CreatedOn) | date: "short"}} <br />
+                                        Proposed by: {{response.ProposedByOrganization}} |
+                                        Quantity: {{response.Quantity}} {{response.Unit}} |
+                                        Unit Price: {{response.UnitPrice | currency}} |
+                                        Extended Price: {{response.ExtPrice | currency}} |
                                         Delivery Date: {{display.getjsdate(response.Delivery) | date:"mediumDate"}}
                                     </div>
                                     <div class="container row">
