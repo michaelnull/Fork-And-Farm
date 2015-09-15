@@ -14,5 +14,6 @@ namespace ForkAndFarm.Models
         public string UserRole { get; set; }
         public string Organization { get; set; }
         public string Phone { get; set; }
+        public int CountNewResponses { get; set; }
     }
 }

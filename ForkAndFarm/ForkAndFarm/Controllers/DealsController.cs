@@ -294,6 +294,8 @@ namespace ForkAndFarm.Controllers
                 deal.OfferId = offer.Id;
                 deal.ExtPrice = deal.UnitPrice * deal.Quantity;
                 deal.CreatedOn = DateTime.Now;
+                deal.IsNew = true;
+                offeree.CountNewResponses++;
 
                 if (ModelState.IsValid)
                 {
@@ -308,6 +310,31 @@ namespace ForkAndFarm.Controllers
                 return Content("data missing");
             }
             return Content("transaction not allowed");
+        }
+
+        public ActionResult SetOld(int? id)
+        {
+            if (id == null)
+            {
+                return Content("error, id not sent");
+            }
+            Deal deal = db.Deals.FirstOrDefault(x => x.Id == id);
+            if (deal == null)
+            {
+                return Content("error, response not found in database");
+            }
+            deal.IsNew = false;
+            db.SaveChanges();
+            return Content("Deal viewed");
+        }
+
+        [Authorize]
+        public ActionResult ClearResponseCount()
+        {
+            ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            currentuser.CountNewResponses = 0;
+            db.SaveChanges();
+            return Content("new responses counter reset to zero");
         }
 
         public ActionResult GetOffers(int? id)
@@ -360,6 +387,10 @@ namespace ForkAndFarm.Controllers
                 return Content("error, user not found in database");
             }
             offeree.DealsToMe.Remove(deal);
+            if (deal.IsNew)
+            {
+                offeree.CountNewResponses--;
+            }
             currentuser.DealsToMe.Remove(deal);
             db.Deals.Remove(deal);
             db.SaveChanges();

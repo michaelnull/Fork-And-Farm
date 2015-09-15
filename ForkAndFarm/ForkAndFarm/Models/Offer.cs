@@ -18,7 +18,7 @@ namespace ForkAndFarm.Models
         [MaxLength(20)]
         public string Product { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(20)]
         public string Unit { get; set; }
 
         public double Quantity { get; set; }
@@ -77,6 +77,7 @@ namespace ForkAndFarm.Models
 
         public int OfferId { get; set; }
 
+        public bool IsNew { get; set; }
         
     }
     public enum AdType

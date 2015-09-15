@@ -93,6 +93,7 @@ namespace ForkAndFarm.Controllers
             portalview.UserRole = user.UserRole.ToString();
             portalview.Organization = user.Organization;
             portalview.Phone = user.Phone;
+            portalview.CountNewResponses = user.CountNewResponses;
          
             if (user.DealsToMe != null)
             {

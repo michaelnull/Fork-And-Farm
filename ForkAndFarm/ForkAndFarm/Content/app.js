@@ -21,6 +21,7 @@
                 $http.post('/Deals/SubmitOffer', { OfferId: id, UnitPrice: info.UnitPrice, Quantity: info.Quantity, Delivery: info.Delivery, PaymentTerms: info.PaymentTerms, Memo: info.Memo })
            .then(function (response) {
                window.alert(response.data);
+               display.userinfo.DealFromMeCount++;
                document.getElementById('offerform').reset();
                display.getdata('/advertisements/allads');
            });
@@ -70,6 +71,7 @@
                 $("#myModal").modal('hide');
                 document.getElementById('createform').reset();
                 window.alert(response.data);
+                display.userinfo.AdCount++;
                 display.getdata('/advertisements/allads');
 
             });
@@ -115,6 +117,7 @@
                 if (confirm(msg)) {
                     $http.post('/advertisements/DeleteAd/' + id).then(function (response) {
                         window.alert(response.data);
+                        display.userinfo.AdCount--;
                         display.getdata('/advertisements/allads');
                         display.goto(display.page);
                     });
@@ -136,6 +139,7 @@
                 if (confirm(msg)) {
                     $http.post('/deals/deleteresponse/' + id).then(function (answer) {
                         window.alert(answer.data);
+                        display.userinfo.DealFromMeCount--;
                         display.getdata('/advertisements/allads');
                         display.goto(display.page);
                     })
@@ -144,7 +148,19 @@
            
         };
         
-       
+        this.resetcount = function () {
+            $http.get('/deals/clearresponsecount').success(function (response) {
+                console.log(response);
+                display.userinfo.CountNewResponses = 0;
+            });
+        };
+
+        this.setold = function (id) {
+            $http.get('/deals/setold/' + id).success(function(response){
+                console.log(response);
+
+            });
+        };
 
         this.getdata('/Advertisements/AllAds/');
        

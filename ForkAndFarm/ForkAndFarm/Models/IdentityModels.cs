@@ -32,7 +32,7 @@ namespace ForkAndFarm.Models
             Purchaser,
             Supplier
         }
-        
+        public int CountNewResponses { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ForkAndFarmUser>

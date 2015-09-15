@@ -68,3 +68,7 @@ table.sortable thead {
 .notification li{
     display: inline;
 }
+.red{
+    background-color:red;
+    color:white;
+}
