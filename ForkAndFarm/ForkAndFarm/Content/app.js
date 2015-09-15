@@ -19,7 +19,7 @@
                window.alert(response.data);
                display.userinfo.DealFromMeCount++;
                document.getElementById('offerform').reset();
-               display.getdata('/advertisements/allads');
+               display.getuserinfo();
            });
             }
         };
@@ -76,7 +76,7 @@
                 document.getElementById('createform').reset();
                 window.alert(response.data);
                 display.userinfo.AdCount++;
-                display.getdata('/advertisements/allads');
+                display.getuserinfo();
             });
         };
         
@@ -121,8 +121,7 @@
                     $http.post('/advertisements/DeleteAd/' + id).then(function (response) {
                         window.alert(response.data);
                         display.userinfo.AdCount--;
-                        display.getdata('/advertisements/allads');
-                        display.goto(display.page);
+                        display.getdata('/advertisements/MyAds');
                     });
                 }
             });
@@ -143,8 +142,7 @@
                     $http.post('/deals/deleteresponse/' + id).then(function (answer) {
                         window.alert(answer.data);
                         display.userinfo.DealFromMeCount--;
-                        display.getdata('/advertisements/allads');
-                        display.goto(display.page);
+                        display.getdata('/advertisements/getonead/'+adid);
                     })
                 }
             });
@@ -161,24 +159,6 @@
             $http.get('/deals/setold/' + id).success(function(response){
                 console.log(response);
             });
-        };
-
-        this.getfirstads = function () {
-            if (display.role == 'Supplier') {
-                $http.get('/advertisements/PurchaseList').success(function(response){
-                    display.all = response;
-                });
-            }
-            if (display.role == 'Purchaser') {
-                $http.get('/advertisements/SupplyList').success(function (response) {
-                    display.all = response;
-                });
-            }
-           
-                $http.get('/advertisements/AllAds').success(function (response) {
-                    display.all = response;
-                });
-                display.goto(1);
         };
 
         this.getuserinfo();
