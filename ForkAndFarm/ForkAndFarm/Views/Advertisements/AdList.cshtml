@@ -4,37 +4,71 @@
 }
 
 
-<section ng-controller="DisplayController as display" ng-init="display.page = 1">
+<section ng-controller="DisplayController as display" ng-init="display.page = 1" ng-cloak>
     <!--information bar-->
-    <div class="green">
+    <div class="textbackground mylist">
+       <div class="row topbutton">
+           <button class="btn btn-primary" ng-click="display.getdata('/advertisements/allads')">All Ads</button>
+           <button class="btn btn-primary" ng-click="display.getdata('/advertisements/supplylist')">Suppliers' Ads</button>
+           <button class="btn btn-primary" ng-click="display.getdata('/advertisements/purchaselist')">Purchasers' Ads</button>
+           <button ng-hide="display.userinfo.UserName == null" class="btn btn-primary" data-toggle="modal" data-target="#myModal">new ad</button>
+       </div>
        
-        <button class="btn btn-primary" ng-click="display.getdata('/advertisements/allads')">All Ads</button>
-        <button class="btn btn-primary" ng-click="display.getdata('/advertisements/supplylist')">Suppliers' Ads</button>
-        <button class="btn btn-primary" ng-click="display.getdata('/advertisements/purchaselist')">Purchasers' Ads</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">new ad</button>
 
         <div ng-show="display.userinfo.UserName == null"><!--show when no user logged in--><span class="bigtext">Please <a href="/Account/Login">Login</a> or <a href="/Account/Register">Register</a></span></div>
         <div ng-hide="display.userinfo.UserName == null" class="row container"><!--hide when no user logged in-->
-            My Organization: <span class="bigtext">{{display.userinfo.Organization}}</span>
-            <ul class="notification">
-                <li>
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">Offers to me: <span class=" bigtext">{{display.userinfo.DealToMeCount}}</span></a>
-                    <span ng-hide="display.userinfo.CountNewResponses==0" class="red"> New Offers:<span class="bigtext">{{display.userinfo.CountNewResponses}}</span></span>
-                </li>
-                <li>
-                    <a # ng-click="display.getdata('/advertisements/myads')"> My active advertisements: <span class="bigtext">{{display.userinfo.AdCount}}</span></a>
-                </li>
-                <li>
-                    <a # ng-click="display.getdata('/deals/dealsfromme')">Offers from me: <span class="bigtext">{{display.userinfo.DealFromMeCount}}</span></a>
-                </li>
-                <li>
-                    My Role: <span class="bigtext">{{display.userinfo.UserRole}}</span>
-                </li>
-
-                <li>
-                    <a>My Contact Phone: <span class="bigtext">{{display.userinfo.Phone}}</span></a>
-                </li>
-            </ul>
+           <strong><span>{{display.userinfo.Organization}} {{display.userinfo.Phone}}</span></strong>
+        <table>
+            <tr>
+                <th class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
+                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">New Offers:</a>
+                </th>
+                <th>
+                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">Offers To Me:</a>
+                </th>
+                <th>
+                    <a # ng-click="display.getdata('/advertisements/myads')">
+                        My Advertisements:   
+                     </a>
+                </th>
+                <th>
+                    <a # ng-click="display.getdata('/deals/dealsfromme')">
+                        Offers From Me:
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <td class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
+                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
+                        <span class="bigtext">
+                        {{display.userinfo.CountNewResponses}}
+                        </span>
+                    </a>
+                </td>
+                <td>
+                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
+                        <span class="bigtext">
+                            {{display.userinfo.DealToMeCount}}
+                        </span>
+                    </a>
+                </td>
+                <td>
+                    <a # ng-click="display.getdata('/advertisements/myads')">
+                        <span class="bigtext">
+                            {{display.userinfo.AdCount}}
+                        </span>
+                     </a>
+                </td>
+                <td>
+                    <a # ng-click="display.getdata('/deals/dealsfromme')">
+                        <span class="bigtext">
+                            {{display.userinfo.DealFromMeCount}}
+                        </span>
+                      </a>
+                       
+                </td>
+            </tr>
+        </table>
         </div>
         
     </div>
@@ -123,62 +157,69 @@
     </div>
    
 
-    <div class="row">
-    <div class="col-lg-6">
-        <div class="input-group">
-            <span class="input-group-btn">
-                <button class="btn btn-default" ng-click='display.search("/Advertisements/AllAds/", searchdata)' type="button">Search Products!</button>
-            </span>
-            <input type="text" class="form-control" ng-model="searchdata" placeholder="Search for Products...">
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-        <div class="col-lg-6">
+    <div class="row mylist textbackground">
+    <div class="col-lg-3">
+        <form>
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="orgsearch" placeholder="Search Suplliers and Purchasers">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click='display.search("/Advertisements/SearchOrg/" , orgsearch)' type="button">Search Organizations!</button>
-                </span>
+                <input type="text" class="form-control" ng-model="searchdata" placeholder="Search for Products..." ng-keypress="display.search('/Advertisements/AllAds/',searchdata)">
+                <input class="btn btn-success" type="reset" value="Reset" ng-click="display.getdata('/advertisements/allads')" />
             </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
+        </form>
+    </div><!-- /.col-lg-6 -->
+        <form>
+            <div class="col-lg-3 offset-9">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="orgsearch" placeholder="Search Organizations..." ng-keypress="display.search('/advertisements/searchorg/',orgsearch)">
+                    <input class="btn btn-success" type="reset" value="Reset" ng-click="display.getdata('/advertisements/allads')" />
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </form>
+       
     </div><!-- /.row -->
-    <div class="container green">
+    <div class="container">
         
-        <div class="container mylist" ng-repeat="ad in display.show" >
+        <div class="container mylist textbackground" ng-repeat="ad in display.show" >
             <div class="row">
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    {{ad.AdType}}
+                <div class="col-xs-6 col-sm-4 col-md-1">
+                   
+                    <div ng-show="ad.AdType == 'Purchase Ad'">
+                        <img src="~/Content/shoppingbag.png" width="50" />
+                    </div>
+                    
+                    <div ng-show="ad.AdType == 'Supply Ad'">
+                        <img src="~/Content/tractor.png" width="50" />
+                    </div>
+                       
+                    
                     <div ng-show="ad.AdType =='response'">
+                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                         <button class="btn btn-warning" ng-init="id = ad.OfferId" ng-click="display.getdata('/Advertisements/GetOneAd/'+id)">Go To Ad</button>
                         <button class="btn btn-danger" ng-show="ad.IsNew"> New!</button>
                     </div>
+                  <span style="font-size:small;">{{display.getjsdate(ad.CreatedOn) | date: "d MMM h:mm a"}}</span> 
                 </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    Posted on:<br />  {{display.getjsdate(ad.CreatedOn) | date: "short"}}
+                
+                <div class="col-xs-6 col-sm-4 col-md-2">
+                   <strong>{{ad.Product}}</strong>
                 </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    {{ad.Product}}
-                </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    {{ad.Quantity}} {{ad.Unit}}
+                <div class="col-xs-6 col-sm-3 col-md-4">
+                    {{ad.Quantity}} {{ad.Unit}} at {{ad.UnitPrice | currency}} per {{ad.Unit}} = {{ad.ExtPrice | currency}}
                 </div>
                
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    per {{ad.Unit}}: <br />  {{ad.UnitPrice | currency}}
+              
+               
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                    Available on: <br />  {{display.getjsdate(ad.Delivery) | date: "mediumDate"}}
                 </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    total: <br />  {{ad.ExtPrice | currency}}
-                </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    for delivery on: <br />  {{display.getjsdate(ad.Delivery) | date: "mediumDate"}}
-                </div>
-                <div class="col-xs-6 col-sm-2 col-md-1">
-                    {{ad.ProposedByOrganization}}
-                </div>
+               
                 <div>
                     <button ng-show="display.userinfo.UserName == ad.ProposedBy && ad.AdType != 'response'" class="btn btn-danger" ng-click="display.deletead(ad.Id)">Delete</button>
                 </div>
             </div>
-            
+            <div class="row">
+                {{ad.ProposedByOrganization}}
+            </div>
+            <hr class="divider" />
             <div class="row">
                 Memo:  {{ad.Memo}}
 
@@ -189,7 +230,8 @@
                     <button class="btn btn-warning" ng-click="showOffer = !showOffer">Make an Offer</button>
                 </div>
 
-                    <button class="btn btn-info" ng-click="showDetails = !showDetails; display.responses = {}">Details and Responses</button>
+                    <button class="btn btn-link" ng-click="showDetails = !showDetails">Details</button>
+                <button class="btn btn-primary pull-right" ng-click="showResponses = !showResponses"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
                     <div ng-show="showOffer" class="container">
                         <h3>Make an Offer</h3>
                         <form id="offerform" name="offerform" class="form-horizontal" ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()'>
@@ -239,30 +281,25 @@
                             </div>
                         </form>
                 </div><!--end of make offer collapsable section-->
-                 <div ng-show="showDetails" class="container"><!--collapsible details section-->
-                    Ad Details <br/>
-                    Proposed by user: {{ad.ProposedBy}} 
+                <div ng-show="showDetails" class="container">
+                    <!--collapsible details section-->
+                    Ad Details <br />
                     Contact Phone Number: {{ad.ProposedByPhone}}
                     Reference number: {{ad.Invoice}}
-                        <div> <!--list of offers section-->
+                </div> <!--end of details collapsable section-->
+                        <div ng-show="showResponses"> <!--list of offers section-->
                             <div class="container mylist" ng-repeat="response in ad.ResponseToAdvertisement">
                                 <div class="container row">
                                     <div>
-                                        
-                                        <div class="form-group" ng-show="response.IsNew && display.userinfo.UserName == response.OfferedTo">
-                                            <form ng-model="response">
-                                            <button class="btn btn-danger" ng-click="display.setold(response.Id)">New!</button>
-                                            <input type="checkbox" class="form-control" ng-model="response.IsNew" ng-click="display.setold(response.Id)"/>
-                                            </form>
-                                        </div>
-                                        
-                                        Response to Advertisement:   |
-                                        Responded On: {{display.getjsdate(response.CreatedOn) | date: "short"}} <br />
-                                        Proposed by: {{response.ProposedByOrganization}} |
-                                        Quantity: {{response.Quantity}} {{response.Unit}} |
-                                        Unit Price: {{response.UnitPrice | currency}} |
-                                        Extended Price: {{response.ExtPrice | currency}} |
-                                        Delivery Date: {{display.getjsdate(response.Delivery) | date:"mediumDate"}}
+                                                <button ng-show="response.IsNew" class="btn btn-danger" ng-click="display.setold(response.Id); response.IsNew = !response.IsNew">Mark as Viewed!</button>
+                                            </div>
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                        {{display.getjsdate(response.CreatedOn) | date: "short"}} <br />
+                                        {{response.ProposedByOrganization}} |
+                                        {{response.Quantity}} {{response.Unit}} |
+                                        {{response.UnitPrice | currency}} per {{response.Unit}}
+                                        = {{response.ExtPrice | currency}} |
+                                        available on: {{display.getjsdate(response.Delivery) | date:"mediumDate"}}
                                     </div>
                                     <div class="container row">
                                         Memo: {{response.Memo}}
@@ -276,7 +313,7 @@
                             <button ng-click="display.showtenmoreresponses()">Show 10 more responses</button>
                         </div>
                     </div><!--end of list of offers section-->
-            </div> <!--end of details collapsable section-->
+           
         </div>
     </div>
         </div>

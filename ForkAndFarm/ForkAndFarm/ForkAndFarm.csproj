@@ -207,6 +207,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\marche.jpg" />
+    <Content Include="Content\shoppingbag.png" />
+    <Content Include="Content\tractor.png" />
     <Content Include="Content\wheat.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
