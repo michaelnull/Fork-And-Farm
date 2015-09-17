@@ -18,62 +18,41 @@
         <div ng-show="display.userinfo.UserName == null"><!--show when no user logged in--><span class="bigtext">Please <a href="/Account/Login">Login</a> or <a href="/Account/Register">Register</a></span></div>
         <div ng-hide="display.userinfo.UserName == null" class="row container"><!--hide when no user logged in-->
            <strong><span>{{display.userinfo.Organization}} {{display.userinfo.Phone}}</span></strong>
-        <table>
-            <tr>
-                <td class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
-                        <span>
+        <div class="row">
+            <div class="highlight col-xs-6 col-md-3 smallborder" ng-hide="display.userinfo.CountNewResponses==0">
+                <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
+                    <span>
                         {{display.userinfo.CountNewResponses}}<br />
-                            New Responses
-                        </span>
+                        New Responses
+                    </span>
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3 smallborder">
+                <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
+                <span>
+                    {{display.userinfo.DealToMeCount}}<br />
+                    Responses to me
+                </span>
                     </a>
-                </td>
-                <td>
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
-                        <span>
-                            {{display.userinfo.DealToMeCount}}<br />
-                            Responses to me
-
-                        </span>
-                    </a>
-                </td>
-                <td>
-                    <a # ng-click="display.getdata('/advertisements/myads')">
-                        <span>
-                            {{display.userinfo.AdCount}}<br />
-                            My Ads
-                        </span>
-                     </a>
-                </td>
-                <td>
-                    <a # ng-click="display.getdata('/deals/dealsfromme')">
-                        <span>
-                            {{display.userinfo.DealFromMeCount}}<br />
-                            my responses to ads
-                        </span>
-                      </a>
-                       
-                </td>
-            </tr>
-            @*<tr>
-                <th class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">New Offers:</a>
-                </th>
-                <th>
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">Offers To Me:</a>
-                </th>
-                <th>
-                    <a # ng-click="display.getdata('/advertisements/myads')">
-                        My Advertisements:
-                    </a>
-                </th>
-                <th>
-                    <a # ng-click="display.getdata('/deals/dealsfromme')">
-                        Offers From Me:
-                    </a>
-                </th>
-            </tr>*@
-        </table>
+            </div>
+            <div class="col-xs-6 col-md-3 smallborder">
+                <a # ng-click="display.getdata('/advertisements/myads')">
+                    <span>
+                        {{display.userinfo.AdCount}}<br />
+                        My Ads
+                    </span>
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3 smallborder">
+                <a # ng-click="display.getdata('/deals/dealsfromme')">
+                    <span>
+                        {{display.userinfo.DealFromMeCount}}<br />
+                        my responses to ads
+                    </span>
+                </a>
+            </div>
+        </div>
+        
         </div>
         
     </div>
@@ -217,7 +196,7 @@
                     Available on: <br />  {{display.getjsdate(ad.Delivery) | date: "mediumDate"}}
                 </div>
                
-                <div>
+                <div ng-hide="ad.AdType !='0' && ad.AdType !='1'">
                     <button ng-show="display.userinfo.UserName == ad.ProposedBy" class="btn btn-danger" ng-click="display.deletead(ad.Id)">Delete</button>
                 </div>
             </div>
@@ -289,7 +268,7 @@
                 <div ng-show="showDetails" class="container">
                     <!--collapsible details section-->
                     Ad Details <br />
-                    Contact Phone Number: {{ad.ProposedByPhone}}
+                    Contact Phone Number: {{ad.ProposedByPhone}} |
                     Reference number: {{ad.Invoice}}
                 </div> <!--end of details collapsable section-->
                         <div ng-show="showResponses"> <!--list of offers section-->
