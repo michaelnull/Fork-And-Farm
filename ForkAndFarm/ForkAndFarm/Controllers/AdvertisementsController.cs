@@ -221,6 +221,10 @@ namespace ForkAndFarm.Controllers
                     advertisement.AdType = AdType.SupplyOffer;
                     break;
             }
+            if (advertisement.Delivery < DateTime.Today)
+            {
+                return Content("Delivery date must be a future date.  Please check your entries and try again.");
+            }
             try
             {
                 if (ModelState.IsValid)
@@ -236,7 +240,7 @@ namespace ForkAndFarm.Controllers
                 return Content("there was a problem creating the ad, please try again" + dex.Message);
             }
 
-            return Content("please verify that your ad was created");
+            return Content("your ad was not posted, please check your entries and try again");
             
         }
 

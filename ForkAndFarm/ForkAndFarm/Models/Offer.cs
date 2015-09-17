@@ -13,16 +13,21 @@ namespace ForkAndFarm.Models
 
         public int Id { get; set; }
 
+        [Required]
         public string ProposedBy { get; set; }
 
+        [Required]
         [MaxLength(20)]
         public string Product { get; set; }
 
+        [Required]
         [MaxLength(20)]
         public string Unit { get; set; }
 
+        [Required]
         public double Quantity { get; set; }
 
+        [Required]
         [DisplayName("Unit Price")]
         [DisplayFormat(DataFormatString ="{0:C}")]
         public double UnitPrice { get; set; }
@@ -59,6 +64,7 @@ namespace ForkAndFarm.Models
     }
     public class Advertisement : Offer
     {
+        [MaxLength(20)]
         [DisplayName("Invoice or Purchase Order")]
         public string Invoice{ get; set; }
 

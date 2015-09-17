@@ -44,6 +44,11 @@ namespace ForkAndFarm.Controllers
                 deal.IsNew = true;
                 offeree.CountNewResponses++;
 
+                if(deal.Delivery < DateTime.Today)
+                {
+                    return Content("delivery must be a future date, please check your entries and try again");
+                }
+
                 if (ModelState.IsValid)
                 {
                     db.Deals.Add(deal);
@@ -54,7 +59,7 @@ namespace ForkAndFarm.Controllers
 
                     return Content(String.Format("offer to {0} for {1} {2} of {3} for {4:C}", deal.OfferedTo, deal.Quantity, deal.Unit, deal.Product, deal.ExtPrice));
                 }
-                return Content("data missing");
+                return Content("please check your entries and try again");
             }
             return Content("transaction not allowed");
         }
