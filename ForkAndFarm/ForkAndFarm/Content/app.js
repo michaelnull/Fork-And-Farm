@@ -52,19 +52,7 @@
         this.search = function (string, terms) {
             $http.get(string + terms).success(function (data) {
                 display.all = data;
-                var i = 0;
-                angular.forEach(display.all, function (value, key) {
-                    if (display.all[i].AdType == 1) {
-                        display.all[i].AdType = "Supply Ad";
-                    }
-                   else if (display.all[i].AdType == 0) {
-                        display.all[i].AdType = "Purchase Ad";
-                   }
-                    if (display.all[i].AdType == null) {
-                        display.all[i].AdType = "response";
-                    }
-                    i++;
-                })
+               
                 display.goto(1);
             });
         };
@@ -83,21 +71,14 @@
         this.getdata = function (string) {
             $http.get(string).success(function (data) {
                 display.all = data;
-                var i = 0;
-                angular.forEach(display.all, function (value, key) {
-                    if (display.all[i].AdType == 1) {
-                        display.all[i].AdType = "Supply Ad";
-                    }
-                   else if (display.all[i].AdType == 0) {
-                        display.all[i].AdType = "Purchase Ad";
-                   }
-                    if (display.all[i].AdType == null)
-                    {
-                        display.all[i].AdType = "response";
-                    }
-                    i++;
-                })
                 display.goto(1);
+            });
+        };
+
+        this.getonead = function (id) {
+            console.log('get one ad called for ' +id)
+            $http.get('/advertisements/getonead/'+ id).success(function (data) {
+                display.show = data;
             });
         };
 
@@ -142,7 +123,7 @@
                     $http.post('/deals/deleteresponse/' + id).then(function (answer) {
                         window.alert(answer.data);
                         display.userinfo.DealFromMeCount--;
-                        display.getdata('/advertisements/getonead/'+adid);
+                        display.getonead(adid);
                     })
                 }
             });

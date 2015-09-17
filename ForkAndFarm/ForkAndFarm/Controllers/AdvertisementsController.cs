@@ -56,7 +56,9 @@ namespace ForkAndFarm.Controllers
                                ResponseToAdvertisement = item.ResponseToAdvertisement,
                                ResponseCount = item.ResponseToAdvertisement.Count(),
                                AdType = item.AdType,
-                               CreatedOn = item.CreatedOn
+                               CreatedOn = item.CreatedOn,
+                               PaymentTerms = item.PaymentTerms,
+                               ProposedBy = item.ProposedBy
                            };
 
                 return Json(list, JsonRequestBehavior.AllowGet);
@@ -78,43 +80,124 @@ namespace ForkAndFarm.Controllers
                            Invoice = item.Invoice,
                            ResponseToAdvertisement = item.ResponseToAdvertisement,
                            ResponseCount = item.ResponseToAdvertisement.Count(),
-                           AdType = item.AdType.ToString(),
-                           CreatedOn = item.CreatedOn
+                           AdType = item.AdType,
+                           CreatedOn = item.CreatedOn,
+                           PaymentTerms = item.PaymentTerms,
+                           ProposedBy = item.ProposedBy
                        };
             return Json(listb, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SupplyList()
         {
-            var list = db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer).OrderByDescending(x => x.CreatedOn).ToList();
+            var list = from item in db.Advertisements.Where(x => x.AdType == AdType.SupplyOffer)
+                       orderby item.CreatedOn descending
+                       select new
+                       {
+                           Id = item.Id,
+                           Product = item.Product,
+                           Quantity = item.Quantity,
+                           Unit = item.Unit,
+                           UnitPrice = item.UnitPrice,
+                           ExtPrice = item.ExtPrice,
+                           Delivery = item.Delivery,
+                           ProposedByOrganization = item.ProposedByOrganization,
+                           Memo = item.Memo,
+                           ProposedByPhone = item.ProposedByPhone,
+                           Invoice = item.Invoice,
+                           ResponseToAdvertisement = item.ResponseToAdvertisement,
+                           ResponseCount = item.ResponseToAdvertisement.Count(),
+                           AdType = item.AdType,
+                           CreatedOn = item.CreatedOn,
+                           PaymentTerms = item.PaymentTerms,
+                           ProposedBy = item.ProposedBy
+                       };
                 return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PurchaseList()
         {
-            var list = db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer).OrderByDescending(x => x.CreatedOn).ToList();
+            var list = from item in db.Advertisements.Where(x => x.AdType == AdType.PurchaseOffer)
+                       orderby item.CreatedOn descending
+                       select new
+                       {
+                           Id = item.Id,
+                           Product = item.Product,
+                           Quantity = item.Quantity,
+                           Unit = item.Unit,
+                           UnitPrice = item.UnitPrice,
+                           ExtPrice = item.ExtPrice,
+                           Delivery = item.Delivery,
+                           ProposedByOrganization = item.ProposedByOrganization,
+                           Memo = item.Memo,
+                           ProposedByPhone = item.ProposedByPhone,
+                           Invoice = item.Invoice,
+                           ResponseToAdvertisement = item.ResponseToAdvertisement,
+                           ResponseCount = item.ResponseToAdvertisement.Count(),
+                           AdType = item.AdType,
+                           CreatedOn = item.CreatedOn,
+                           PaymentTerms = item.PaymentTerms,
+                           ProposedBy = item.ProposedBy
+                       };
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-       public ActionResult Products()
-        {
-            var list = db.Advertisements.OrderBy(x => x.Product).OrderBy(x => x.CreatedOn).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult Delivery()
-        {
-            var list = db.Advertisements.OrderBy(x => x.Delivery).OrderBy(x=>x.CreatedOn).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
+      
         
         public ActionResult SearchOrg(string id)
         {
             if (id == null || id == "")
             {
-                return Json(db.Advertisements.OrderBy(x => x.ProposedByOrganization).OrderBy(x=>x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+                var list = from item in db.Advertisements
+                           orderby item.ProposedByOrganization
+                           orderby item.CreatedOn descending
+                           select new
+                           {
+                               Id = item.Id,
+                               Product = item.Product,
+                               Quantity = item.Quantity,
+                               Unit = item.Unit,
+                               UnitPrice = item.UnitPrice,
+                               ExtPrice = item.ExtPrice,
+                               Delivery = item.Delivery,
+                               ProposedByOrganization = item.ProposedByOrganization,
+                               Memo = item.Memo,
+                               ProposedByPhone = item.ProposedByPhone,
+                               Invoice = item.Invoice,
+                               ResponseToAdvertisement = item.ResponseToAdvertisement,
+                               ResponseCount = item.ResponseToAdvertisement.Count(),
+                               AdType = item.AdType,
+                               CreatedOn = item.CreatedOn, 
+                               PaymentTerms = item.PaymentTerms,
+                               ProposedBy = item.ProposedBy
+                           };
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
-            return Json(db.Advertisements.Where(x => x.ProposedByOrganization.Contains(id)).OrderBy(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+            var listb = from item in db.Advertisements
+                        where item.ProposedByOrganization.Contains(id)
+                        orderby item.ProposedByOrganization
+                        orderby item.CreatedOn descending
+                        select new
+                        {
+                            Id = item.Id,
+                            Product = item.Product,
+                            Quantity = item.Quantity,
+                            Unit = item.Unit,
+                            UnitPrice = item.UnitPrice,
+                            ExtPrice = item.ExtPrice,
+                            Delivery = item.Delivery,
+                            ProposedByOrganization = item.ProposedByOrganization,
+                            Memo = item.Memo,
+                            ProposedByPhone = item.ProposedByPhone,
+                            Invoice = item.Invoice,
+                            ResponseToAdvertisement = item.ResponseToAdvertisement,
+                            ResponseCount = item.ResponseToAdvertisement.Count(),
+                            AdType = item.AdType,
+                            CreatedOn = item.CreatedOn,
+                            PaymentTerms = item.PaymentTerms,
+                            ProposedBy = item.ProposedBy
+                        };
+            return Json(listb, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -145,15 +228,16 @@ namespace ForkAndFarm.Controllers
                     currentuser.MyAdvertisements.Add(advertisement);
                     db.Advertisements.Add(advertisement);
                     db.SaveChanges();
+                    return Content("advertisement successfully created");
                 }
             }
             catch (DataException dex)
             {
-                return Content(dex.Message);
+                return Content("there was a problem creating the ad, please try again" + dex.Message);
             }
-           
 
-            return Content("advertisement successfully created");
+            return Content("please verify that your ad was created");
+            
         }
 
         [Authorize]
@@ -161,7 +245,31 @@ namespace ForkAndFarm.Controllers
         {
             ForkAndFarmUser currentuser = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
 
-            return Json(currentuser.MyAdvertisements.OrderByDescending(x => x.CreatedOn), JsonRequestBehavior.AllowGet);
+            var list = from item in db.Advertisements
+                       where item.ProposedBy == currentuser.UserName
+                       orderby item.CreatedOn descending
+                       select new
+                       {
+                           Id = item.Id,
+                           Product = item.Product,
+                           Quantity = item.Quantity,
+                           Unit = item.Unit,
+                           UnitPrice = item.UnitPrice,
+                           ExtPrice = item.ExtPrice,
+                           Delivery = item.Delivery,
+                           ProposedByOrganization = item.ProposedByOrganization,
+                           Memo = item.Memo,
+                           ProposedByPhone = item.ProposedByPhone,
+                           Invoice = item.Invoice,
+                           ResponseToAdvertisement = item.ResponseToAdvertisement,
+                           ResponseCount = item.ResponseToAdvertisement.Count(),
+                           AdType = item.AdType,
+                           CreatedOn = item.CreatedOn,
+                           PaymentTerms = item.PaymentTerms,
+                           ProposedBy = item.ProposedBy
+                       };
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -242,14 +350,35 @@ namespace ForkAndFarm.Controllers
             if (id == null)
             {
                 list.Add(new Advertisement { Product = "error, Id not received" });
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
             Advertisement advertisement = db.Advertisements.FirstOrDefault(x => x.Id == id);
             if (advertisement == null)
             {
                 list.Add(new Advertisement { Product = "Error, Ad not found" });
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
-            list.Add(advertisement);
-            return Json(list, JsonRequestBehavior.AllowGet);
+            var listb = new { item= new {
+                Id = advertisement.Id,
+                Product = advertisement.Product,
+                Quantity = advertisement.Quantity,
+                Unit = advertisement.Unit,
+                UnitPrice = advertisement.UnitPrice,
+                ExtPrice = advertisement.ExtPrice,
+                Delivery = advertisement.Delivery,
+                ProposedByOrganization = advertisement.ProposedByOrganization,
+                Memo = advertisement.Memo,
+                ProposedByPhone = advertisement.ProposedByPhone,
+                Invoice = advertisement.Invoice,
+                ResponseToAdvertisement = advertisement.ResponseToAdvertisement,
+                ResponseCount = advertisement.ResponseToAdvertisement.Count(),
+                AdType = advertisement.AdType,
+                CreatedOn = advertisement.CreatedOn,
+                PaymentTerms = advertisement.PaymentTerms,
+                ProposedBy = advertisement.ProposedBy
+            } };
+           
+            return Json(listb, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
