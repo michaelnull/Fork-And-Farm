@@ -23,34 +23,39 @@
                 <td class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
                     <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
                         <span>
-                        {{display.userinfo.CountNewResponses}}
+                        {{display.userinfo.CountNewResponses}}<br />
+                            New Responses
                         </span>
                     </a>
                 </td>
                 <td>
                     <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
                         <span>
-                            {{display.userinfo.DealToMeCount}}
+                            {{display.userinfo.DealToMeCount}}<br />
+                            Responses to me
+
                         </span>
                     </a>
                 </td>
                 <td>
                     <a # ng-click="display.getdata('/advertisements/myads')">
                         <span>
-                            {{display.userinfo.AdCount}}
+                            {{display.userinfo.AdCount}}<br />
+                            My Ads
                         </span>
                      </a>
                 </td>
                 <td>
                     <a # ng-click="display.getdata('/deals/dealsfromme')">
                         <span>
-                            {{display.userinfo.DealFromMeCount}}
+                            {{display.userinfo.DealFromMeCount}}<br />
+                            my responses to ads
                         </span>
                       </a>
                        
                 </td>
             </tr>
-            <tr>
+            @*<tr>
                 <th class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
                     <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">New Offers:</a>
                 </th>
@@ -67,7 +72,7 @@
                         Offers From Me:
                     </a>
                 </th>
-            </tr>
+            </tr>*@
         </table>
         </div>
         

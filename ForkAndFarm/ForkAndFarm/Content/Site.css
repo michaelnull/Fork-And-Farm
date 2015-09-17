@@ -81,6 +81,7 @@ body{
 
 }
 td, th{
+    text-align:center;
     padding: 10px;
 }
 

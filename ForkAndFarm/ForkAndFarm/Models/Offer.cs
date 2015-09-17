@@ -15,11 +15,9 @@ namespace ForkAndFarm.Models
 
         public string ProposedBy { get; set; }
 
-        [Required]
         [MaxLength(20)]
         public string Product { get; set; }
 
-        [Required]
         [MaxLength(20)]
         public string Unit { get; set; }
 
