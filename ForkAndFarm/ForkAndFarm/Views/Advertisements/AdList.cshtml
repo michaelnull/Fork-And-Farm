@@ -20,6 +20,37 @@
            <strong><span>{{display.userinfo.Organization}} {{display.userinfo.Phone}}</span></strong>
         <table>
             <tr>
+                <td class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
+                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
+                        <span>
+                        {{display.userinfo.CountNewResponses}}
+                        </span>
+                    </a>
+                </td>
+                <td>
+                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
+                        <span>
+                            {{display.userinfo.DealToMeCount}}
+                        </span>
+                    </a>
+                </td>
+                <td>
+                    <a # ng-click="display.getdata('/advertisements/myads')">
+                        <span>
+                            {{display.userinfo.AdCount}}
+                        </span>
+                     </a>
+                </td>
+                <td>
+                    <a # ng-click="display.getdata('/deals/dealsfromme')">
+                        <span>
+                            {{display.userinfo.DealFromMeCount}}
+                        </span>
+                      </a>
+                       
+                </td>
+            </tr>
+            <tr>
                 <th class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
                     <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">New Offers:</a>
                 </th>
@@ -28,45 +59,14 @@
                 </th>
                 <th>
                     <a # ng-click="display.getdata('/advertisements/myads')">
-                        My Advertisements:   
-                     </a>
+                        My Advertisements:
+                    </a>
                 </th>
                 <th>
                     <a # ng-click="display.getdata('/deals/dealsfromme')">
                         Offers From Me:
                     </a>
                 </th>
-            </tr>
-            <tr>
-                <td class="highlight" ng-hide="display.userinfo.CountNewResponses==0">
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
-                        <span class="bigtext">
-                        {{display.userinfo.CountNewResponses}}
-                        </span>
-                    </a>
-                </td>
-                <td>
-                    <a # ng-click="display.getdata('/deals/dealstome'); display.resetcount();">
-                        <span class="bigtext">
-                            {{display.userinfo.DealToMeCount}}
-                        </span>
-                    </a>
-                </td>
-                <td>
-                    <a # ng-click="display.getdata('/advertisements/myads')">
-                        <span class="bigtext">
-                            {{display.userinfo.AdCount}}
-                        </span>
-                     </a>
-                </td>
-                <td>
-                    <a # ng-click="display.getdata('/deals/dealsfromme')">
-                        <span class="bigtext">
-                            {{display.userinfo.DealFromMeCount}}
-                        </span>
-                      </a>
-                       
-                </td>
             </tr>
         </table>
         </div>
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Product</label>
                             <div class="col-md-10">
-                                <input class="form-control text-box single-line" type="text" ng-model="newad.Product" placeholder="What Product?" />
+                                <input class="form-control text-box single-line" maxlength="20" type="text" ng-model="newad.Product" placeholder="What Product?" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Product" data-valmsg-replace="true"></span>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Unit</label>
                             <div class="col-md-10">
-                                <input class="form-control text-box single-line" type="text" ng-model="newad.Unit" placeholder="lbs, quarts, each, etc." />
+                                <input class="form-control text-box single-line" maxlength="20" type="text" ng-model="newad.Unit" placeholder="lbs, quarts, each, etc." />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Unit" data-valmsg-replace="true"></span>
                             </div>
                         </div> 
@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Payment Terms</label>
                             <div class="col-md-10">
-                                <input class="form-control text-box single-line" type="text" ng-model="newad.PaymentTerms" placeholder="cash, net15, etc." />
+                                <input class="form-control text-box single-line" maxlength="10" type="text" ng-model="newad.PaymentTerms" placeholder="cash, net15, etc." />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Payment Terms" data-valmsg-replace="true"></span>
                             </div>
                         </div>
@@ -129,14 +129,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Memo</label>
                             <div class="col-md-10">
-                                <input class="form-control text-box single-line" type="text" ng-model="newad.Memo" placeholder="put additional information here" />
+                                <input class="form-control text-box single-line" maxlength="150" type="text" ng-model="newad.Memo" placeholder="put additional information here" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Memo" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">Delivery Date</label>
                             <div class="col-md-10">
-                                <input class="form-control text-box single-line" type="date" ng-model="newad.Delivery" />
+                                <input id="createDelivery" class="form-control text-box single-line" type="date" ng-model="newad.Delivery" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Delivery Date" data-valmsg-replace="true"></span>
                             </div>
                         </div>
@@ -231,10 +231,10 @@
                 </div>
 
                     <button class="btn btn-link" ng-click="showDetails = !showDetails">Details</button>
-                <button class="btn btn-primary pull-right" ng-show="ad.ResponseCount > 0" ng-click="showResponses = !showResponses"><span class="glyphicon glyphicon-envelope" aria-hidden="true"> {{ad.ResponseCount}}</span></button>
+                <button class="btn btn-primary pull-right" ng-show="ad.ResponseCount > 0" ng-click="showResponses = !showResponses"><span class="glyphicon glyphicon-envelope" aria-hidden="true"><span class="label label-danger" >{{ad.ResponseCount}}</span></span></button>
                     <div ng-show="showOffer" class="container">
                         <h3>Make an Offer</h3>
-                        <form id="offerform" name="offerform" class="form-horizontal" ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()'>
+                        <form id="offerform" name="offerform" class="form-horizontal"  ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()'>
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">Quantity</label>
@@ -261,14 +261,14 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Payment Terms</label>
                                 <div class="col-md-10">
-                                    <input class="form-control text-box single-line" type="text" ng-model="deal.PaymentTerms" ng-init="deal.PaymentTerms = ad.PaymentTerms" />
+                                    <input class="form-control text-box single-line" maxlength="10" type="text" ng-model="deal.PaymentTerms" ng-init="deal.PaymentTerms = ad.PaymentTerms" />
                                     <span class="field-validation-valid text-danger" data-valmsg-for="Payment Terms" data-valmsg-replace="true"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Memo</label>
                                 <div class="col-md-10">
-                                    <input class="form-control text-box single-line" type="text" ng-model="deal.Memo" placeholder="Enter Memo notes here..." />
+                                    <input class="form-control text-box single-line" type="text" maxlength="150" ng-model="deal.Memo" placeholder="Enter Memo notes here..." />
                                     <span class="field-validation-valid text-danger" data-valmsg-for="Memo" data-valmsg-replace="true"></span>
                                 </div>
                             </div>
@@ -309,9 +309,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <div ng-show="display.allresponses.length > display.responses.length">
-                            <button ng-click="display.showtenmoreresponses()">Show 10 more responses</button>
-                        </div>
+                       
                     </div><!--end of list of offers section-->
            
         </div>
@@ -331,6 +329,12 @@
         <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
         <script type="text/javascript" src="~/Content/app.js"></script>
         <link rel="stylesheet" type="text/css" href="~/Content/dataTables.bootstrap.min.css" />
+        <script type="text/javascript">
+            $(function () {
+                var today = new Date();
+	            $("#createDelivery").datepicker({minDate: today});
+                });
+        </script>
        
        
         

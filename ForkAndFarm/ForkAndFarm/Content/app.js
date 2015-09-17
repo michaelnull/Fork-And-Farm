@@ -16,7 +16,7 @@
                 )) {
                 $http.post('/Deals/SubmitOffer', { OfferId: id, UnitPrice: info.UnitPrice, Quantity: info.Quantity, Delivery: info.Delivery, PaymentTerms: info.PaymentTerms, Memo: info.Memo })
            .then(function (response) {
-               window.alert(response.data);
+               window.alert(response.data + response.statusText);
                display.userinfo.DealFromMeCount++;
                document.getElementById('offerform').reset();
                display.getuserinfo();
