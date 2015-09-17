@@ -194,7 +194,7 @@
                     <div ng-show="ad.AdType =='response'">
                         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                         <button class="btn btn-warning" ng-init="id = ad.OfferId" ng-click="display.getdata('/Advertisements/GetOneAd/'+id)">Go To Ad</button>
-                        <button class="btn btn-danger" ng-show="ad.IsNew"> New!</button>
+                        <span class="highlight" ng-show="ad.IsNew">New Response!</span>
                     </div>
                   <span style="font-size:small;">{{display.getjsdate(ad.CreatedOn) | date: "d MMM h:mm a"}}</span> 
                 </div>
@@ -231,7 +231,7 @@
                 </div>
 
                     <button class="btn btn-link" ng-click="showDetails = !showDetails">Details</button>
-                <button class="btn btn-primary pull-right" ng-click="showResponses = !showResponses"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+                <button class="btn btn-primary pull-right" ng-show="ad.ResponseCount > 0" ng-click="showResponses = !showResponses"><span class="glyphicon glyphicon-envelope" aria-hidden="true"> {{ad.ResponseCount}}</span></button>
                     <div ng-show="showOffer" class="container">
                         <h3>Make an Offer</h3>
                         <form id="offerform" name="offerform" class="form-horizontal" ng-submit='display.submitoffer(ad.Id, deal); offerform.$setPristine()'>
@@ -291,7 +291,7 @@
                             <div class="container mylist" ng-repeat="response in ad.ResponseToAdvertisement">
                                 <div class="container row">
                                     <div>
-                                                <button ng-show="response.IsNew" class="btn btn-danger" ng-click="display.setold(response.Id); response.IsNew = !response.IsNew">Mark as Viewed!</button>
+                                                <button ng-show="response.IsNew && display.userinfo.UserName == response.OfferedTo" class="btn btn-danger" ng-click="display.setold(response.Id); response.IsNew = !response.IsNew">Mark as Viewed!</button>
                                             </div>
                                         <span class="glyphicon glyphicon-envelope"></span>
                                         {{display.getjsdate(response.CreatedOn) | date: "short"}} <br />
@@ -316,7 +316,7 @@
            
         </div>
     </div>
-        </div>
+        
 
     <div class="pagebar btn-group" role="group" aria-label="...">
         <button ng-hide="display.page <= 2" type="button" class="btn btn-default"><div ng-click='display.goto(1)'>go to page 1</div></button>

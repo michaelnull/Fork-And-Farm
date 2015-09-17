@@ -38,9 +38,50 @@ namespace ForkAndFarm.Controllers
         {
             if (id == null || id == "")
             {
-                return Json(db.Advertisements.OrderByDescending(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+                var list = from item in db.Advertisements
+                           orderby item.CreatedOn descending
+                           select new
+                           {
+                               Id = item.Id,
+                               Product = item.Product,
+                               Quantity = item.Quantity,
+                               Unit = item.Unit,
+                               UnitPrice = item.UnitPrice,
+                               ExtPrice = item.ExtPrice,
+                               Delivery = item.Delivery,
+                               ProposedByOrganization = item.ProposedByOrganization,
+                               Memo = item.Memo,
+                               ProposedByPhone = item.ProposedByPhone,
+                               Invoice = item.Invoice,
+                               ResponseToAdvertisement = item.ResponseToAdvertisement,
+                               ResponseCount = item.ResponseToAdvertisement.Count(),
+                               AdType = item.AdType,
+                               CreatedOn = item.CreatedOn
+                           };
+
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
-            return Json(db.Advertisements.Where(x => x.Product.Contains(id)).OrderByDescending(x => x.CreatedOn).ToList(), JsonRequestBehavior.AllowGet);
+            var listb = from item in db.Advertisements.Where(x => x.Product.Contains(id))
+                        orderby item.CreatedOn descending
+                       select new
+                       {
+                           Id = item.Id,
+                           Product = item.Product,
+                           Quantity = item.Quantity,
+                           Unit = item.Unit,
+                           UnitPrice = item.UnitPrice,
+                           ExtPrice = item.ExtPrice,
+                           Delivery = item.Delivery,
+                           ProposedByOrganization = item.ProposedByOrganization,
+                           Memo = item.Memo,
+                           ProposedByPhone = item.ProposedByPhone,
+                           Invoice = item.Invoice,
+                           ResponseToAdvertisement = item.ResponseToAdvertisement,
+                           ResponseCount = item.ResponseToAdvertisement.Count(),
+                           AdType = item.AdType.ToString(),
+                           CreatedOn = item.CreatedOn
+                       };
+            return Json(listb, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SupplyList()
