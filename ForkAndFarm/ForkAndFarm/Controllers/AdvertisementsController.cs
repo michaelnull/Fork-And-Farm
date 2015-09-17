@@ -223,7 +223,7 @@ namespace ForkAndFarm.Controllers
             }
             if (advertisement.Delivery < DateTime.Today)
             {
-                return Content("Delivery date must be a future date.  Please check your entries and try again.");
+                return Content("Delivery date must be a future date.  Please check your entries and try once more.");
             }
             try
             {

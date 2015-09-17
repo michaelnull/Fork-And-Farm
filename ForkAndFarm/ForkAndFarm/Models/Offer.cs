@@ -13,7 +13,6 @@ namespace ForkAndFarm.Models
 
         public int Id { get; set; }
 
-        [Required]
         public string ProposedBy { get; set; }
 
         [Required]
