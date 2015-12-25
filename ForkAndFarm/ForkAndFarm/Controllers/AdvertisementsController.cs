@@ -16,21 +16,6 @@ namespace ForkAndFarm.Controllers
      
         public ActionResult AdList()
         {
-            var Bob = db.Users.FirstOrDefault(x => x.UserName == "bob@buyer.com");
-            var Fred = db.Users.FirstOrDefault(x => x.UserName == "fred@farmer.com");
-            Bob.CountNewResponses = 5;
-            Fred.CountNewResponses = 6;
-
-            foreach (Deal deal in Bob.DealsToMe)
-            {
-                deal.IsNew = true;
-            }
-            foreach (Deal deal in Fred.DealsToMe)
-            {
-                deal.IsNew = true;
-            }
-            db.SaveChanges();
-
             return View();
         }
 
