@@ -45,10 +45,12 @@ namespace ForkAndFarm.Migrations
 
             context.Advertisements.AddOrUpdate(
                 x => x.Memo,
+               
                 new Advertisement
                 {
+                    
                     Memo = "Example 1",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(2015,12,1,0,1,0),
                     Invoice = "1",
                     PaymentTerms = "cod",
                     Product = "Potatoes",
@@ -56,7 +58,7 @@ namespace ForkAndFarm.Migrations
                     Quantity = 100,
                     Unit = "lb",
                     UnitPrice = 1.25,
-                    Delivery = new DateTime(2015,1,1,0,1,0),
+                    Delivery = DateTime.Today.Add(new TimeSpan(14,0,0,0)),
                     ExtPrice = 125,
                     ProposedByOrganization = "Fred's Farm",
                     ProposedByPhone = "501-123-4567",
@@ -68,7 +70,7 @@ namespace ForkAndFarm.Migrations
                 new Advertisement
                 {
                     Memo = "Example 2",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(2015, 12, 1, 0, 2, 0),
                     Invoice = "2",
                     PaymentTerms = "cod",
                     Product = "Tomatoes",
@@ -76,7 +78,7 @@ namespace ForkAndFarm.Migrations
                     Quantity = 25,
                     Unit = "kg",
                     UnitPrice = 2.24,
-                    Delivery = new DateTime(2015, 1, 1, 0, 2, 0),
+                    Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                     ExtPrice = 56,
                     ProposedByOrganization = "Fred's Farm",
                     ProposedByPhone = "501-123-4567",
@@ -86,7 +88,7 @@ namespace ForkAndFarm.Migrations
                  new Advertisement
                  {
                      Memo = "Example 3",
-                     CreatedOn = DateTime.Now,
+                     CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                      Invoice = "1",
                      PaymentTerms = "net10",
                      Product = "Watermelon",
@@ -94,7 +96,7 @@ namespace ForkAndFarm.Migrations
                      Quantity = 50,
                      Unit = "each",
                      UnitPrice = 3.11,
-                     Delivery = new DateTime(2015, 1, 1, 0, 3, 0),
+                     Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                      ExtPrice = 155.50,
                      ProposedByOrganization = "Bob's Market",
                      ProposedByPhone = "501-123-4567",
@@ -103,14 +105,14 @@ namespace ForkAndFarm.Migrations
                 new Advertisement
                 {
                     Memo = "Example 4",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                     Invoice = "2",
                     PaymentTerms = "net10",
                     Product = "Purple Hull Peas",
                     Quantity = 45,
                     Unit = "quart",
                     UnitPrice = 2.95,
-                    Delivery = new DateTime(2015, 1, 1, 0, 4, 0),
+                    Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                     ProposedBy = "bob@buyer.com",
                     ExtPrice = 132.75,
                     ProposedByOrganization = "Bob's Market",
@@ -120,7 +122,7 @@ namespace ForkAndFarm.Migrations
                 new Advertisement
                 {
                     Memo = "Example 5",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                     Invoice = "2",
                     PaymentTerms = "cod",
                     Product = "Apples",
@@ -128,7 +130,7 @@ namespace ForkAndFarm.Migrations
                     Quantity = 25,
                     Unit = "kg",
                     UnitPrice = 2.24,
-                    Delivery = new DateTime(2015, 1, 1, 0, 5, 0),
+                    Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                     ExtPrice = 56,
                     ProposedByOrganization = "Fred's Farm",
                     ProposedByPhone = "501-123-4567",
@@ -138,7 +140,7 @@ namespace ForkAndFarm.Migrations
                  new Advertisement
                  {
                      Memo = "Example 6",
-                     CreatedOn = DateTime.Now,
+                     CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                      Invoice = "1",
                      PaymentTerms = "net10",
                      Product = "Bananas",
@@ -146,7 +148,7 @@ namespace ForkAndFarm.Migrations
                      Quantity = 50,
                      Unit = "each",
                      UnitPrice = 3.11,
-                     Delivery = new DateTime(2015, 1, 1, 0, 6, 0),
+                     Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                      ExtPrice = 155.50,
                      ProposedByOrganization = "Bob's Market",
                      ProposedByPhone = "501-123-4567",
@@ -155,14 +157,14 @@ namespace ForkAndFarm.Migrations
                   new Advertisement
                   {
                       Memo = "Example 7",
-                      CreatedOn = DateTime.Now,
+                      CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                       Invoice = "2",
                       PaymentTerms = "net10",
                       Product = "Cucumber",
                       Quantity = 45,
                       Unit = "quart",
                       UnitPrice = 2.95,
-                      Delivery = new DateTime(2015, 1, 1, 0, 7, 0),
+                      Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                       ProposedBy = "bob@buyer.com",
                       ExtPrice = 132.75,
                       ProposedByOrganization = "Bob's Market",
@@ -172,7 +174,7 @@ namespace ForkAndFarm.Migrations
                   new Advertisement
                   {
                       Memo = "Example 8",
-                      CreatedOn = DateTime.Now,
+                      CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                       Invoice = "2",
                       PaymentTerms = "cod",
                       Product = "Dewberries",
@@ -180,7 +182,7 @@ namespace ForkAndFarm.Migrations
                       Quantity = 25,
                       Unit = "kg",
                       UnitPrice = 2.24,
-                      Delivery = new DateTime(2015, 1, 1, 0, 8, 0),
+                      Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                       ExtPrice = 56,
                       ProposedByOrganization = "Fred's Farm",
                       ProposedByPhone = "501-123-4567",
@@ -190,7 +192,7 @@ namespace ForkAndFarm.Migrations
                    new Advertisement
                    {
                        Memo = "Example 9",
-                       CreatedOn = DateTime.Now,
+                       CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                        Invoice = "1",
                        PaymentTerms = "net10",
                        Product = "Elderberries",
@@ -198,7 +200,7 @@ namespace ForkAndFarm.Migrations
                        Quantity = 50,
                        Unit = "each",
                        UnitPrice = 3.11,
-                       Delivery = new DateTime(2015, 1, 1, 0, 9, 0),
+                       Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                        ExtPrice = 155.50,
                        ProposedByOrganization = "Bob's Market",
                        ProposedByPhone = "501-123-4567",
@@ -207,14 +209,14 @@ namespace ForkAndFarm.Migrations
                     new Advertisement
                     {
                         Memo = "Example 10",
-                        CreatedOn = DateTime.Now,
+                        CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                         Invoice = "2",
                         PaymentTerms = "net10",
                         Product = "Flowers",
                         Quantity = 45,
                         Unit = "quart",
                         UnitPrice = 2.95,
-                        Delivery = new DateTime(2015, 1, 1, 0, 10, 0),
+                        Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                         ProposedBy = "bob@buyer.com",
                         ExtPrice = 132.75,
                         ProposedByOrganization = "Bob's Market",
@@ -224,7 +226,7 @@ namespace ForkAndFarm.Migrations
                     new Advertisement
                     {
                         Memo = "Example 11",
-                        CreatedOn = DateTime.Now,
+                        CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                         Invoice = "2",
                         PaymentTerms = "cod",
                         Product = "Gooseberries",
@@ -232,7 +234,7 @@ namespace ForkAndFarm.Migrations
                         Quantity = 25,
                         Unit = "kg",
                         UnitPrice = 2.24,
-                        Delivery = new DateTime(2015, 1, 1, 0, 11, 0),
+                        Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                         ExtPrice = 56,
                         ProposedByOrganization = "Fred's Farm",
                         ProposedByPhone = "501-123-4567",
@@ -242,7 +244,7 @@ namespace ForkAndFarm.Migrations
                      new Advertisement
                      {
                          Memo = "Example 12",
-                         CreatedOn = DateTime.Now,
+                         CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                          Invoice = "1",
                          PaymentTerms = "net10",
                          Product = "Hot Peppers",
@@ -250,7 +252,7 @@ namespace ForkAndFarm.Migrations
                          Quantity = 50,
                          Unit = "each",
                          UnitPrice = 3.11,
-                         Delivery = new DateTime(2015, 1, 1, 0, 12, 0),
+                         Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                          ExtPrice = 155.50,
                          ProposedByOrganization = "Bob's Market",
                          ProposedByPhone = "501-123-4567",
@@ -259,15 +261,14 @@ namespace ForkAndFarm.Migrations
                       new Advertisement
                       {
                           Memo = "Example 13",
-                          CreatedOn = DateTime.Now,
+                          CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                           Invoice = "2",
                           PaymentTerms = "net10",
                           Product = "Indian Corn",
                           Quantity = 45,
                           Unit = "quart",
                           UnitPrice = 2.95,
-                          Delivery = new DateTime(2015, 1, 1, 0, 13, 0),
-                          ProposedBy = "bob@buyer.com",
+                          Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                           ExtPrice = 132.75,
                           ProposedByOrganization = "Bob's Market",
                           ProposedByPhone = "501-123-4567",
@@ -276,7 +277,7 @@ namespace ForkAndFarm.Migrations
                       new Advertisement
                       {
                           Memo = "Example 14",
-                          CreatedOn = DateTime.Now,
+                          CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                           Invoice = "2",
                           PaymentTerms = "cod",
                           Product = "Juniper Berries",
@@ -284,7 +285,7 @@ namespace ForkAndFarm.Migrations
                           Quantity = 25,
                           Unit = "kg",
                           UnitPrice = 2.24,
-                          Delivery = new DateTime(2015, 1, 1, 0, 14, 0),
+                          Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                           ExtPrice = 56,
                           ProposedByOrganization = "Fred's Farm",
                           ProposedByPhone = "501-123-4567",
@@ -294,7 +295,7 @@ namespace ForkAndFarm.Migrations
                        new Advertisement
                        {
                            Memo = "Example 15",
-                           CreatedOn = DateTime.Now,
+                           CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                            Invoice = "1",
                            PaymentTerms = "net10",
                            Product = "Kiwi Fruit",
@@ -302,7 +303,7 @@ namespace ForkAndFarm.Migrations
                            Quantity = 50,
                            Unit = "each",
                            UnitPrice = 3.11,
-                           Delivery = new DateTime(2015, 1, 1, 0, 15, 0),
+                           Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                            ExtPrice = 155.50,
                            ProposedByOrganization = "Bob's Market",
                            ProposedByPhone = "501-123-4567",
@@ -311,14 +312,14 @@ namespace ForkAndFarm.Migrations
                          new Advertisement
                          {
                              Memo = "Example 16",
-                             CreatedOn = DateTime.Now,
+                             CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                              Invoice = "2",
                              PaymentTerms = "net10",
                              Product = "Lemons",
                              Quantity = 45,
                              Unit = "quart",
                              UnitPrice = 2.95,
-                             Delivery = new DateTime(2015, 1, 1, 0, 16, 0),
+                             Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                              ProposedBy = "bob@buyer.com",
                              ExtPrice = 132.75,
                              ProposedByOrganization = "Bob's Market",
@@ -328,7 +329,7 @@ namespace ForkAndFarm.Migrations
                          new Advertisement
                          {
                              Memo = "Example 17",
-                             CreatedOn = DateTime.Now,
+                             CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                              Invoice = "2",
                              PaymentTerms = "cod",
                              Product = "Mangoes",
@@ -336,7 +337,7 @@ namespace ForkAndFarm.Migrations
                              Quantity = 25,
                              Unit = "kg",
                              UnitPrice = 2.24,
-                             Delivery = new DateTime(2015, 1, 1, 0, 17, 0),
+                             Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                              ExtPrice = 56,
                              ProposedByOrganization = "Fred's Farm",
                              ProposedByPhone = "501-123-4567",
@@ -346,7 +347,7 @@ namespace ForkAndFarm.Migrations
                           new Advertisement
                           {
                               Memo = "Example 18",
-                              CreatedOn = DateTime.Now,
+                              CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                               Invoice = "1",
                               PaymentTerms = "net10",
                               Product = "Nasturtium",
@@ -354,7 +355,7 @@ namespace ForkAndFarm.Migrations
                               Quantity = 50,
                               Unit = "each",
                               UnitPrice = 3.11,
-                              Delivery = new DateTime(2015, 1, 1, 0, 18, 0),
+                              Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                               ExtPrice = 155.50,
                               ProposedByOrganization = "Bob's Market",
                               ProposedByPhone = "501-123-4567",
@@ -363,14 +364,14 @@ namespace ForkAndFarm.Migrations
                            new Advertisement
                            {
                                Memo = "Example 19",
-                               CreatedOn = DateTime.Now,
+                               CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                Invoice = "2",
                                PaymentTerms = "net10",
                                Product = "Okra",
                                Quantity = 45,
                                Unit = "quart",
                                UnitPrice = 2.95,
-                               Delivery = new DateTime(2015, 1, 1, 0, 19, 0),
+                               Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                ProposedBy = "bob@buyer.com",
                                ExtPrice = 132.75,
                                ProposedByOrganization = "Bob's Market",
@@ -380,7 +381,7 @@ namespace ForkAndFarm.Migrations
                            new Advertisement
                            {
                                Memo = "Example 20",
-                               CreatedOn = DateTime.Now,
+                               CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                Invoice = "2",
                                PaymentTerms = "cod",
                                Product = "Peas",
@@ -388,7 +389,7 @@ namespace ForkAndFarm.Migrations
                                Quantity = 25,
                                Unit = "kg",
                                UnitPrice = 2.24,
-                               Delivery = new DateTime(2015, 1, 1, 0, 20, 0),
+                               Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                ExtPrice = 56,
                                ProposedByOrganization = "Fred's Farm",
                                ProposedByPhone = "501-123-4567",
@@ -398,7 +399,7 @@ namespace ForkAndFarm.Migrations
                             new Advertisement
                             {
                                 Memo = "Example 21",
-                                CreatedOn = DateTime.Now,
+                                CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                 Invoice = "1",
                                 PaymentTerms = "net10",
                                 Product = "Quince",
@@ -406,7 +407,7 @@ namespace ForkAndFarm.Migrations
                                 Quantity = 50,
                                 Unit = "each",
                                 UnitPrice = 3.11,
-                                Delivery = new DateTime(2015, 1, 1, 0, 21, 0),
+                                Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                 ExtPrice = 155.50,
                                 ProposedByOrganization = "Bob's Market",
                                 ProposedByPhone = "501-123-4567",
@@ -415,14 +416,14 @@ namespace ForkAndFarm.Migrations
                              new Advertisement
                              {
                                  Memo = "Example 22",
-                                 CreatedOn = DateTime.Now,
+                                 CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                  Invoice = "2",
                                  PaymentTerms = "net10",
                                  Product = "Rhubarb",
                                  Quantity = 45,
                                  Unit = "quart",
                                  UnitPrice = 2.95,
-                                 Delivery = new DateTime(2015, 1, 1, 0, 22, 0),
+                                 Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                  ProposedBy = "bob@buyer.com",
                                  ExtPrice = 132.75,
                                  ProposedByOrganization = "Bob's Market",
@@ -432,7 +433,7 @@ namespace ForkAndFarm.Migrations
                              new Advertisement
                              {
                                  Memo = "Example 23",
-                                 CreatedOn = DateTime.Now,
+                                 CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                  Invoice = "2",
                                  PaymentTerms = "cod",
                                  Product = "Snap Beans",
@@ -440,7 +441,7 @@ namespace ForkAndFarm.Migrations
                                  Quantity = 25,
                                  Unit = "kg",
                                  UnitPrice = 2.24,
-                                 Delivery = new DateTime(2015, 1, 1, 0, 23, 0),
+                                 Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                  ExtPrice = 56,
                                  ProposedByOrganization = "Fred's Farm",
                                  ProposedByPhone = "501-123-4567",
@@ -450,7 +451,7 @@ namespace ForkAndFarm.Migrations
                               new Advertisement
                               {
                                   Memo = "Example 24",
-                                  CreatedOn = DateTime.Now,
+                                  CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                   Invoice = "1",
                                   PaymentTerms = "net10",
                                   Product = "Tomatoes",
@@ -458,7 +459,7 @@ namespace ForkAndFarm.Migrations
                                   Quantity = 50,
                                   Unit = "each",
                                   UnitPrice = 3.11,
-                                  Delivery = new DateTime(2015, 1, 1, 0, 24, 0),
+                                  Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                   ExtPrice = 155.50,
                                   ProposedByOrganization = "Bob's Market",
                                   ProposedByPhone = "501-123-4567",
@@ -467,14 +468,14 @@ namespace ForkAndFarm.Migrations
                                new Advertisement
                                {
                                    Memo = "Example 25",
-                                   CreatedOn = DateTime.Now,
+                                   CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                    Invoice = "2",
                                    PaymentTerms = "net10",
                                    Product = "Uglifruit",
                                    Quantity = 45,
                                    Unit = "quart",
                                    UnitPrice = 2.95,
-                                   Delivery = new DateTime(2015, 1, 1, 0, 25, 0),
+                                   Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                    ProposedBy = "bob@buyer.com",
                                    ExtPrice = 132.75,
                                    ProposedByOrganization = "Bob's Market",
@@ -484,7 +485,7 @@ namespace ForkAndFarm.Migrations
                                new Advertisement
                                {
                                    Memo = "Example 26",
-                                   CreatedOn = DateTime.Now,
+                                   CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0),
                                    Invoice = "2",
                                    PaymentTerms = "cod",
                                    Product = "Velvet",
@@ -492,7 +493,7 @@ namespace ForkAndFarm.Migrations
                                    Quantity = 25,
                                    Unit = "kg",
                                    UnitPrice = 2.24,
-                                   Delivery = new DateTime(2015, 1, 1, 0, 26, 0),
+                                   Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                    ExtPrice = 56,
                                    ProposedByOrganization = "Fred's Farm",
                                    ProposedByPhone = "501-123-4567",
@@ -502,7 +503,7 @@ namespace ForkAndFarm.Migrations
                                 new Advertisement
                                 {
                                     Memo = "Example 27",
-                                    CreatedOn = DateTime.Now,
+                                    CreatedOn = new DateTime(2015, 12, 1, 0, 1, 0), 
                                     Invoice = "1",
                                     PaymentTerms = "net10",
                                     Product = "Watermelon",
@@ -510,7 +511,7 @@ namespace ForkAndFarm.Migrations
                                     Quantity = 50,
                                     Unit = "each",
                                     UnitPrice = 3.11,
-                                    Delivery = new DateTime(2015, 1, 1, 0, 27, 0),
+                                    Delivery = DateTime.Today.Add(new TimeSpan(14, 0, 0, 0)),
                                     ExtPrice = 155.50,
                                     ProposedByOrganization = "Bob's Market",
                                     ProposedByPhone = "501-123-4567",
