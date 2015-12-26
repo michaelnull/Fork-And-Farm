@@ -46,7 +46,7 @@
             var end = start + 25;
             display.show = display.all.slice(start, end);
             console.log(display.page);
-           
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         };
 
         this.search = function (string, terms) {
@@ -64,7 +64,9 @@
                 document.getElementById('createform').reset();
                 window.alert(response.data);
                 display.userinfo.AdCount++;
-                display.getuserinfo();
+               
+                display.getdata('/advertisements/myads');
+                display.goto(1);
             });
         };
         
